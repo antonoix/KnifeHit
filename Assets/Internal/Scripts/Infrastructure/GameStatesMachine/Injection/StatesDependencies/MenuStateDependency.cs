@@ -1,4 +1,5 @@
 using Internal.Scripts.UI;
+using Internal.Scripts.UI.Menu;
 using UnityEngine;
 
 namespace Internal.Scripts.Infrastructure.GameStatesMachine.Injection.StatesDependencies
@@ -6,6 +7,6 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.Injection.StatesDepe
     [CreateAssetMenu(fileName = "MenuStateDependency", menuName = "Infrastructure/MenuStateDependency")]
     public class MenuStateDependency : ScriptableObject, IGameStateDepedency
     {
-        public MenuUIView MenuUIPrefab;
+        [field: SerializeField] public MenuUIView MenuUIPrefab { get; private set; }
     }
 }

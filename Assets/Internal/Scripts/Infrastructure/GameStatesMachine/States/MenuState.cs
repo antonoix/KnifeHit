@@ -1,5 +1,6 @@
 using Internal.Scripts.Infrastructure.GameStatesMachine.Injection.StatesDependencies;
 using Internal.Scripts.UI;
+using Internal.Scripts.UI.Menu;
 
 namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 {

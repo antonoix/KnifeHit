@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0656b939ba0e617468877223c7f1093d, type: 3}
   m_Name: MenuStateDependency
   m_EditorClassIdentifier: 
-  MenuUIPrefab: {fileID: 7259820010549019562, guid: ca274116f0223414db1945b086eb6637, type: 3}
+  <MenuUIPrefab>k__BackingField: {fileID: 7259820010549019562, guid: ca274116f0223414db1945b086eb6637, type: 3}

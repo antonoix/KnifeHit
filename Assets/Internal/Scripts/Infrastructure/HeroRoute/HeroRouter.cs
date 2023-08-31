@@ -1,16 +1,38 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroRouter : MonoBehaviour
+namespace Internal.Scripts.Infrastructure.HeroRoute
 {
-    // Start is called before the first frame update
-    void Start()
+    public class HeroRouter : MonoBehaviour
     {
-        
-    }
+        [field: SerializeField] public RouterPoint StartPoint { get; private set; }
+        [SerializeField] private RouterPoint[] points;
+    
+        private Queue<RouterPoint> _pointsQueue;
+        private RouterPoint _currentPoint;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public bool CurrentPointIsReached => _currentPoint.IsReached;
+
+        public void Initialize()
+        {
+            _pointsQueue = new Queue<RouterPoint>();
+
+            foreach (var point in points)
+            {
+                _pointsQueue.Enqueue(point);
+            }
+        }
+
+        public bool TryGetNextPoint(out RouterPoint point)
+        {
+            point = null;
+            if (_pointsQueue.TryDequeue(out _currentPoint))
+            {
+                point = _currentPoint;
+                return true;
+            }
+
+            return false;
+        }
     }
 }

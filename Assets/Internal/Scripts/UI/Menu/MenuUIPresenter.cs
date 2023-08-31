@@ -1,8 +1,7 @@
 using System;
-using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Internal.Scripts.UI
+namespace Internal.Scripts.UI.Menu
 {
     public class MenuUIPresenter
     {

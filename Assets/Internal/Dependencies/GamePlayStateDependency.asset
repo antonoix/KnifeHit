@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438af657ec45022459ac5f4283b0a304, type: 3}
   m_Name: GamePlayStateDependency
   m_EditorClassIdentifier: 
+  <MainHero>k__BackingField: {fileID: 7571399002054019424, guid: 188a6b4e228eddf4681900d0cfdef935, type: 3}
+  <LevelContexts>k__BackingField:
+  - {fileID: 2914047098009833141, guid: b4b50fab099c40f4497efbeb7b2ce69b, type: 3}

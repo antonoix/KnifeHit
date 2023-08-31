@@ -9,14 +9,14 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine
     public class GameStatesMachine : IGameStatesSwitcher
     {
         private readonly Dictionary<Type, GameState> _gameStates;
-        private readonly GameState _currentState;
+        private GameState _currentState;
 
         public GameStatesMachine(GameStatesMachineDependencies dependencies)
         {
             _gameStates = new Dictionary<Type, GameState>()
             {
                 { typeof(MenuState), new MenuState(this, dependencies.MainMenuDependency) },
-                { typeof(GamePlayState), new GamePlayState(this, dependencies.MainMenuDependency) }
+                { typeof(GamePlayState), new GamePlayState(this, dependencies.GamePlayDependency) }
             };
         }
 
@@ -30,10 +30,16 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine
             _currentState?.Exit();
             if (_gameStates.TryGetValue(typeof(T), out GameState newState))
             {
-                newState.Enter();
+                _currentState = newState;
+                _currentState.Enter();
                 return;
             }
             Debug.LogError($"Game states dictionary miss {typeof(T)}");
+        }
+
+        public void Dispose()
+        {
+            _currentState.Exit();
         }
     }
 }
