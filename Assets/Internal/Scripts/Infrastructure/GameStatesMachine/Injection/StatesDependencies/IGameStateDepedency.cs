@@ -1,6 +1,7 @@
-using UnityEngine;
-
-public interface IGameStateDepedency
+namespace Internal.Scripts.Infrastructure.GameStatesMachine.Injection.StatesDependencies
 {
+    public interface IGameStateDepedency
+    {
 
+    }
 }

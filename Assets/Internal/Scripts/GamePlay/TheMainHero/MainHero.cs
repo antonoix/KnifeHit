@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.GamePlay.TheMainHero.Combat;
 using Internal.Scripts.Infrastructure.HeroRoute;
@@ -45,7 +46,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
             transform.rotation = reference.rotation;
         }
 
-        public async Task GoToPoint(RouterPoint point, EnemiesPack enemiesPack)
+        public async UniTask GoToPoint(RouterPoint point, EnemiesPack enemiesPack)
         {
             _cancellation?.Cancel();
             _cancellation = new CancellationTokenSource();
@@ -53,7 +54,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
             await RotateToTarget(point.transform.rotation.eulerAngles, 1500);
             while (navAgent.remainingDistance > 0.5f)
             {
-                await Task.Yield();
+                await UniTask.Yield();
             }
         }
 
@@ -62,7 +63,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
             combat.Shoot(screenPosition);
         }
 
-        private async Task RotateToTarget(Vector3 targetRotation, float timeMs, Func<bool> stopCondition = null)
+        private async UniTask RotateToTarget(Vector3 targetRotation, float timeMs, Func<bool> stopCondition = null)
         {
             var cancellation = new CancellationTokenSource();
 
@@ -81,12 +82,12 @@ namespace Internal.Scripts.GamePlay.TheMainHero
                 
                 var newRotation = Vector3.Lerp(startRotation, targetRotation, msPassed / timeMs);
                 transform.rotation = Quaternion.Euler(newRotation);
-                await Task.Delay(frameDelayMs, cancellation.Token);
+                await UniTask.Delay(frameDelayMs, cancellationToken: cancellation.Token);
                 msPassed += frameDelayMs;
             }
         }
 
-        public async Task RotateToEnemy(Enemy enemy)
+        public async UniTask RotateToEnemy(Enemy enemy)
         {
             Vector3 nearestEnemyPosition = enemy.transform.position;
             var rotation = Quaternion.LookRotation(nearestEnemyPosition - transform.position).eulerAngles;

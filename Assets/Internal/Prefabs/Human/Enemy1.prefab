@@ -878,6 +878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3838078923344943557}
   hips: {fileID: 3838078923337725475}
+  config: {fileID: 11400000, guid: 9855f21d226eb044787d3a27f824bb74, type: 2}
 --- !u!95 &3838078923344943557
 Animator:
   serializedVersion: 5

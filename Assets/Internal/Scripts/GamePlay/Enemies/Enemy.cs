@@ -1,7 +1,8 @@
-using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.Enemies
@@ -10,15 +11,18 @@ namespace Internal.Scripts.GamePlay.Enemies
     {
         [SerializeField] private Animator animator;
         [SerializeField] private Transform hips;
+        [SerializeField] private EnemyConfig config;
         private int _health = 100;
         private bool _isGetDamageAnimationPlaying;
         private Rigidbody _rigidbody;
+        private List<Rigidbody> _rigidbodies;
         private IDamageable _currentAim;
         private CancellationTokenSource _cancellation;
         
         public bool IsDead { get; private set; }
 
         private Rigidbody Rigidbody => _rigidbody ??= GetComponent<Rigidbody>();
+        private List<Rigidbody> Rigidbodies => _rigidbodies ??= GetComponentsInChildren<Rigidbody>().ToList();
 
         public Transform Transform => transform;
 
@@ -31,9 +35,7 @@ namespace Internal.Scripts.GamePlay.Enemies
                 IsDead = true;
                 _cancellation?.Cancel();
             }
-
-            
-            StartCoroutine(TakeDamage());
+            PlayDamageEffect();
         }
 
         public void SetAim(IDamageable aim)
@@ -44,49 +46,40 @@ namespace Internal.Scripts.GamePlay.Enemies
             GoToAim();
         }
 
-        private async Task GoToAim()
+        private async UniTask GoToAim()
         {
-            animator.SetTrigger("Walk");
+            animator.SetBool("Walk", true);
             while (!_cancellation.IsCancellationRequested)
             {
-                await Task.Delay(50, _cancellation.Token);
-                if (!_isGetDamageAnimationPlaying)
+                await UniTask.Delay(50, cancellationToken: _cancellation.Token);
+                if (_isGetDamageAnimationPlaying) continue;
+                
+                transform.LookAt(_currentAim.Transform);
+                Rigidbody.velocity = transform.forward * config.SpeedMeterPerSec;
+                if (Vector3.Distance(transform.position, _currentAim.Transform.position) < config.AttackDistance)
                 {
-                    transform.LookAt(_currentAim.Transform);
-                    Rigidbody.velocity = transform.forward;
-                    if (Vector3.Distance(transform.position, _currentAim.Transform.position) < 1)
-                    {
-                        Rigidbody.velocity = Vector3.zero;
-                        _cancellation.Cancel();
-                    }
-                }
-                else
-                {
-                    Rigidbody.velocity = Vector3.zero;;
+                    animator.SetTrigger("Attack");
+                    Rigidbody.velocity = Vector3.zero;
+                    _cancellation.Cancel();
                 }
             }
         }
 
-        private IEnumerator TakeDamage()
+        private async UniTask PlayDamageEffect()
         {
-            if (_isGetDamageAnimationPlaying) yield break;
-            
+            if (_isGetDamageAnimationPlaying) return;
+            foreach (var body in Rigidbodies)
+            {
+                body.velocity = Vector3.zero;
+            }
             _isGetDamageAnimationPlaying = true;
             animator.enabled = false;
-            animator.SetTrigger("StandUp");
-            yield return new WaitForSeconds(3);
+            await UniTask.Delay((int)(config.DisableTimeAfterDamagedSec * 1000));
 
-            Transform hipsParent = hips.parent;
-            hips.SetParent(null);
-            hips.transform.position = new Vector3(hips.transform.position.x, 0, hips.transform.position.z);
-            transform.position = new Vector3(hips.position.x, transform.position.y, hips.transform.position.z);
-            transform.rotation = Quaternion.Euler(0, hips.transform.rotation.eulerAngles.y, 0);
-            hips.SetParent(hipsParent);
-
-            animator.SetTrigger("Walk");
             if (!IsDead)
                 animator.enabled = true;
-            yield return new WaitForSeconds(1);
+            animator.SetTrigger("StandUp");
+            await UniTask.Delay((int)(config.StandingUpTimeAfterDamagedSec * 1000));
             _isGetDamageAnimationPlaying = false;
         }
 

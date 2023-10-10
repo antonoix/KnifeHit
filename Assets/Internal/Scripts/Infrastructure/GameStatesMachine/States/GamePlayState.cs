@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay;
 using Internal.Scripts.GamePlay.TheMainHero;
 using Internal.Scripts.Infrastructure.Constants;
@@ -32,7 +33,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.GAMEPLAY_SCENE_NAME);
 
             while (!loadSceneAsync.isDone)
-                await Task.Yield();
+                await UniTask.Yield();
         
             InitGameWorld();
         }

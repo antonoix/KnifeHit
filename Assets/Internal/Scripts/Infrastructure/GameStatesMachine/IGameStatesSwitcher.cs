@@ -1,6 +1,9 @@
 using Internal.Scripts.Infrastructure.GameStatesMachine.States;
 
-public interface IGameStatesSwitcher
+namespace Internal.Scripts.Infrastructure.GameStatesMachine
 {
-    void SetState<T>() where T : GameState;
+    public interface IGameStatesSwitcher
+    {
+        void SetState<T>() where T : GameState;
+    }
 }

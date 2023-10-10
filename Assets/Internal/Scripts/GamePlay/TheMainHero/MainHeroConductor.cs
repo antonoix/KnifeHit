@@ -1,6 +1,6 @@
 using System;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.Infrastructure.HeroRoute;
 using UnityEngine;
@@ -39,7 +39,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
         {
             while (!_cts.IsCancellationRequested)
             {
-                await Task.Delay(1000, _cts.Token);
+                await UniTask.Delay(1000, cancellationToken: _cts.Token);
 
                 if (_router.TryGetNextPoint(out RouterPoint point) &&
                     _enemiesHolder.TryGetEnemiesPack(out EnemiesPack enemiesPack))
