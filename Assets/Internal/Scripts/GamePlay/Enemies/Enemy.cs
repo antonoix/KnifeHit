@@ -33,6 +33,7 @@ namespace Internal.Scripts.GamePlay.Enemies
             if (_health <= 0)
             {
                 IsDead = true;
+                animator.enabled = false;
                 _cancellation?.Cancel();
             }
             PlayDamageEffect();
@@ -51,10 +52,11 @@ namespace Internal.Scripts.GamePlay.Enemies
             animator.SetBool("Walk", true);
             while (!_cancellation.IsCancellationRequested)
             {
-                await UniTask.Delay(50, cancellationToken: _cancellation.Token);
+                await UniTask.Delay(25, cancellationToken: _cancellation.Token);
                 if (_isGetDamageAnimationPlaying) continue;
-                
-                transform.LookAt(_currentAim.Transform);
+
+                var lerpAim = Vector3.Lerp(transform.position + transform.forward, _currentAim.Transform.position, 0.03f);
+                transform.LookAt(lerpAim);
                 Rigidbody.velocity = transform.forward * config.SpeedMeterPerSec;
                 if (Vector3.Distance(transform.position, _currentAim.Transform.position) < config.AttackDistance)
                 {
@@ -76,10 +78,21 @@ namespace Internal.Scripts.GamePlay.Enemies
             animator.enabled = false;
             await UniTask.Delay((int)(config.DisableTimeAfterDamagedSec * 1000));
 
+            bool isFaceUp = Vector3.Angle(hips.transform.forward, Vector3.up) < 90 ? true : false;
+            
+            Transform hipsParent = hips.parent;
+            hips.SetParent(null);
+            hips.transform.position = new Vector3(hips.transform.position.x, 0, hips.transform.position.z);
+            transform.position = new Vector3(hips.position.x, transform.position.y, hips.transform.position.z);
+            transform.forward = isFaceUp ? hips.up * -1 : hips.up;
+            hips.SetParent(hipsParent, false);
+
             if (!IsDead)
                 animator.enabled = true;
-            animator.SetTrigger("StandUp");
-            await UniTask.Delay((int)(config.StandingUpTimeAfterDamagedSec * 1000));
+
+            string standUpTrigger = isFaceUp ? "StandUpFaceUp" : "StandUpFaceDown";
+            animator.SetTrigger(standUpTrigger);
+            await UniTask.Delay((int)(config.StandingUpTimeAfterDamagedSec * 2200));
             _isGetDamageAnimationPlaying = false;
         }
 
