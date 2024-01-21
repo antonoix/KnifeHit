@@ -10,5 +10,6 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.Injection.StatesDepe
         [field: SerializeField] public MainHero MainHero { get; private set; }
         [field: SerializeField] public GameplayUIView GameplayUIPrefab { get; private set; }
         [field: SerializeField] public LevelContext[] LevelContexts { get; private set; }
+        [field: SerializeField] public SpecialEffectsInjector SpecialEffectsInjector { get; private set; }
     }
 }

@@ -16,15 +16,16 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         private readonly LevelContextFactory _levelFactory;
         private readonly InputService _playerInputService;
         private readonly GameplayUIPresenter _uiPresenter;
+        private readonly GamePlayStateDependency _dependency;
         private MainHeroConductor _heroConductor;
 
         public GamePlayState(IGameStatesSwitcher gameStatesSwitcher, IGameStateDepedency gameStateDependency)
             : base(gameStatesSwitcher, gameStateDependency)
         {
-            GamePlayStateDependency dependency = gameStateDependency as GamePlayStateDependency;
+            _dependency = gameStateDependency as GamePlayStateDependency;
 
-            _levelFactory = new LevelContextFactory(dependency.MainHero, dependency.LevelContexts[0]);
-            _uiPresenter = new GameplayUIPresenter(dependency.GameplayUIPrefab);
+            _levelFactory = new LevelContextFactory(_dependency.MainHero, _dependency.LevelContexts[0]);
+            _uiPresenter = new GameplayUIPresenter(_dependency.GameplayUIPrefab);
             _playerInputService = new InputService();
         }
 
@@ -46,6 +47,9 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         private void InitGameWorld()
         {
             var levelContext = _levelFactory.InstantiateLevelContext();
+            levelContext.EnemiesHolder.Initialize(_dependency.SpecialEffectsInjector.GetService());
+            levelContext.EnemiesHolder.OnEnemyAttackedHero += HandlePlayerLoose;
+            
             _playerInputService.Initialize();
 
             var hero = _levelFactory.InstantiateHero();
@@ -61,6 +65,11 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         private void HandlePlayerWin()
         {
             throw new System.NotImplementedException();
+        }
+
+        private void HandlePlayerLoose()
+        {
+            
         }
     }
 }

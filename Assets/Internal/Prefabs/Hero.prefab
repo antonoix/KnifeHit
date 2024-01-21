@@ -159,6 +159,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 9117348784328457622, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
   projectileSpawnPoint: {fileID: 3527808649715522929}
+  enemyHipsMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!195 &7571399002054019427
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -338,7 +341,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8691840929901300077}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 1.026, z: 1.136}
+  m_LocalPosition: {x: -0.1, y: 1.197, z: 0.651}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

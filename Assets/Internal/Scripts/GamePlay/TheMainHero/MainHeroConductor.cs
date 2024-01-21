@@ -28,8 +28,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
         public void StartLevel()
         {
             _router.Initialize();
-            _enemiesHolder.Initialize();
-            
+
             _hero.SetPositionAndRotation(_router.StartPoint.transform);
             
             GoThroughPoints();

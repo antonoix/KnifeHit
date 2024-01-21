@@ -16,3 +16,4 @@ MonoBehaviour:
   <AttackDistance>k__BackingField: 2.5
   <DisableTimeAfterDamagedSec>k__BackingField: 3
   <StandingUpTimeAfterDamagedSec>k__BackingField: 1.3
+  <StandingUpEffect>k__BackingField: {fileID: 19816416, guid: 96a96c08c36361544affb3c783e0056e, type: 3}

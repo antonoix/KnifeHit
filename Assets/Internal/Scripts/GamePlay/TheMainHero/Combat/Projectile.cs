@@ -8,20 +8,24 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
     {
         [SerializeField] private int damage = 40;
         [SerializeField] private int speedMeterPerSec = 15;
+        private Vector3 _startWorldPos;
 
         private void Start()
         {
+            _startWorldPos = transform.position;
             GetComponent<Rigidbody>().AddForce(transform.forward * speedMeterPerSec, ForceMode.VelocityChange);
         }
 
         private void OnCollisionEnter(Collision other)
         {
-            TryFindEnemy(other.transform)?.TakeDamage(damage);
-            transform.SetParent(other.transform);
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<Collider>().enabled = false;
+            transform.SetParent(other.collider.transform, true);
+            //transform.forward = other.GetContact(0).normal;
+            //Debug.Break();
+            //GetComponent<Rigidbody>().velocity = Vector3.zero;
             Destroy(GetComponent<Rigidbody>());
-            Destroy(GetComponent<Collider>());
-            transform.position = other.contacts[0].point;
+            TryFindEnemy(other.transform)?.TakeDamage(damage);
         }
 
         private IDamageable TryFindEnemy(Transform gameObject)

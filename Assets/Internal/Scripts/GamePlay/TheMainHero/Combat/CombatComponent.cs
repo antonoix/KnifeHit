@@ -6,6 +6,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
     {
         [SerializeField] private Projectile projectilePrefab;
         [SerializeField] private Transform projectileSpawnPoint;
+        [SerializeField] private LayerMask enemyHipsMask;
 
         private Camera _mainCamera;
 
@@ -21,11 +22,13 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
         private Vector3 CalculateProjectileDestination(Vector2 screenPosition)
         {
             Ray ray = MainCamera.ScreenPointToRay(screenPosition);
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2);
             
             Vector3 destination = ray.direction * 5000;
             
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, 500, enemyHipsMask))
             {
+                Debug.Log(hit.collider.gameObject.name);
                 destination = hit.point;
             }
 
