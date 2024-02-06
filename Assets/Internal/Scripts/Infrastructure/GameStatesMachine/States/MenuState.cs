@@ -1,31 +1,43 @@
-using Internal.Scripts.Infrastructure.GameStatesMachine.Injection.StatesDependencies;
-using Internal.Scripts.UI;
+using Cysharp.Threading.Tasks;
+using Internal.Scripts.Infrastructure.Constants;
+using Internal.Scripts.Infrastructure.Injection.StatesDependencies;
+using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.Menu;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 {
     public class MenuState : GameState
     {
-        private readonly MenuUIPresenter _uiPresenter;
+        private readonly IUiService _uiService;
+        private MenuUIPresenter _menuUIPresenter;
     
-        public MenuState(IGameStatesSwitcher gameStatesSwitcher, IGameStateDepedency gameStateDependency) 
-            : base(gameStatesSwitcher, gameStateDependency)
+        public MenuState(IGameStatesSwitcher gameStatesSwitcher, MenuStateDependency gameStateDependency) 
+            : base(gameStatesSwitcher)
         {
-            _uiPresenter = new MenuUIPresenter(((MenuStateDependency)gameStateDependency).MenuUIPrefab);
+            _uiService = gameStateDependency.UiServiceInjector.Service;
         }
 
-        public override void Enter()
+        public override async void Enter()
         {
-            _uiPresenter.Initialize();
+            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.MENU_SCENE_NAME);
 
-            _uiPresenter.OnStartBtnClicked += _gameStatesSwitcher.SetState<GamePlayState>;
+            while (!loadSceneAsync.isDone)
+                await UniTask.Yield();
+            
+            _menuUIPresenter = (MenuUIPresenter) _uiService.GetPresenter<MenuUIPresenter>();
+            
+            _menuUIPresenter.Show();
+            _menuUIPresenter.OnStartBtnClicked += _gameStatesSwitcher.SetState<GamePlayState>;
         }
 
         public override void Exit()
         {
-            _uiPresenter.Dispose();
+            _menuUIPresenter.Dispose();
+            _menuUIPresenter.Hide();
             
-            _uiPresenter.OnStartBtnClicked -= _gameStatesSwitcher.SetState<GamePlayState>;
+            _menuUIPresenter.OnStartBtnClicked -= _gameStatesSwitcher.SetState<GamePlayState>;
         }
     }
 }

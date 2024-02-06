@@ -1,21 +1,22 @@
 using System;
+using Internal.Scripts.Infrastructure.Services.UiService.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Internal.Scripts.UI.Menu
 {
-    public class MenuUIView : MonoBehaviour
+    public class MenuUIView : BaseUIView
     {
         [SerializeField] private Button startGameBtn;
 
         public event Action OnStartBtnClicked;
     
-        public void Initialize()
+        public override void Initialize()
         {
             startGameBtn.onClick.AddListener(HandleStartBtnClicked);
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             startGameBtn.onClick.RemoveListener(HandleStartBtnClicked);
         }

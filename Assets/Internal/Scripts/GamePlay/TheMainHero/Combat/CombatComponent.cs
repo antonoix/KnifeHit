@@ -15,8 +15,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
         public void Shoot(Vector2 screenPosition)
         {
             var projectile = Instantiate(projectilePrefab);
-            projectile.transform.position = projectileSpawnPoint.position;
-            projectile.transform.LookAt(CalculateProjectileDestination(screenPosition));
+            projectile.Setup(projectileSpawnPoint.position, CalculateProjectileDestination(screenPosition));
         }
         
         private Vector3 CalculateProjectileDestination(Vector2 screenPosition)
@@ -24,9 +23,9 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
             Ray ray = MainCamera.ScreenPointToRay(screenPosition);
             Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2);
             
-            Vector3 destination = ray.direction * 5000;
+            Vector3 destination = ray.direction * 500;
             
-            if (Physics.Raycast(ray, out RaycastHit hit, 500, enemyHipsMask))
+            if (Physics.Raycast(ray, out RaycastHit hit, 500))
             {
                 Debug.Log(hit.collider.gameObject.name);
                 destination = hit.point;

@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.GamePlay.TheMainHero.Combat;
@@ -15,9 +14,12 @@ namespace Internal.Scripts.GamePlay.TheMainHero
     {
         [SerializeField] private NavMeshAgent navAgent;
         [SerializeField] private CombatComponent combat;
+        [SerializeField] private MainHeroCamera camera;
         
         private InputService _playerInputService;
         private CancellationTokenSource _cancellation;
+
+        public event Action OnKilled;
 
         public Transform Transform => transform;
 
@@ -37,7 +39,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
 
         public void TakeDamage(int damage)
         {
-            throw new NotImplementedException();
+            OnKilled?.Invoke();
         }
 
         public void SetPositionAndRotation(Transform reference)
@@ -92,6 +94,11 @@ namespace Internal.Scripts.GamePlay.TheMainHero
             Vector3 nearestEnemyPosition = enemy.transform.position;
             var rotation = Quaternion.LookRotation(nearestEnemyPosition - transform.position).eulerAngles;
             await RotateToTarget(rotation, 2000, () => enemy.IsDead);
+        }
+
+        public void RotateCameraUp()
+        {
+            StartCoroutine(camera.SmoothlyRotateUp());
         }
     }
 }

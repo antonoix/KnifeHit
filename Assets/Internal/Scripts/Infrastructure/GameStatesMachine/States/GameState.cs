@@ -5,12 +5,10 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
     public abstract class GameState
     {
         protected readonly IGameStatesSwitcher _gameStatesSwitcher;
-        protected readonly IGameStateDepedency _gameStateDependency;
 
-        protected GameState(IGameStatesSwitcher gameStatesSwitcher, IGameStateDepedency gameStateDependency)
+        protected GameState(IGameStatesSwitcher gameStatesSwitcher)
         {
             _gameStatesSwitcher = gameStatesSwitcher;
-            _gameStateDependency = gameStateDependency;
         }
 
         public abstract void Enter();

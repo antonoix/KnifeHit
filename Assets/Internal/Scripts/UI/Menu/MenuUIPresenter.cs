@@ -1,25 +1,21 @@
 using System;
+using Internal.Scripts.Infrastructure.Services.UiService.Base;
 using Object = UnityEngine.Object;
 
 namespace Internal.Scripts.UI.Menu
 {
-    public class MenuUIPresenter
+    public class MenuUIPresenter : BaseUIPresenter<MenuUIView>
     {
-        private readonly MenuUIView _viewPrefab;
-        private MenuUIView _view;
-
         public event Action OnStartBtnClicked;
 
-        public MenuUIPresenter(MenuUIView viewPrefab)
+        public MenuUIPresenter(MenuUIView baseUIViewPrefab) : base(baseUIViewPrefab)
         {
-            _viewPrefab = viewPrefab;
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
-            _view = Object.Instantiate(_viewPrefab);
-            _view.Initialize();
-        
+            base.Initialize();
+            
             _view.OnStartBtnClicked += HandleStartBtnClicked;
         }
 

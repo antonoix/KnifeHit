@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Internal.Scripts.Infrastructure.GameStatesMachine.Injection.StatesDependencies;
+using Internal.Scripts.Infrastructure.Services;
+using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.Enemies
@@ -12,8 +14,6 @@ namespace Internal.Scripts.GamePlay.Enemies
         private Queue<EnemiesPack> _packsQueue;
         private EnemiesPack _currentEnemiesPack;
 
-        public event Action OnEnemyAttackedHero;
-    
         public void Initialize(ISpecialEffectsService specialEffectsService)
         {
             _packsQueue = new Queue<EnemiesPack>();
@@ -23,15 +23,9 @@ namespace Internal.Scripts.GamePlay.Enemies
                 foreach (var enemy in pack.AliveEnemies)
                 {
                     enemy.Initialize(specialEffectsService);
-                    enemy.OnAttackedHero += HandleEnemyAttackHero;
                 }
                 _packsQueue.Enqueue(pack);
             }
-        }
-
-        private void HandleEnemyAttackHero()
-        {
-            OnEnemyAttackedHero?.Invoke();
         }
 
         public bool TryGetEnemiesPack(out EnemiesPack pack)

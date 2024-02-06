@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.Infrastructure.GameStatesMachine.Injection.StatesDependencies;
+using Internal.Scripts.Infrastructure.Services;
+using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.Enemies
@@ -28,8 +30,6 @@ namespace Internal.Scripts.GamePlay.Enemies
         public Transform Transform => transform;
         private Rigidbody Rigidbody => _rigidbody ??= GetComponent<Rigidbody>();
         private List<Rigidbody> Rigidbodies => _rigidbodies ??= GetComponentsInChildren<Rigidbody>().ToList();
-        
-        public event Action OnAttackedHero;
 
         public void Initialize(ISpecialEffectsService specialEffectsService)
         {
@@ -75,7 +75,7 @@ namespace Internal.Scripts.GamePlay.Enemies
                     rootBody.velocity = Vector3.zero;
                     _cancellation.Cancel();
                     await UniTask.Delay(animation.GetCurrentAnimationLengthMs());
-                    OnAttackedHero?.Invoke();
+                    _currentAim.TakeDamage(0);
                 }
             }
         }

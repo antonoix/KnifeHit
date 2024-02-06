@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GamePlayStateDependency
   m_EditorClassIdentifier: 
   <MainHero>k__BackingField: {fileID: 7571399002054019424, guid: 188a6b4e228eddf4681900d0cfdef935, type: 3}
-  <GameplayUIPrefab>k__BackingField: {fileID: 0}
   <LevelContexts>k__BackingField:
   - {fileID: 2914047098009833141, guid: b4b50fab099c40f4497efbeb7b2ce69b, type: 3}
   <SpecialEffectsInjector>k__BackingField: {fileID: 11400000, guid: 85f1b885ea2ebbf4eadc7bc1ce4090fa, type: 2}
+  <UiServiceInjector>k__BackingField: {fileID: 11400000, guid: 4ee7817d3a0e13c43b936115a3f2e7e1, type: 2}

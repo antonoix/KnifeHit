@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Internal.Scripts.Infrastructure.GameStatesMachine.Injection;
 using Internal.Scripts.Infrastructure.GameStatesMachine.States;
+using Internal.Scripts.Infrastructure.Injection;
 using UnityEngine;
 
 namespace Internal.Scripts.Infrastructure.GameStatesMachine
@@ -11,18 +11,19 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine
         private readonly Dictionary<Type, GameState> _gameStates;
         private GameState _currentState;
 
-        public GameStatesMachine(GameStatesMachineDependencies dependencies)
+        public GameStatesMachine(ProjectDependencies dependencies)
         {
             _gameStates = new Dictionary<Type, GameState>()
             {
-                { typeof(MenuState), new MenuState(this, dependencies.MainMenuDependency) },
-                { typeof(GamePlayState), new GamePlayState(this, dependencies.GamePlayDependency) }
+                { typeof(BootstrapState), new BootstrapState(this, dependencies.BootstrapStateDependency) },
+                { typeof(MenuState), new MenuState(this, dependencies.MenuStateDependency) },
+                { typeof(GamePlayState), new GamePlayState(this, dependencies.GameplayStateDependency) }
             };
         }
 
         public void Enter()
         {
-            SetState<MenuState>();
+            SetState<BootstrapState>();
         }
 
         public void SetState<T>() where T : GameState
