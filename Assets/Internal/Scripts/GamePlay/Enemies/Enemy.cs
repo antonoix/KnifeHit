@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Internal.Scripts.Infrastructure.GameStatesMachine.Injection.StatesDependencies;
-using Internal.Scripts.Infrastructure.Services;
+using Internal.Scripts.GamePlay.Destroyable;
 using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
 using UnityEngine;
 
@@ -13,17 +11,19 @@ namespace Internal.Scripts.GamePlay.Enemies
     public class Enemy : MonoBehaviour, IDamageable
     {
         [SerializeField] private EnemyAnimation animation;
+        [SerializeField] private AimOnBody aimOnBody;
+        [SerializeField] private EnvDestroyer envDestroyer;
         [SerializeField] private Transform hips;
         [SerializeField] private EnemyConfig config;
         [SerializeField] private Rigidbody rootBody;
         [SerializeField] private List<Rigidbody> rigidbodies;
         private ISpecialEffectsService _specialEffectsService;
-        private int _health = 100;
+        private int _health = 1;
         private bool _isGetDamageAnimationPlaying;
         private Rigidbody _rigidbody;
         private List<Rigidbody> _rigidbodies;
         private IDamageable _currentAim;
-        private CancellationTokenSource _cancellation;
+        private CancellationTokenSource _cancellation = new CancellationTokenSource();
 
         public bool IsDead { get; private set; }
 
@@ -34,11 +34,13 @@ namespace Internal.Scripts.GamePlay.Enemies
         public void Initialize(ISpecialEffectsService specialEffectsService)
         {
             _specialEffectsService = specialEffectsService;
+            envDestroyer.Construct(_specialEffectsService);
+            _health = config.Health;
         }
 
-        public async void TakeDamage(int damage)
+        public void TakeDamage(int damage)
         {
-            _health -= 20;
+            _health -= 1;
 
             if (_health <= 0)
             {
@@ -47,14 +49,20 @@ namespace Internal.Scripts.GamePlay.Enemies
                 _cancellation?.Cancel();
             }
             PlayDamageEffect();
+            SetIsNearest(false);
         }
 
         public void SetAim(IDamageable aim)
         {
             _currentAim = aim;
-            _cancellation?.Cancel();
+            //_cancellation?.Cancel();
             _cancellation = new CancellationTokenSource();
             GoToAim();
+        }
+
+        public void SetIsNearest(bool isNearest)
+        {
+            aimOnBody.Activate(!_isGetDamageAnimationPlaying && isNearest);
         }
 
         private async UniTask GoToAim()
@@ -73,9 +81,10 @@ namespace Internal.Scripts.GamePlay.Enemies
                 {
                     animation.PlayAttack();
                     rootBody.velocity = Vector3.zero;
-                    _cancellation.Cancel();
-                    await UniTask.Delay(animation.GetCurrentAnimationLengthMs());
+                    animation.SetWalk(false);
+                    await UniTask.Delay(1000, cancellationToken: _cancellation.Token);
                     _currentAim.TakeDamage(0);
+                    //_cancellation.Cancel();
                 }
             }
         }
@@ -92,15 +101,13 @@ namespace Internal.Scripts.GamePlay.Enemies
             }
             _isGetDamageAnimationPlaying = true;
             animation.EnableAnimator(false);
-            await UniTask.Delay((int)(config.DisableTimeAfterDamagedSec * 1000));
+            await UniTask.Delay((int)(config.DisableTimeAfterDamagedSec * 1000), cancellationToken: _cancellation.Token);
 
             bool isFaceUp = Vector3.Angle(hips.transform.forward, Vector3.up) < 90 ? true : false;
             
             Transform hipsParent = hips.parent;
             hips.SetParent(null);
-            // hips.transform.position = new Vector3(hips.transform.position.x, 0, hips.transform.position.z);
             transform.position = new Vector3(hips.position.x, transform.position.y, hips.transform.position.z);
-            // transform.forward = isFaceUp ? hips.up * -1 : hips.up;
             hips.SetParent(hipsParent, true);
 
             if (!IsDead)
@@ -117,9 +124,10 @@ namespace Internal.Scripts.GamePlay.Enemies
         private void OnDestroy()
         {
             _cancellation?.Cancel();
+            Destroy(envDestroyer);
         }
-        
-        
+
+
         [ContextMenu("CollectHipsColliders")]
         private void CollectHipsColliders()
         {

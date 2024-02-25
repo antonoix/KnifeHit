@@ -2,6 +2,7 @@
 {
     public enum SpecialEffectType
     {
-        EnemyResurrection
+        EnemyResurrection,
+        CloudyExplosion
     }
 }

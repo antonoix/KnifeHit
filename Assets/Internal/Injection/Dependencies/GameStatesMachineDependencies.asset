@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25285f3305aa2c4db456050804f1cf0, type: 3}
   m_Name: GameStatesMachineDependencies
   m_EditorClassIdentifier: 
-  <MenuStateDependency>k__BackingField: {fileID: 11400000, guid: 0b677ac54a38b7c47a329d6164e6e2e4, type: 2}
-  <BootstrapStateDependency>k__BackingField: {fileID: 11400000, guid: 42d049568536a7b46903a056ded3691c, type: 2}
-  <GameplayStateDependency>k__BackingField: {fileID: 11400000, guid: c7d6f7bb154629c4aac1746c0c348dd1, type: 2}
+  <GameplayEntities>k__BackingField: {fileID: 11400000, guid: c7d6f7bb154629c4aac1746c0c348dd1, type: 2}
+  <UiServiceInjector>k__BackingField: {fileID: 11400000, guid: 4ee7817d3a0e13c43b936115a3f2e7e1, type: 2}
+  <SpecialEffectsInjector>k__BackingField: {fileID: 11400000, guid: 85f1b885ea2ebbf4eadc7bc1ce4090fa, type: 2}
+  <PlayerProgressServiceInjector>k__BackingField: {fileID: 11400000, guid: dcbe00f31f573684084498a055388a94, type: 2}
+  <LocalizationServiceInjector>k__BackingField: {fileID: 11400000, guid: e48d25083e90a6f468d85321115e09d7, type: 2}
+  <SoundsServiceInjector>k__BackingField: {fileID: 11400000, guid: c2015dcd02763ab45957a4a9518c39f9, type: 2}

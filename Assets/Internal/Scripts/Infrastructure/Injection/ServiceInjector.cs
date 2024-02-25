@@ -10,6 +10,9 @@ namespace Internal.Scripts.Infrastructure.Injection
         protected T _service;
 
         public abstract T Create();
-        public abstract void Initialize();
+
+        public virtual void Initialize()
+        {
+        }
     }
 }

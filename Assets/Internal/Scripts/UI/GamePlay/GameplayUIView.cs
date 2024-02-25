@@ -1,6 +1,7 @@
 using System;
 using Internal.Scripts.Infrastructure.Services.UiService.Base;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Internal.Scripts.UI.GamePlay
 {
@@ -8,6 +9,8 @@ namespace Internal.Scripts.UI.GamePlay
     {
         [SerializeField] private GameplayWinPanel gameplayWinPanel;
         [SerializeField] private GameplayLosePanel gameplayLosePanel;
+        [SerializeField] private GameObject progress;
+        [SerializeField] private Image progressImage;
         
         public event Action OnNextBtnClick;
         public event Action OnMenuBtnClick;
@@ -57,6 +60,12 @@ namespace Internal.Scripts.UI.GamePlay
         {
             gameplayLosePanel.Show(result);
         }
+
+        public void SetActiveProgress(bool isActive)
+            => progress.gameObject.SetActive(isActive);
+
+        public void SetProgress(float progress)
+            => progressImage.fillAmount = progress;
 
         private void HandleNextBtnClick()
         {

@@ -1,5 +1,3 @@
-using Internal.Scripts.Infrastructure.GameStatesMachine.Injection.StatesDependencies;
-
 namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 {
     public abstract class GameState

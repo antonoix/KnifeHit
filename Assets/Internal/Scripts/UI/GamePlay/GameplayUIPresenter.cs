@@ -1,21 +1,19 @@
 using System;
+using Internal.Scripts.Infrastructure.Services.Sound;
 using Internal.Scripts.Infrastructure.Services.UiService.Base;
 
 namespace Internal.Scripts.UI.GamePlay
 {
     public class GameplayUIPresenter : BaseUIPresenter<GameplayUIView>
     {
+        private readonly ISoundsService _soundsService;
         public event Action OnNextBtnClick;
         public event Action OnMenuBtnClick;
         public event Action OnRestartBtnClick;
         
-        public GameplayUIPresenter(GameplayUIView baseUIViewPrefab) : base(baseUIViewPrefab)
+        public GameplayUIPresenter(GameplayUIView baseUIViewPrefab, ISoundsService soundsService) : base(baseUIViewPrefab)
         {
-        }
-        
-        public override void Initialize()
-        {
-            base.Initialize();
+            _soundsService = soundsService;
         }
 
         public override void Show()
@@ -40,26 +38,34 @@ namespace Internal.Scripts.UI.GamePlay
         {
             GameplayResult result = new(1);
             _view.ShowWinPanel(result);
+            _view.SetActiveProgress(false);
         }
 
         public void ShowLosePanel()
         {
             GameplayResult result = new(1);
             _view.ShowLosePanel(result);
+            _view.SetActiveProgress(false);
         }
+
+        public void UpdateProgress(float value)
+            => _view.SetProgress(value);
 
         private void HandleNextBtnClick()
         {
+            _soundsService.PlaySound(SoundType.ButtonClick);
             OnNextBtnClick?.Invoke();
         }
 
         private void HandleMenuBtnClick()
         {
+            _soundsService.PlaySound(SoundType.ButtonClick);
             OnMenuBtnClick?.Invoke();
         }
 
         private void HandleRestartBtnClick()
         {
+            _soundsService.PlaySound(SoundType.ButtonClick);
             OnRestartBtnClick?.Invoke();
         }
     }

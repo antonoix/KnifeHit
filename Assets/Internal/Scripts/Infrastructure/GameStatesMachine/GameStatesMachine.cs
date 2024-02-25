@@ -15,15 +15,16 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine
         {
             _gameStates = new Dictionary<Type, GameState>()
             {
-                { typeof(BootstrapState), new BootstrapState(this, dependencies.BootstrapStateDependency) },
-                { typeof(MenuState), new MenuState(this, dependencies.MenuStateDependency) },
-                { typeof(GamePlayState), new GamePlayState(this, dependencies.GameplayStateDependency) }
+                { typeof(MenuState), new MenuState(this, dependencies.UiServiceInjector.Service) },
+                { typeof(GamePlayState), new GamePlayState(this, dependencies.GameplayEntities,
+                    dependencies.SpecialEffectsInjector.Service, dependencies.UiServiceInjector.Service,
+                    dependencies.PlayerProgressServiceInjector.Service, dependencies.SoundsServiceInjector.Service) }
             };
         }
 
         public void Enter()
         {
-            SetState<BootstrapState>();
+            SetState<MenuState>();
         }
 
         public void SetState<T>() where T : GameState

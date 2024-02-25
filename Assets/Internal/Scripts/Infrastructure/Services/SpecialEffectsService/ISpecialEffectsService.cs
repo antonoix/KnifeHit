@@ -7,5 +7,6 @@ namespace Internal.Scripts.Infrastructure.Services.SpecialEffectsService
     {
         UniTask ShowEffect(SpecialEffectType type, Vector3 worldPos);
         void Initialize();
+        void Dispose();
     }
 }

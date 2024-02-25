@@ -1,24 +1,32 @@
 using Internal.Scripts.GamePlay.TheMainHero;
-using Internal.Scripts.Infrastructure.GameStatesMachine.Injection.StatesDependencies;
-using Internal.Scripts.Infrastructure.HeroRoute;
+using Internal.Scripts.Infrastructure.Input;
+using Internal.Scripts.Infrastructure.Services.Sound;
+using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
 using UnityEngine;
 
-namespace Internal.Scripts.GamePlay
+namespace Internal.Scripts.GamePlay.Context
 {
     public class LevelContextFactory
     {
         private readonly MainHero _heroPrefab;
-        private readonly LevelContext _levelContextPrefab;
+        private readonly LevelContext[] _levelContextPrefabs;
+        private readonly InputService _playerInputService;
+        private readonly ISpecialEffectsService _specialEffects;
+        private readonly ISoundsService _soundsService;
 
-        public LevelContextFactory(MainHero heroPrefab, LevelContext levelContext)
+        public LevelContextFactory(MainHero heroPrefab, LevelContext[] levelContexts, InputService playerInputService, 
+            ISpecialEffectsService specialEffects, ISoundsService soundsService)
         {
             _heroPrefab = heroPrefab;
-            _levelContextPrefab = levelContext;
+            _levelContextPrefabs = levelContexts;
+            _playerInputService = playerInputService;
+            _specialEffects = specialEffects;
+            _soundsService = soundsService;
         }
-        
-        public LevelContext InstantiateLevelContext()
+
+        public LevelContext InstantiateLevelContext(int levelIndex)
         {
-            var levelContext = Object.Instantiate(_levelContextPrefab);
+            var levelContext = Object.Instantiate(_levelContextPrefabs[levelIndex]);
             levelContext.transform.position = Vector3.zero;
 
             return levelContext;
@@ -26,7 +34,10 @@ namespace Internal.Scripts.GamePlay
     
         public MainHero InstantiateHero()
         {
-            return Object.Instantiate(_heroPrefab);
+            var hero = Object.Instantiate(_heroPrefab);
+            hero.Setup(_playerInputService, _specialEffects, _soundsService);
+
+            return hero;
         }
     }
 }

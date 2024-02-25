@@ -1,0 +1,16 @@
+﻿{
+  "RU" : 
+  {
+    "Level" : "Уровень",
+    "Win" : "Победа",
+    "Lose" : "Поражение",
+    "Start" : "Старт"
+  },
+  "EN" : 
+  {
+    "Level" : "Level",
+    "Win" : "Win",
+    "Lose" : "Lose",
+    "Start" : "Start"
+  }
+}

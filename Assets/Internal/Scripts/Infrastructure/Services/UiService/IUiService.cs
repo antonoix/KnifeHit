@@ -1,5 +1,4 @@
-﻿using Internal.Scripts.Infrastructure.Services.Base;
-using Internal.Scripts.Infrastructure.Services.UiService.Base;
+﻿using Internal.Scripts.Infrastructure.Services.UiService.Base;
 
 namespace Internal.Scripts.Infrastructure.Services.UiService
 {

@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
-using Internal.Scripts.Infrastructure.GameStatesMachine.Injection.StatesDependencies;
-using Internal.Scripts.Infrastructure.Services;
 using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
+using UnityEditor;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.Enemies
 {
     public class EnemiesHolder : MonoBehaviour
     {
-        [SerializeField] private EnemiesPack[] enemiesPacks;
+        [SerializeField] private List<EnemiesPack> enemiesPacks;
     
         private Queue<EnemiesPack> _packsQueue;
         private EnemiesPack _currentEnemiesPack;
@@ -38,6 +37,31 @@ namespace Internal.Scripts.GamePlay.Enemies
             }
 
             return false;
+        }
+        
+        public void Dispose()
+        {
+            foreach (var enemiesPack in enemiesPacks) 
+                enemiesPack.Dispose();
+        }
+
+        private void Reset()
+        {
+            foreach (Transform child in transform)
+                if (child.TryGetComponent<EnemiesPack>(out var enemy))
+                    enemiesPacks.Add(enemy);
+            
+            foreach (var enemiesPack in enemiesPacks)
+            {
+                enemiesPack.CollectEnemies();
+            }
+
+            GameObject prefabInstance = PrefabUtility.InstantiatePrefab(transform.parent.gameObject) as GameObject;
+            PrefabUtility.ApplyPrefabInstance(prefabInstance, InteractionMode.UserAction);
+            AssetDatabase.SaveAssets();
+            DestroyImmediate(prefabInstance.gameObject);
+            
+           // PrefabUtility.ApplyPrefabInstance(transform.parent.gameObject, InteractionMode.AutomatedAction);
         }
     }
 }

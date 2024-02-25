@@ -29,12 +29,12 @@ public partial class @PlayerInputMap: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Click"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""4de72519-ea19-4eca-936a-f516d6b7db7c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""PointerPosition"",

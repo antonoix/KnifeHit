@@ -10,12 +10,13 @@ namespace Internal.Scripts.Infrastructure.Services.SpecialEffectsService
 
         public override ISpecialEffectsService Create()
         {
-            return new SpecialEffectsService(config);
+            _service = new SpecialEffectsService(config);
+            return _service;
         }
 
         public override void Initialize()
         {
-
+            base.Initialize();
             _service.Initialize();
         }
     }

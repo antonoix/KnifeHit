@@ -9,5 +9,6 @@ namespace Internal.Scripts.GamePlay.Enemies
         [field: SerializeField] public float AttackDistance { get; private set; } = 1;
         [field: SerializeField] public float DisableTimeAfterDamagedSec { get; private set; } = 3f;
         [field: SerializeField] public float StandingUpTimeAfterDamagedSec { get; private set; } = 1.3f;
+        [field: SerializeField] public int Health { get; private set; } = 3;
     }
 }

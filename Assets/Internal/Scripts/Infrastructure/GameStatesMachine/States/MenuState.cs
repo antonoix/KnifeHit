@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.Infrastructure.Constants;
-using Internal.Scripts.Infrastructure.Injection.StatesDependencies;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.Menu;
 using UnityEngine;
@@ -13,10 +12,10 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         private readonly IUiService _uiService;
         private MenuUIPresenter _menuUIPresenter;
     
-        public MenuState(IGameStatesSwitcher gameStatesSwitcher, MenuStateDependency gameStateDependency) 
+        public MenuState(IGameStatesSwitcher gameStatesSwitcher, IUiService uiService) 
             : base(gameStatesSwitcher)
         {
-            _uiService = gameStateDependency.UiServiceInjector.Service;
+            _uiService = uiService;
         }
 
         public override async void Enter()

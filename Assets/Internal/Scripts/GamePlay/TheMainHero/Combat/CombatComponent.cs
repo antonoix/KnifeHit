@@ -1,3 +1,4 @@
+using Internal.Scripts.Infrastructure.Services.Sound;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.TheMainHero.Combat
@@ -8,16 +9,23 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
         [SerializeField] private Transform projectileSpawnPoint;
         [SerializeField] private LayerMask enemyHipsMask;
 
+        private ISoundsService _soundsService;
         private Camera _mainCamera;
 
         private Camera MainCamera => _mainCamera ??= Camera.main;
 
+        public void Construct(ISoundsService soundsService)
+        {
+            _soundsService = soundsService;
+        }
+
         public void Shoot(Vector2 screenPosition)
         {
             var projectile = Instantiate(projectilePrefab);
+            _soundsService.PlaySound(SoundType.Throw);
             projectile.Setup(projectileSpawnPoint.position, CalculateProjectileDestination(screenPosition));
         }
-        
+
         private Vector3 CalculateProjectileDestination(Vector2 screenPosition)
         {
             Ray ray = MainCamera.ScreenPointToRay(screenPosition);
@@ -27,7 +35,6 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
             
             if (Physics.Raycast(ray, out RaycastHit hit, 500))
             {
-                Debug.Log(hit.collider.gameObject.name);
                 destination = hit.point;
             }
 

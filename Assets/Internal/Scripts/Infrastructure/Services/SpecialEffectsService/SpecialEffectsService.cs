@@ -41,6 +41,11 @@ namespace Internal.Scripts.Infrastructure.Services.SpecialEffectsService
             _specialEffects[type].Push(effect);
         }
 
+        public void Dispose()
+        {
+            _specialEffects.Clear();
+        }
+
         private bool TryGetEffect(SpecialEffectType type, out ParticleSystem effect)
         {
             effect = null;
@@ -58,6 +63,7 @@ namespace Internal.Scripts.Infrastructure.Services.SpecialEffectsService
                 }
 
                 effect = GameObject.Instantiate(prefab.SpecialEffectPrefab);
+                GameObject.DontDestroyOnLoad(effect);
             }
 
             return true;

@@ -11,16 +11,18 @@ namespace Internal.Scripts.Infrastructure.HeroRoute
         private Queue<RouterPoint> _pointsQueue;
         private RouterPoint _currentPoint;
 
+        public int TotalPointsCount { get; private set; }
+    
         public bool CurrentPointIsReached => _currentPoint.IsReached;
 
         public void Initialize()
         {
             _pointsQueue = new Queue<RouterPoint>();
 
-            foreach (var point in points)
-            {
+            foreach (var point in points) 
                 _pointsQueue.Enqueue(point);
-            }
+
+            TotalPointsCount = _pointsQueue.Count;
         }
 
         public bool TryGetNextPoint(out RouterPoint point)

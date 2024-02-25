@@ -1,10 +1,13 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Internal.Scripts.GamePlay.Destroyable;
 using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.GamePlay.TheMainHero.Combat;
 using Internal.Scripts.Infrastructure.HeroRoute;
 using Internal.Scripts.Infrastructure.Input;
+using Internal.Scripts.Infrastructure.Services.Sound;
+using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,6 +18,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
         [SerializeField] private NavMeshAgent navAgent;
         [SerializeField] private CombatComponent combat;
         [SerializeField] private MainHeroCamera camera;
+        [SerializeField] private EnvDestroyer destroyer;
         
         private InputService _playerInputService;
         private CancellationTokenSource _cancellation;
@@ -23,11 +27,13 @@ namespace Internal.Scripts.GamePlay.TheMainHero
 
         public Transform Transform => transform;
 
-        public void Setup(InputService inputService)
+        public void Setup(InputService inputService, ISpecialEffectsService specialEffectsService, ISoundsService soundsService)
         {
-            navAgent.updateRotation = false;
             _playerInputService = inputService;
             inputService.OnClicked += Shoot;
+            
+            destroyer.Construct(specialEffectsService);
+            combat.Construct(soundsService);
         }
 
         private void OnDestroy()
@@ -44,7 +50,10 @@ namespace Internal.Scripts.GamePlay.TheMainHero
 
         public void SetPositionAndRotation(Transform reference)
         {
-            transform.position = reference.position;
+            navAgent.Warp(reference.position);
+            navAgent.updateRotation = false;
+            navAgent.enabled = true;
+            
             transform.rotation = reference.rotation;
         }
 
@@ -52,12 +61,35 @@ namespace Internal.Scripts.GamePlay.TheMainHero
         {
             _cancellation?.Cancel();
             _cancellation = new CancellationTokenSource();
+            navAgent.updateRotation = true;
             navAgent.SetDestination(point.transform.position);
-            await RotateToTarget(point.transform.rotation.eulerAngles, 1500);
-            while (navAgent.remainingDistance > 0.5f)
+
+
+            while (navAgent.remainingDistance == 0)
+            {
+                await UniTask.WaitForFixedUpdate();
+            }
+            
+            while (navAgent.remainingDistance > 3f)
             {
                 await UniTask.Yield();
             }
+            
+            navAgent.updateRotation = false;
+            
+            await RotateToTarget(point.transform.rotation.eulerAngles, 1000);
+        }
+
+        public async UniTask RotateToEnemy(Enemy enemy)
+        {
+            Vector3 nearestEnemyPosition = enemy.transform.position;
+            var rotation = Quaternion.LookRotation(nearestEnemyPosition - transform.position).eulerAngles;
+            await RotateToTarget(rotation, 1300, () => enemy.IsDead);
+        }
+
+        public void RotateCameraUp()
+        {
+            StartCoroutine(camera.SmoothlyRotateUp());
         }
 
         private void Shoot(Vector2 screenPosition)
@@ -87,18 +119,6 @@ namespace Internal.Scripts.GamePlay.TheMainHero
                 await UniTask.Delay(frameDelayMs, cancellationToken: cancellation.Token);
                 msPassed += frameDelayMs;
             }
-        }
-
-        public async UniTask RotateToEnemy(Enemy enemy)
-        {
-            Vector3 nearestEnemyPosition = enemy.transform.position;
-            var rotation = Quaternion.LookRotation(nearestEnemyPosition - transform.position).eulerAngles;
-            await RotateToTarget(rotation, 2000, () => enemy.IsDead);
-        }
-
-        public void RotateCameraUp()
-        {
-            StartCoroutine(camera.SmoothlyRotateUp());
         }
     }
 }

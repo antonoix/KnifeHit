@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.Infrastructure.HeroRoute;
+using Internal.Scripts.UI.GamePlay;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.TheMainHero
@@ -12,16 +13,19 @@ namespace Internal.Scripts.GamePlay.TheMainHero
         private readonly MainHero _hero;
         private readonly HeroRouter _router;
         private readonly EnemiesHolder _enemiesHolder;
+        private readonly GameplayUIPresenter _gameplayUIPresenter;
 
+        private int _passesPointsCount;
         private CancellationTokenSource _cts;
 
         public event Action OnLevelPassed;
 
-        public MainHeroConductor(MainHero hero, HeroRouter router, EnemiesHolder enemiesHolder)
+        public MainHeroConductor(MainHero hero, HeroRouter router, EnemiesHolder enemiesHolder, GameplayUIPresenter gameplayUIPresenter)
         {
             _hero = hero;
             _router = router;
             _enemiesHolder = enemiesHolder;
+            _gameplayUIPresenter = gameplayUIPresenter;
             _cts = new CancellationTokenSource();
         }
 
@@ -30,6 +34,8 @@ namespace Internal.Scripts.GamePlay.TheMainHero
             _router.Initialize();
 
             _hero.SetPositionAndRotation(_router.StartPoint.transform);
+            
+            _gameplayUIPresenter.UpdateProgress((float)_passesPointsCount / _router.TotalPointsCount);
             
             GoThroughPoints();
         }
@@ -45,10 +51,17 @@ namespace Internal.Scripts.GamePlay.TheMainHero
                 {
                     await _hero.GoToPoint(point, enemiesPack);
                     enemiesPack.Attack(_hero);
-                    while (enemiesPack.AliveEnemies.Count > 0)
+                    while (enemiesPack.AliveEnemies.Count > 0 && !_cts.IsCancellationRequested)
                     {
-                        await _hero.RotateToEnemy(enemiesPack.GetNearestEnemy(point.transform.position));
+                        var nearestEnemy = enemiesPack.GetNearestEnemy(point.transform.position);
+                        foreach (var enemy in enemiesPack.AliveEnemies) 
+                            enemy.SetIsNearest(enemy == nearestEnemy);
+                        
+                        await _hero.RotateToEnemy(nearestEnemy);
                     }
+                    
+                    _gameplayUIPresenter.UpdateProgress((float)++_passesPointsCount / _router.TotalPointsCount);
+                    
                     Debug.Log("GO");
                 }
                 else

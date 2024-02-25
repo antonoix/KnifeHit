@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace Internal.Scripts.UI.GamePlay
 
         public void Show(GameplayResult result)
         {
+            transform.localScale = Vector3.zero;
+            transform.DOScale(Vector3.one, 0.5f);
             gameObject.SetActive(true);
         }
 

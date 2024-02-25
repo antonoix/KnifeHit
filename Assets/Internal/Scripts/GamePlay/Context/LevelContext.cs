@@ -2,7 +2,7 @@ using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.Infrastructure.HeroRoute;
 using UnityEngine;
 
-namespace Internal.Scripts.Infrastructure.GameStatesMachine.Injection.StatesDependencies
+namespace Internal.Scripts.GamePlay.Context
 {
     public class LevelContext : MonoBehaviour
     {
