@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
 using UnityEditor;
@@ -13,6 +12,8 @@ namespace Internal.Scripts.GamePlay.Enemies
         private Queue<EnemiesPack> _packsQueue;
         private EnemiesPack _currentEnemiesPack;
 
+        public int RewardForEnemies { get; private set; }
+
         public void Initialize(ISpecialEffectsService specialEffectsService)
         {
             _packsQueue = new Queue<EnemiesPack>();
@@ -22,6 +23,7 @@ namespace Internal.Scripts.GamePlay.Enemies
                 foreach (var enemy in pack.AliveEnemies)
                 {
                     enemy.Initialize(specialEffectsService);
+                    RewardForEnemies += enemy.RewardCoinsCount;
                 }
                 _packsQueue.Enqueue(pack);
             }
@@ -45,6 +47,7 @@ namespace Internal.Scripts.GamePlay.Enemies
                 enemiesPack.Dispose();
         }
 
+#if UNITY_EDITOR
         private void Reset()
         {
             foreach (Transform child in transform)
@@ -61,7 +64,8 @@ namespace Internal.Scripts.GamePlay.Enemies
             AssetDatabase.SaveAssets();
             DestroyImmediate(prefabInstance.gameObject);
             
-           // PrefabUtility.ApplyPrefabInstance(transform.parent.gameObject, InteractionMode.AutomatedAction);
-        }
+            // PrefabUtility.ApplyPrefabInstance(transform.parent.gameObject, InteractionMode.AutomatedAction);
+        }  
+#endif
     }
 }

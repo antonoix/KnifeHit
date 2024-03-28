@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Internal.Scripts.GamePlay.Enemies;
+using Internal.Scripts.Infrastructure.Services.ShopSystem;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.TheMainHero.Combat
@@ -8,6 +9,8 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
     public class Projectile : MonoBehaviour
     {
         private const int DEGREES_IN_TURNOVER = 360;
+
+        public ShopItemType Type;
         [SerializeField] private int damage = 40;
         [SerializeField] private int speedMeterPerSec = 15;
         private Rigidbody _body;

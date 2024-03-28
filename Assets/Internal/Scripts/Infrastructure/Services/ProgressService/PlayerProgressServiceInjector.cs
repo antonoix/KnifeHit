@@ -11,5 +11,10 @@ namespace Internal.Scripts.Infrastructure.Services.ProgressService
             _service = new PlayerPrefsProgressService();
             return _service;
         }
+
+        public override void Initialize()
+        {
+            _service.Initialize();
+        }
     }
 }

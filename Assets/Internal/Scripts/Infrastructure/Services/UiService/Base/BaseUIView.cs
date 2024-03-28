@@ -4,9 +4,9 @@ namespace Internal.Scripts.Infrastructure.Services.UiService.Base
 {
     public abstract class BaseUIView : MonoBehaviour
     {
+        public virtual void Initialize() { }
 
-        public abstract void Initialize();
-        public abstract void Dispose();
+        public virtual void Dispose() { }
 
         public virtual void Show()
             => gameObject.SetActive(true);

@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: GameStatesMachineDependencies
   m_EditorClassIdentifier: 
   <GameplayEntities>k__BackingField: {fileID: 11400000, guid: c7d6f7bb154629c4aac1746c0c348dd1, type: 2}
+  <ShopContext>k__BackingField: {fileID: 8871879319503643672, guid: 2ceeebaa95f073143bf17ce56746b7f0, type: 3}
   <UiServiceInjector>k__BackingField: {fileID: 11400000, guid: 4ee7817d3a0e13c43b936115a3f2e7e1, type: 2}
   <SpecialEffectsInjector>k__BackingField: {fileID: 11400000, guid: 85f1b885ea2ebbf4eadc7bc1ce4090fa, type: 2}
   <PlayerProgressServiceInjector>k__BackingField: {fileID: 11400000, guid: dcbe00f31f573684084498a055388a94, type: 2}
   <LocalizationServiceInjector>k__BackingField: {fileID: 11400000, guid: e48d25083e90a6f468d85321115e09d7, type: 2}
   <SoundsServiceInjector>k__BackingField: {fileID: 11400000, guid: c2015dcd02763ab45957a4a9518c39f9, type: 2}
+  <ShopServiceInjector>k__BackingField: {fileID: 11400000, guid: c21369321cb25a54a9d631d5c85b12ea, type: 2}
+  <AdsManagerInjector>k__BackingField: {fileID: 11400000, guid: 6149fd168b048694db3c1a7ee21394ab, type: 2}
+  <AnalyticsManagerInjector>k__BackingField: {fileID: 11400000, guid: 4b4c877ac0ef1ce489981b7dde241bc0, type: 2}

@@ -28,6 +28,7 @@ namespace Internal.Scripts.GamePlay.Enemies
         public bool IsDead { get; private set; }
 
         public Transform Transform => transform;
+        public int RewardCoinsCount => config.RewardCoinsCount;
         private Rigidbody Rigidbody => _rigidbody ??= GetComponent<Rigidbody>();
         private List<Rigidbody> Rigidbodies => _rigidbodies ??= GetComponentsInChildren<Rigidbody>().ToList();
 

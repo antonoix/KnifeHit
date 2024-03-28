@@ -4,13 +4,17 @@
     "Level" : "Уровень",
     "Win" : "Победа",
     "Lose" : "Поражение",
-    "Start" : "Старт"
+    "Start" : "Старт",
+    "Select" : "Выбрать",
+    "Selected" : "Выбрано"
   },
   "EN" : 
   {
     "Level" : "Level",
     "Win" : "Win",
     "Lose" : "Lose",
-    "Start" : "Start"
+    "Start" : "Start",
+    "Select" : "Select",
+    "Selected" : "Selected"
   }
 }

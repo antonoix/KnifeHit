@@ -11,7 +11,7 @@ namespace Internal.Scripts.UI.GamePlay
         public event Action OnMenuBtnClick;
         public event Action OnRestartBtnClick;
         
-        public GameplayUIPresenter(GameplayUIView baseUIViewPrefab, ISoundsService soundsService) : base(baseUIViewPrefab)
+        public GameplayUIPresenter(ISoundsService soundsService)
         {
             _soundsService = soundsService;
         }
@@ -21,6 +21,7 @@ namespace Internal.Scripts.UI.GamePlay
             _view.OnMenuBtnClick += HandleMenuBtnClick;
             _view.OnNextBtnClick += HandleNextBtnClick;
             _view.OnRestartBtnClick += HandleRestartBtnClick;
+            _view.SetActiveProgress(true);
             
             base.Show();
         }
@@ -34,9 +35,9 @@ namespace Internal.Scripts.UI.GamePlay
             base.Hide();
         }
 
-        public void ShowWinPanel()
+        public void ShowWinPanel(int rewardCoinsCount)
         {
-            GameplayResult result = new(1);
+            GameplayResult result = new(rewardCoinsCount);
             _view.ShowWinPanel(result);
             _view.SetActiveProgress(false);
         }

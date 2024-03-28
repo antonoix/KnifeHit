@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.Infrastructure.Constants;
+using Internal.Scripts.Infrastructure.Services.Analytics;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.Menu;
 using UnityEngine;
@@ -29,14 +30,15 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             
             _menuUIPresenter.Show();
             _menuUIPresenter.OnStartBtnClicked += _gameStatesSwitcher.SetState<GamePlayState>;
+            _menuUIPresenter.OnShopBtnClicked += _gameStatesSwitcher.SetState<ShopState>;
         }
 
         public override void Exit()
         {
-            _menuUIPresenter.Dispose();
             _menuUIPresenter.Hide();
             
             _menuUIPresenter.OnStartBtnClicked -= _gameStatesSwitcher.SetState<GamePlayState>;
+            _menuUIPresenter.OnShopBtnClicked -= _gameStatesSwitcher.SetState<ShopState>;
         }
     }
 }

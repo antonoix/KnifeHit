@@ -7,21 +7,15 @@ namespace Internal.Scripts.Infrastructure.Services.UiService.Base
         protected readonly T _viewPrefab;
         protected T _view;
 
-        public BaseUIPresenter(T baseUIViewPrefab)
-        {
-            _viewPrefab = baseUIViewPrefab;
-        }
-
         public virtual void Show() 
             => _view.Show();
 
         public virtual void Hide() 
             => _view.Hide();
 
-        public virtual void Initialize()
+        public virtual void Initialize(GameObject view)
         {
-            _view = Object.Instantiate(_viewPrefab);
-            Object.DontDestroyOnLoad(_view);
+            _view = view.GetComponent<T>();
             Hide();
 
             _view.Initialize();

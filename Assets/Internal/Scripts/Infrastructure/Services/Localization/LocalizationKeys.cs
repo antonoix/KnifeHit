@@ -6,6 +6,8 @@
         Level,
         Win,
         Lose,
-        Start
+        Start,
+        Select,
+        Selected
     }
 }

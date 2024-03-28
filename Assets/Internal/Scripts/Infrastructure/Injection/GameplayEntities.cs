@@ -1,5 +1,6 @@
 using Internal.Scripts.GamePlay.Context;
 using Internal.Scripts.GamePlay.TheMainHero;
+using Internal.Scripts.GamePlay.TheMainHero.Combat;
 using UnityEngine;
 
 namespace Internal.Scripts.Infrastructure.Injection
@@ -9,5 +10,6 @@ namespace Internal.Scripts.Infrastructure.Injection
     {
         [field: SerializeField] public MainHero MainHero { get; private set; }
         [field: SerializeField] public LevelContext[] LevelContexts { get; private set; }
+        [field: SerializeField] public Projectile[] AllProjectiles { get; private set; }
     }
 }

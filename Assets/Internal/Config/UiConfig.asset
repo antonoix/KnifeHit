@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5774ff588441df969ef73dee6f3e9b, type: 3}
   m_Name: UiConfig
   m_EditorClassIdentifier: 
-  <GameplayUIPrefab>k__BackingField: {fileID: 745016167226184375, guid: 4487b2e851a22af4c91a2ac6e37fc25a, type: 3}
-  <MenuUIPrefab>k__BackingField: {fileID: 7259820010549019562, guid: ca274116f0223414db1945b086eb6637, type: 3}
+  <AllWindowConfigs>k__BackingField:
+  - <Type>k__BackingField: 1
+    <ViewPrefab>k__BackingField: {fileID: 7921430945825158423, guid: 4487b2e851a22af4c91a2ac6e37fc25a, type: 3}
+  - <Type>k__BackingField: 2
+    <ViewPrefab>k__BackingField: {fileID: 5113878351201040448, guid: ca274116f0223414db1945b086eb6637, type: 3}
+  - <Type>k__BackingField: 3
+    <ViewPrefab>k__BackingField: {fileID: 2386073762419783690, guid: 33b3478d5bb20f6488b57cd3c508c611, type: 3}
+  <UIRootPrefab>k__BackingField: {fileID: 8442900120385874042, guid: e004f505e387a1546935d176cde89db5, type: 3}

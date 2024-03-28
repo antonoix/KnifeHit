@@ -5,21 +5,21 @@ namespace Internal.Scripts.Infrastructure.Services.Localization
 {
     public class JsonLocalizationService : ILocalizationService
     {
-        private readonly Translator _translator;
+        private readonly JsonTranslator _jsonTranslator;
 
         public JsonLocalizationService()
         {
-            _translator = new Translator();
+            _jsonTranslator = new JsonTranslator();
         }
 
         public void Initialize()
         {
-            _translator.SetLanguage(GetLanguageKey());
-            _translator.Initialize();
+            _jsonTranslator.SetLanguage(GetLanguageKey());
+            _jsonTranslator.Initialize();
         }
 
         public string GetLocalized(LocalizationKeys key)
-            => _translator.GetTranslation(key);
+            => _jsonTranslator.GetTranslation(key);
 
         private string GetLanguageKey()
         {

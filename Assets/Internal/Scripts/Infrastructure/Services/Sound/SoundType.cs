@@ -4,5 +4,6 @@
     {
         ButtonClick,
         Throw,
+        Cash
     }
 }

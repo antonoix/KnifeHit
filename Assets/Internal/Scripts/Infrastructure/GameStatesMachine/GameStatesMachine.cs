@@ -16,9 +16,20 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine
             _gameStates = new Dictionary<Type, GameState>()
             {
                 { typeof(MenuState), new MenuState(this, dependencies.UiServiceInjector.Service) },
-                { typeof(GamePlayState), new GamePlayState(this, dependencies.GameplayEntities,
-                    dependencies.SpecialEffectsInjector.Service, dependencies.UiServiceInjector.Service,
-                    dependencies.PlayerProgressServiceInjector.Service, dependencies.SoundsServiceInjector.Service) }
+                
+                { typeof(GamePlayState), new GamePlayState(this, 
+                    dependencies.GameplayEntities,
+                    dependencies.SpecialEffectsInjector.Service,
+                    dependencies.UiServiceInjector.Service,
+                    dependencies.PlayerProgressServiceInjector.Service,
+                    dependencies.SoundsServiceInjector.Service,
+                    dependencies.AdsManagerInjector.Service,
+                    dependencies.AnalyticsManagerInjector.Service) },
+                
+                { typeof(ShopState), new ShopState(this,
+                    dependencies.UiServiceInjector.Service,
+                    dependencies.ShopServiceInjector.Service,
+                    dependencies.AnalyticsManagerInjector.Service)}
             };
         }
 

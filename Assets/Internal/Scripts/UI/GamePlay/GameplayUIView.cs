@@ -11,6 +11,7 @@ namespace Internal.Scripts.UI.GamePlay
         [SerializeField] private GameplayLosePanel gameplayLosePanel;
         [SerializeField] private GameObject progress;
         [SerializeField] private Image progressImage;
+        [SerializeField] private Button menuButton;
         
         public event Action OnNextBtnClick;
         public event Action OnMenuBtnClick;
@@ -31,6 +32,8 @@ namespace Internal.Scripts.UI.GamePlay
             gameplayWinPanel.Hide();
             gameplayLosePanel.Hide();
             
+            menuButton.onClick.AddListener(HandleMenuBtnClick);
+            
             gameplayWinPanel.OnMenuBtnClick += HandleMenuBtnClick;
             gameplayWinPanel.OnNextBtnClick += HandleNextBtnClick;
 
@@ -42,6 +45,8 @@ namespace Internal.Scripts.UI.GamePlay
 
         public override void Hide()
         {
+            menuButton.onClick.RemoveListener(HandleMenuBtnClick);
+            
             gameplayWinPanel.OnMenuBtnClick -= HandleMenuBtnClick;
             gameplayWinPanel.OnNextBtnClick -= HandleNextBtnClick;
             

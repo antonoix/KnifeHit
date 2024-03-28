@@ -27,13 +27,14 @@ namespace Internal.Scripts.GamePlay.TheMainHero
 
         public Transform Transform => transform;
 
-        public void Setup(InputService inputService, ISpecialEffectsService specialEffectsService, ISoundsService soundsService)
+        public void Setup(InputService inputService, ISpecialEffectsService specialEffectsService,
+            ISoundsService soundsService, Projectile projectile)
         {
             _playerInputService = inputService;
             inputService.OnClicked += Shoot;
             
             destroyer.Construct(specialEffectsService);
-            combat.Construct(soundsService);
+            combat.Construct(soundsService, projectile);
         }
 
         private void OnDestroy()
@@ -64,12 +65,11 @@ namespace Internal.Scripts.GamePlay.TheMainHero
             navAgent.updateRotation = true;
             navAgent.SetDestination(point.transform.position);
 
-
-            while (navAgent.remainingDistance == 0)
+            while (navAgent.remainingDistance < 0.1f)
             {
                 await UniTask.WaitForFixedUpdate();
             }
-            
+
             while (navAgent.remainingDistance > 3f)
             {
                 await UniTask.Yield();
@@ -84,7 +84,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
         {
             Vector3 nearestEnemyPosition = enemy.transform.position;
             var rotation = Quaternion.LookRotation(nearestEnemyPosition - transform.position).eulerAngles;
-            await RotateToTarget(rotation, 1300, () => enemy.IsDead);
+            await RotateToTarget(rotation, 700, () => enemy.IsDead);
         }
 
         public void RotateCameraUp()
@@ -103,8 +103,21 @@ namespace Internal.Scripts.GamePlay.TheMainHero
 
             var startRotation = transform.rotation.eulerAngles;
             targetRotation = new Vector3(startRotation.x, targetRotation.y, startRotation.z);
+            float startY = startRotation.y;
+            float targetY = targetRotation.y;
+            if (Mathf.Abs(startY - targetY) > 180)
+            {
+                if (targetY < 180)
+                    targetY = 360 + targetY;
+                else
+                {
+                    targetY = targetY - 360;
+                }
+            }
+
+            targetRotation = new Vector3(targetRotation.x, targetY, targetRotation.z);
             float msPassed = 0;
-            int frameDelayMs = 30;
+            int frameDelayMs = 15;
 
             while (msPassed < timeMs)
             {

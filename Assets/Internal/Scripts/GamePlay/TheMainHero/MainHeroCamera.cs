@@ -23,7 +23,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
             float rotationDelta = totalRotationDelta / (stepsPerSec * timeOfRotation);
             float delayBetweenSteps = 1f / stepsPerSec;
             
-            while (TransformUtils.GetInspectorRotation(transform).x > loseRotationX)
+            while (transform.localRotation.x > loseRotationX)
             {
                 transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x - rotationDelta, 0, 0);
                 yield return new WaitForSeconds(delayBetweenSteps);

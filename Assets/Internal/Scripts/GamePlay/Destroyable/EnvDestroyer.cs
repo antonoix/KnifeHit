@@ -1,4 +1,3 @@
-using System;
 using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -34,6 +33,9 @@ namespace Internal.Scripts.GamePlay.Destroyable
         {
             if (collision.gameObject.TryGetComponent<EnvObject>(out var envObject))
             {
+                if (envObject.WasExploded)
+                    return;
+                
                 float force = Random.Range(400, 800f);
                 var distanceFromEnvObject = (transform.position - collision.transform.position) * 0.5f;
                 envObject.Explode(collision.transform.position + distanceFromEnvObject + _explosionYOffset, force);

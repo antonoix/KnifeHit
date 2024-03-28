@@ -4,15 +4,16 @@ using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.Destroyable
 {
-    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Collider), typeof(Rigidbody))]
     public class EnvObject : MonoBehaviour
     {
+        [SerializeField] private new Renderer renderer;
         private const int DURATION_EXPLOSION = 2;
-        [SerializeField] private Renderer renderer;
 
         private readonly CancellationTokenSource _cancellation = new();
         private Rigidbody _body;
-        private bool _wasExploded;
+        
+        public bool WasExploded { get; private set; }
 
         private void Awake()
         {
@@ -26,9 +27,9 @@ namespace Internal.Scripts.GamePlay.Destroyable
 
         public async UniTaskVoid Explode(Vector3 explosionPos, float force)
         {
-            if (_wasExploded) return;
+            if (WasExploded) return;
 
-            _wasExploded = true;
+            WasExploded = true;
 
             _body.AddExplosionForce(force, explosionPos, 4, 2);
             var newMaterial = ChangeMaterialToTransparent();
