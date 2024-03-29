@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Context;
 using Internal.Scripts.GamePlay.Enemies;
+using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.GamePlay.TheMainHero;
 using Internal.Scripts.Infrastructure.Constants;
 using Internal.Scripts.Infrastructure.Injection;
@@ -10,11 +12,11 @@ using Internal.Scripts.Infrastructure.Input;
 using Internal.Scripts.Infrastructure.Services.Analytics;
 using Internal.Scripts.Infrastructure.Services.ProgressService;
 using Internal.Scripts.Infrastructure.Services.Sound;
-using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.GamePlay;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 {
@@ -65,7 +67,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             _gameplayUiPresenter.OnNextBtnClick += HandleNextBtnClick;
             _gameplayUiPresenter.OnRestartBtnClick += HandleRestartBtnClick;
 
-            Work();
+            Work().Forget();
         }
 
         private async UniTaskVoid Work()
@@ -122,26 +124,30 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             return Random.Range(0, _gameEntities.LevelContexts.Length);
         }
 
-        private void HandlePlayerWin()
+        private async void HandlePlayerWin()
         {
-            _gameplayUiPresenter.ShowWinPanel(_enemiesHolder.RewardForEnemies);
+            float resultPercent = _enemiesHolder.EnemiesCount * 3.5f / _hero.ShotsCount;
+            int starsCount = (int)Math.Round(resultPercent / 0.33f);
+            _gameplayUiPresenter.ShowWinPanel(_enemiesHolder.RewardForEnemies, starsCount);
             _playerProgressService.IncreasePassedLevel();
             _playerProgressService.AddCoins(_enemiesHolder.RewardForEnemies);
+            await UniTask.WaitForSeconds(1.2f);
             _adsManager.TryShowAdAfterWin();
             
             _analyticsManager.SendCustomEvent("GameplayResult", new Dictionary<string, object>(){{"Win", true}});
         }
 
-        private void HandlePlayerLose()
+        private async void HandlePlayerLose()
         {
             _heroConductor.Dispose();
             _enemiesHolder.Dispose();
             
             _hero.RotateCameraUp();
             _gameplayUiPresenter.ShowLosePanel();
+            await UniTask.WaitForSeconds(1.2f);
             _adsManager.ShowAd();
             
-            _analyticsManager.SendCustomEvent("GameplayResult", new Dictionary<string, object>(){{"Win", false}});
+            _analyticsManager.SendCustomEvent("GameplayResult", new Dictionary<string, object>(){{"Lose", false}});
         }
 
         private void HandleMenuBtnClick()

@@ -1,5 +1,5 @@
 using Internal.Scripts.GamePlay.Enemies;
-using Internal.Scripts.Infrastructure.HeroRoute;
+using Internal.Scripts.GamePlay.HeroRoute;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.Context

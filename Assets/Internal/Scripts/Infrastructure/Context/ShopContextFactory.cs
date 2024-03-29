@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Internal.Scripts.Infrastructure.ShopSystem;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.Context

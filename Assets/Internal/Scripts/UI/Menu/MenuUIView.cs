@@ -1,4 +1,6 @@
 using System;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Internal.Scripts.Infrastructure.Services.UiService.Base;
 using TMPro;
 using UnityEngine;
@@ -17,20 +19,25 @@ namespace Internal.Scripts.UI.Menu
         public event Action OnStartBtnClicked;
         public event Action OnShopBtnClicked;
 
-        public override void Show()
+        public override async UniTask Show()
         {
-            base.Show();
+            base.Show().Forget();
+            
+            shopBtn.transform.position += Vector3.right * 300;
+            shopBtn.transform.DOMove(shopBtn.transform.position - Vector3.right * 300, .3f);
+            
+            await UniTask.WaitForSeconds(.3f);
             
             startGameBtn.onClick.AddListener(HandleStartBtnClicked);
             shopBtn.onClick.AddListener(HandleShopBtnClicked);
         }
 
-        public override void Hide()
+        public override UniTask Hide()
         {
-            base.Hide();
-            
             startGameBtn.onClick.RemoveListener(HandleStartBtnClicked);
             shopBtn.onClick.RemoveListener(HandleShopBtnClicked);
+            
+            return base.Hide();
         }
         
         public void SetCurrentCoins(int count)

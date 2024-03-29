@@ -1,10 +1,10 @@
 using System.Linq;
+using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.GamePlay.TheMainHero;
 using Internal.Scripts.Infrastructure.Injection;
 using Internal.Scripts.Infrastructure.Input;
 using Internal.Scripts.Infrastructure.Services.ProgressService;
 using Internal.Scripts.Infrastructure.Services.Sound;
-using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.Context

@@ -1,4 +1,4 @@
-﻿using Internal.Scripts.Infrastructure.Services.ShopSystem;
+﻿using Internal.Scripts.GamePlay.ShopSystem;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.Context

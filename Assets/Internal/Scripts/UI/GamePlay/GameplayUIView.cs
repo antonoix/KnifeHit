@@ -1,4 +1,6 @@
 using System;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Internal.Scripts.Infrastructure.Services.UiService.Base;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,34 +18,28 @@ namespace Internal.Scripts.UI.GamePlay
         public event Action OnNextBtnClick;
         public event Action OnMenuBtnClick;
         public event Action OnRestartBtnClick;
-        
-        public override void Initialize()
-        {
-            //throw new System.NotImplementedException();
-        }
 
-        public override void Dispose()
+        public override async UniTask Show()
         {
-            //throw new System.NotImplementedException();
-        }
-
-        public override void Show()
-        {
+            base.Show().Forget();
             gameplayWinPanel.Hide();
             gameplayLosePanel.Hide();
             
-            menuButton.onClick.AddListener(HandleMenuBtnClick);
+            progress.transform.position += Vector3.down * 300;
+            progress.transform.DOMove(progress.transform.position - Vector3.down * 300, .3f);
             
+            await UniTask.WaitForSeconds(.3f);
+
+            menuButton.onClick.AddListener(HandleMenuBtnClick);
+
             gameplayWinPanel.OnMenuBtnClick += HandleMenuBtnClick;
             gameplayWinPanel.OnNextBtnClick += HandleNextBtnClick;
 
             gameplayLosePanel.OnMenuBtnClick += HandleMenuBtnClick;
             gameplayLosePanel.OnRestartBtnClick += HandleRestartBtnClick;
-            
-            base.Show();
         }
 
-        public override void Hide()
+        public override UniTask Hide()
         {
             menuButton.onClick.RemoveListener(HandleMenuBtnClick);
             
@@ -53,7 +49,7 @@ namespace Internal.Scripts.UI.GamePlay
             gameplayLosePanel.OnMenuBtnClick -= HandleMenuBtnClick;
             gameplayLosePanel.OnRestartBtnClick -= HandleRestartBtnClick;
             
-            base.Hide();
+            return base.Hide();
         }
 
         public void ShowWinPanel(GameplayResult result)
@@ -61,9 +57,9 @@ namespace Internal.Scripts.UI.GamePlay
             gameplayWinPanel.Show(result);
         }
 
-        public void ShowLosePanel(GameplayResult result)
+        public void ShowLosePanel()
         {
-            gameplayLosePanel.Show(result);
+            gameplayLosePanel.Show();
         }
 
         public void SetActiveProgress(bool isActive)

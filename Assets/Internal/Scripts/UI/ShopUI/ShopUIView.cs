@@ -1,4 +1,6 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Internal.Scripts.Infrastructure.Services.Localization;
 using Internal.Scripts.Infrastructure.Services.UiService.Base;
 using TMPro;
@@ -26,18 +28,26 @@ namespace Internal.Scripts.UI.ShopUI
             buyBtn.Construct(localizationService);
         }
 
-        public override void Show()
+        public override async UniTask Show()
         {
+            base.Show().Forget();
+            
+            nextBtn.transform.position += Vector3.right * 300;
+            nextBtn.transform.DOMove(nextBtn.transform.position - Vector3.right * 300, .3f);
+            
+            prevBtn.transform.position += Vector3.left * 300;
+            prevBtn.transform.DOMove(prevBtn.transform.position - Vector3.left * 300, .3f);
+            
+            await UniTask.WaitForSeconds(.3f);
+
             nextBtn.onClick.AddListener(HandleNextClicked);
             prevBtn.onClick.AddListener(HandlePrevClicked);
             menuBtn.onClick.AddListener(HandleMenuClicked);
             buyBtn.OnBuyClicked += HandleBuyClicked;
             buyBtn.OnSelectClicked += HandleSelectClicked;
-            
-            base.Show();
         }
 
-        public override void Hide()
+        public override UniTask Hide()
         {
             nextBtn.onClick.RemoveListener(HandleNextClicked);
             prevBtn.onClick.RemoveListener(HandlePrevClicked);
@@ -45,7 +55,7 @@ namespace Internal.Scripts.UI.ShopUI
             buyBtn.OnBuyClicked -= HandleBuyClicked;
             buyBtn.OnSelectClicked -= HandleSelectClicked;
             
-            base.Hide();
+            return base.Hide();
         }
 
         public void SetSelectState(bool isSelected)

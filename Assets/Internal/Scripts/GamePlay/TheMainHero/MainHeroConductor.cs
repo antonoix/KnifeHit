@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
-using Internal.Scripts.Infrastructure.HeroRoute;
+using Internal.Scripts.GamePlay.HeroRoute;
 using Internal.Scripts.UI.GamePlay;
 using UnityEngine;
 
@@ -56,8 +56,17 @@ namespace Internal.Scripts.GamePlay.TheMainHero
                         var nearestEnemy = enemiesPack.GetNearestEnemy(point.transform.position);
                         foreach (var enemy in enemiesPack.AliveEnemies) 
                             enemy.SetIsNearest(enemy == nearestEnemy);
+
+                        var enemyOnScreen = _hero.HeroCam.WorldToViewportPoint(nearestEnemy.Transform.position);
+                        if (enemyOnScreen.x < 0.9f && enemyOnScreen.x > 0.1f && enemyOnScreen.z >= 0)
+                        {
+                            await UniTask.WaitForSeconds(1);
+                        }
+                        else
+                        {
+                            await _hero.RotateToEnemy(nearestEnemy);
+                        }
                         
-                        await _hero.RotateToEnemy(nearestEnemy);
                     }
                     
                     _gameplayUIPresenter.UpdateProgress((float)++_passesPointsCount / _router.TotalPointsCount);

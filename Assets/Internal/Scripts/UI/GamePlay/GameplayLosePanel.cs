@@ -13,11 +13,18 @@ namespace Internal.Scripts.UI.GamePlay
         public event Action OnRestartBtnClick;
         public event Action OnMenuBtnClick;
 
-        public void Show(GameplayResult result)
+        public void Show()
         {
-            transform.localScale = Vector3.zero;
-            transform.DOScale(Vector3.one, 0.5f);
             gameObject.SetActive(true);
+            
+            transform.localScale = Vector3.zero;
+            restartButton.transform.localScale = Vector3.zero;
+            toMenuButton.transform.localScale = Vector3.zero;
+            
+            var sequence = DOTween.Sequence();
+            sequence.Append(transform.DOScale(Vector3.one, 0.3f));
+            sequence.Append(restartButton.transform.DOScale(Vector3.one, 0.2f));
+            sequence.Append(toMenuButton.transform.DOScale(Vector3.one, 0.2f));
         }
 
         public void Hide()

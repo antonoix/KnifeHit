@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Internal.Scripts.Infrastructure.Services.ShopSystem;
+using Internal.Scripts.GamePlay.ShopSystem;
 
 namespace Internal.Scripts.Infrastructure.Services.ProgressService
 {

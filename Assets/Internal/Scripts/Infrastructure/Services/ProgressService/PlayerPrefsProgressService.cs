@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Internal.Scripts.Infrastructure.Services.ShopSystem;
+using Internal.Scripts.GamePlay.ShopSystem;
 using UnityEngine;
 
 namespace Internal.Scripts.Infrastructure.Services.ProgressService

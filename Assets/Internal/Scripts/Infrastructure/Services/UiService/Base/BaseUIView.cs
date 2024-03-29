@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Internal.Scripts.Infrastructure.Services.UiService.Base
 {
@@ -8,10 +9,16 @@ namespace Internal.Scripts.Infrastructure.Services.UiService.Base
 
         public virtual void Dispose() { }
 
-        public virtual void Show()
-            => gameObject.SetActive(true);
-        
-        public virtual void Hide()
-            => gameObject.SetActive(false);
+        public virtual UniTask Show()
+        {
+            gameObject.SetActive(true);
+            return UniTask.CompletedTask;
+        }
+
+        public virtual UniTask Hide()
+        {
+            gameObject.SetActive(false);
+            return UniTask.CompletedTask;
+        }
     }
 }

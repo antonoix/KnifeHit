@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Internal.Scripts.GamePlay.ShopSystem;
 using Internal.Scripts.Infrastructure.Constants;
 using Internal.Scripts.Infrastructure.Injection;
 using Internal.Scripts.Infrastructure.Services.Analytics;
 using Internal.Scripts.Infrastructure.Services.ProgressService;
 using Internal.Scripts.Infrastructure.Services.Sound;
 using Internal.Scripts.Infrastructure.Services.UiService;
-using Internal.Scripts.Infrastructure.ShopSystem;
 using Internal.Scripts.UI.ShopUI;
 using UnityEngine;
 using UnityEngine.SceneManagement;

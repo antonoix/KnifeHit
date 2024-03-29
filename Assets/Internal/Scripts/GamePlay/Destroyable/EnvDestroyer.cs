@@ -1,4 +1,4 @@
-using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
+using Internal.Scripts.GamePlay.SpecialEffectsService;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -38,7 +38,7 @@ namespace Internal.Scripts.GamePlay.Destroyable
                 
                 float force = Random.Range(400, 800f);
                 var distanceFromEnvObject = (transform.position - collision.transform.position) * 0.5f;
-                envObject.Explode(collision.transform.position + distanceFromEnvObject + _explosionYOffset, force);
+                envObject.Explode(collision.transform.position + distanceFromEnvObject + _explosionYOffset, force).Forget();
 
                 _specialEffects?.ShowEffect(SpecialEffectType.CloudyExplosion, collision.contacts[0].point);
             }

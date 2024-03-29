@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using Internal.Scripts.GamePlay.Enemies;
-using Internal.Scripts.Infrastructure.Services.ShopSystem;
+using Internal.Scripts.GamePlay.ShopSystem;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.TheMainHero.Combat

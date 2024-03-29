@@ -3,10 +3,12 @@
     public class GameplayResult
     {
         public readonly int CoinsCount;
+        public readonly int StarsCount;
 
-        public GameplayResult(int coinsCount)
+        public GameplayResult(int coinsCount, int starsCount)
         {
             CoinsCount = coinsCount;
+            StarsCount = starsCount;
         }
     }
 }

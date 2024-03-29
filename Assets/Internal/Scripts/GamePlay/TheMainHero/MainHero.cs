@@ -3,11 +3,11 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Destroyable;
 using Internal.Scripts.GamePlay.Enemies;
+using Internal.Scripts.GamePlay.HeroRoute;
+using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.GamePlay.TheMainHero.Combat;
-using Internal.Scripts.Infrastructure.HeroRoute;
 using Internal.Scripts.Infrastructure.Input;
 using Internal.Scripts.Infrastructure.Services.Sound;
-using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,15 +17,17 @@ namespace Internal.Scripts.GamePlay.TheMainHero
     {
         [SerializeField] private NavMeshAgent navAgent;
         [SerializeField] private CombatComponent combat;
-        [SerializeField] private MainHeroCamera camera;
+        [SerializeField] private new MainHeroCamera camera;
         [SerializeField] private EnvDestroyer destroyer;
         
         private InputService _playerInputService;
         private CancellationTokenSource _cancellation;
-
-        public event Action OnKilled;
-
+        
         public Transform Transform => transform;
+        public Camera HeroCam => camera.GetComponent<Camera>();
+        public int ShotsCount { get; private set; }
+        
+        public event Action OnKilled;
 
         public void Setup(InputService inputService, ISpecialEffectsService specialEffectsService,
             ISoundsService soundsService, Projectile projectile)
@@ -94,6 +96,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
 
         private void Shoot(Vector2 screenPosition)
         {
+            ShotsCount++;
             combat.Shoot(screenPosition);
         }
 

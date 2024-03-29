@@ -35,17 +35,16 @@ namespace Internal.Scripts.UI.GamePlay
             base.Hide();
         }
 
-        public void ShowWinPanel(int rewardCoinsCount)
+        public void ShowWinPanel(int rewardCoinsCount, int starsCount)
         {
-            GameplayResult result = new(rewardCoinsCount);
+            GameplayResult result = new(rewardCoinsCount, starsCount);
             _view.ShowWinPanel(result);
             _view.SetActiveProgress(false);
         }
 
         public void ShowLosePanel()
         {
-            GameplayResult result = new(1);
-            _view.ShowLosePanel(result);
+            _view.ShowLosePanel();
             _view.SetActiveProgress(false);
         }
 

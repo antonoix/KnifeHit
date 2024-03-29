@@ -1,5 +1,4 @@
 ﻿using Internal.Scripts.Infrastructure.Injection;
-using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
 using UnityEngine;
 
 namespace Internal.Scripts.Infrastructure.Services.Localization

@@ -3,14 +3,14 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Destroyable;
-using Internal.Scripts.Infrastructure.Services.SpecialEffectsService;
+using Internal.Scripts.GamePlay.SpecialEffectsService;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.Enemies
 {
     public class Enemy : MonoBehaviour, IDamageable
     {
-        [SerializeField] private EnemyAnimation animation;
+        [SerializeField] private new EnemyAnimation animation;
         [SerializeField] private AimOnBody aimOnBody;
         [SerializeField] private EnvDestroyer envDestroyer;
         [SerializeField] private Transform hips;
@@ -49,7 +49,7 @@ namespace Internal.Scripts.GamePlay.Enemies
                 animation.EnableAnimator(false);
                 _cancellation?.Cancel();
             }
-            PlayDamageEffect();
+            PlayDamageEffect().Forget();
             SetIsNearest(false);
         }
 
@@ -58,7 +58,7 @@ namespace Internal.Scripts.GamePlay.Enemies
             _currentAim = aim;
             //_cancellation?.Cancel();
             _cancellation = new CancellationTokenSource();
-            GoToAim();
+            GoToAim().Forget();
         }
 
         public void SetIsNearest(bool isNearest)
@@ -116,7 +116,7 @@ namespace Internal.Scripts.GamePlay.Enemies
 
             animation.PlayStandUp(isFaceUp);
             
-            _specialEffectsService.ShowEffect(SpecialEffectType.EnemyResurrection, transform.position + Vector3.up * 0.5f);
+            _specialEffectsService.ShowEffect(SpecialEffectType.EnemyResurrection, transform.position + Vector3.up * 0.5f).Forget();
             
             await UniTask.Delay((int)(config.StandingUpTimeAfterDamagedSec * 2200));
             _isGetDamageAnimationPlaying = false;
