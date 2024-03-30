@@ -2,56 +2,66 @@
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.ShopSystem;
 using Internal.Scripts.Infrastructure.Constants;
-using Internal.Scripts.Infrastructure.Injection;
 using Internal.Scripts.Infrastructure.Services.Analytics;
-using Internal.Scripts.Infrastructure.Services.ProgressService;
-using Internal.Scripts.Infrastructure.Services.Sound;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.ShopUI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 {
-    public class ShopState : GameState
+    public class ShopState : IGameState, IInitializable, ILateDisposable
     {
+        private readonly IGameStatesMachine _gameStatesMachine;
         private readonly IUiService _uiService;
         private readonly IShopService _shopService;
-        private readonly IAnalyticsManager _analyticsManager;
+        private readonly IAnalyticsService _analyticsService;
         private ShopUIPresenter _shopUIPresenter;
 
-        public ShopState(GameStatesMachine gameStatesSwitcher, IUiService uiService, IShopService shopService,
-            IAnalyticsManager analyticsManager) : base(gameStatesSwitcher)
+        public ShopState(IGameStatesMachine gameStatesMachine, IUiService uiService, IShopService shopService,
+            IAnalyticsService analyticsService)
         {
+            _gameStatesMachine = gameStatesMachine;
             _uiService = uiService;
             _shopService = shopService;
-            _analyticsManager = analyticsManager;
+            _analyticsService = analyticsService;
         }
 
-        public override async void Enter()
+        public void Initialize()
         {
-            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.SHOP_SCENE_NAME);
+            _gameStatesMachine.RegisterState<ShopState>(this);
+        }
 
-            while (!loadSceneAsync.isDone)
-                await UniTask.Yield();
-            
+        public void LateDispose()
+        {
+            _gameStatesMachine.UnRegisterState<ShopState>();
+        }
+
+        public void Enter()
+        {
             _shopService.StartWork();
 
             _shopUIPresenter = (ShopUIPresenter)_uiService.GetPresenter<ShopUIPresenter>();
             _shopUIPresenter.OnMenuClicked += HandleMenuClicked;
             
-            _analyticsManager.SendCustomEvent("ShopEnter", new Dictionary<string, object>(){{"Entered", true}});
+            _analyticsService.SendCustomEvent("ShopEnter", new Dictionary<string, object>(){{"Entered", true}});
         }
 
-        public override void Exit()
+        public void Exit()
         {
             _shopService.StopWork();
             _shopUIPresenter.OnMenuClicked -= HandleMenuClicked;
         }
 
-        private void HandleMenuClicked()
+        private async void HandleMenuClicked()
         {
-            _gameStatesSwitcher.SetState<MenuState>();
+            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.MENU_SCENE_NAME);
+
+            while (!loadSceneAsync.isDone)
+                await UniTask.Yield();
+            
+            _gameStatesMachine.SetState<MenuState>();
         }
     }
 }

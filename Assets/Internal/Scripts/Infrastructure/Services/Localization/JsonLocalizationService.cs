@@ -1,9 +1,10 @@
 ﻿using System;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Scripts.Infrastructure.Services.Localization
 {
-    public class JsonLocalizationService : ILocalizationService
+    public class JsonLocalizationService : ILocalizationService, IInitializable
     {
         private readonly JsonTranslator _jsonTranslator;
 

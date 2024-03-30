@@ -1,36 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Internal.Scripts.Infrastructure.GameStatesMachine.States;
-using Internal.Scripts.Infrastructure.Injection;
 using UnityEngine;
 
 namespace Internal.Scripts.Infrastructure.GameStatesMachine
 {
-    public class GameStatesMachine : IGameStatesSwitcher
+    public class GameStatesMachine : IGameStatesMachine
     {
-        private readonly Dictionary<Type, GameState> _gameStates;
-        private GameState _currentState;
+        private readonly Dictionary<Type, IGameState> _gameStates;
+        private IGameState _currentState;
 
-        public GameStatesMachine(ProjectDependencies dependencies)
+        public GameStatesMachine(IEnumerable<IGameState> states)
         {
-            _gameStates = new Dictionary<Type, GameState>()
-            {
-                { typeof(MenuState), new MenuState(this, dependencies.UiServiceInjector.Service) },
-                
-                { typeof(GamePlayState), new GamePlayState(this, 
-                    dependencies.GameplayEntities,
-                    dependencies.SpecialEffectsInjector.Service,
-                    dependencies.UiServiceInjector.Service,
-                    dependencies.PlayerProgressServiceInjector.Service,
-                    dependencies.SoundsServiceInjector.Service,
-                    dependencies.AdsManagerInjector.Service,
-                    dependencies.AnalyticsManagerInjector.Service) },
-                
-                { typeof(ShopState), new ShopState(this,
-                    dependencies.UiServiceInjector.Service,
-                    dependencies.ShopServiceInjector.Service,
-                    dependencies.AnalyticsManagerInjector.Service)}
-            };
+            _gameStates = states.ToDictionary(state => state.GetType());
         }
 
         public void Enter()
@@ -38,16 +21,26 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine
             SetState<MenuState>();
         }
 
-        public void SetState<T>() where T : GameState
+        public void SetState<T>() where T : IGameState
         {
             _currentState?.Exit();
-            if (_gameStates.TryGetValue(typeof(T), out GameState newState))
+            if (_gameStates.TryGetValue(typeof(T), out IGameState newState))
             {
                 _currentState = newState;
                 _currentState.Enter();
                 return;
             }
             Debug.LogError($"Game states dictionary miss {typeof(T)}");
+        }
+
+        public void RegisterState<T>(IGameState state) where T : IGameState
+        {
+            _gameStates.Add(typeof(T), state);
+        }
+
+        public void UnRegisterState<T>() where T : IGameState
+        {
+            _gameStates.Remove(typeof(T));
         }
 
         public void Dispose()

@@ -1,46 +1,40 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Internal.Scripts.Infrastructure.Services.Localization;
-using Internal.Scripts.Infrastructure.Services.ProgressService;
-using Internal.Scripts.Infrastructure.Services.Sound;
 using Internal.Scripts.Infrastructure.Services.UiService.Base;
 using Internal.Scripts.UI.GamePlay;
 using Internal.Scripts.UI.Menu;
 using Internal.Scripts.UI.ShopUI;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Scripts.Infrastructure.Services.UiService
 {
-    public class UIService : IUiService
+    public class UIService : IUiService, IInitializable
     {
         private readonly UiConfig _config;
-        private readonly IPlayerProgressService _playerProgressService;
-        private readonly ILocalizationService _localizationService;
-        private readonly ISoundsService _soundsService;
+        private readonly IInstantiator _instantiator;
         private readonly Dictionary<UIWindowType, IBaseUiView<BaseUIView>> _presenters = new();
+        
         private MenuUIPresenter _menuUiPresenter;
         private GameplayUIPresenter _gameplayUiPresenter;
         private ShopUIPresenter _shopUiPresenter;
 
         private Transform _root;
 
-        public UIService(UiConfig config, IPlayerProgressService playerProgressService,
-            ILocalizationService localizationService, ISoundsService soundsService)
+        public UIService(UiConfig config, IInstantiator instantiator)
         {
             _config = config;
-            _playerProgressService = playerProgressService;
-            _localizationService = localizationService;
-            _soundsService = soundsService;
+            _instantiator = instantiator;
         }
 
         public void Initialize()
         {
             _root = Object.Instantiate(_config.UIRootPrefab).transform;
             GameObject.DontDestroyOnLoad(_root);
-            
-            _menuUiPresenter = new MenuUIPresenter(_playerProgressService, _localizationService, _soundsService);
-            _gameplayUiPresenter = new GameplayUIPresenter(_soundsService);
-            _shopUiPresenter = new ShopUIPresenter(_localizationService, _soundsService);
+
+            _menuUiPresenter = _instantiator.Instantiate<MenuUIPresenter>();
+            _gameplayUiPresenter = _instantiator.Instantiate<GameplayUIPresenter>();
+            _shopUiPresenter = _instantiator.Instantiate<ShopUIPresenter>();
             
             // TODO: лист презенторов, ковариантность
             _presenters.Add(UIWindowType.MenuWindow, _menuUiPresenter);
@@ -50,7 +44,7 @@ namespace Internal.Scripts.Infrastructure.Services.UiService
             foreach (var (type, presenter) in _presenters)
             {
                 var viewPrefab = _config.AllWindowConfigs.First(x => x.Type == type).ViewPrefab;
-                var view = GameObject.Instantiate(viewPrefab, _root);
+                var view = _instantiator.InstantiatePrefab(viewPrefab, _root);
                 presenter.Initialize(view);
             }
         }

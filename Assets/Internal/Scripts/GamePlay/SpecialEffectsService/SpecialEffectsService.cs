@@ -2,12 +2,13 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Scripts.GamePlay.SpecialEffectsService
 {
-    public class SpecialEffectsService : ISpecialEffectsService
+    public class SpecialEffectsService : ISpecialEffectsService, IInitializable
     {
-        private const int TO_MILLISEC = 1000;
+        private const int TO_MS = 1000;
         private readonly SpecialEffectsConfig _config;
         private readonly Dictionary<SpecialEffectType, Stack<ParticleSystem>> _specialEffects = new();
 
@@ -36,7 +37,7 @@ namespace Internal.Scripts.GamePlay.SpecialEffectsService
             effect.transform.position = worldPos;
             effect.gameObject.SetActive(true);
             effect.Play();
-            await UniTask.Delay((int)(effect.main.duration * TO_MILLISEC));
+            await UniTask.Delay((int)(effect.main.duration * TO_MS));
             effect.gameObject.SetActive(false);
             _specialEffects[type].Push(effect);
         }

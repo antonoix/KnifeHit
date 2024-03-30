@@ -1,44 +1,70 @@
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.Infrastructure.Constants;
-using Internal.Scripts.Infrastructure.Services.Analytics;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.Menu;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 {
-    public class MenuState : GameState
+    public class MenuState : IGameState, IInitializable, ILateDisposable
     {
+        private readonly IGameStatesMachine _gameStatesMachine;
         private readonly IUiService _uiService;
         private MenuUIPresenter _menuUIPresenter;
-    
-        public MenuState(IGameStatesSwitcher gameStatesSwitcher, IUiService uiService) 
-            : base(gameStatesSwitcher)
+
+        public MenuState(IGameStatesMachine gameStatesMachine, IUiService uiService)
         {
+            _gameStatesMachine = gameStatesMachine;
             _uiService = uiService;
         }
 
-        public override async void Enter()
+        public void Initialize()
         {
-            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.MENU_SCENE_NAME);
+            _gameStatesMachine.RegisterState<MenuState>(this);
+        }
+
+        public void LateDispose()
+        {
+            _gameStatesMachine.UnRegisterState<MenuState>();
+        }
+
+        public void Enter()
+        {
+            _menuUIPresenter = (MenuUIPresenter) _uiService.GetPresenter<MenuUIPresenter>();
+            
+            _menuUIPresenter.Show();
+            _menuUIPresenter.OnStartBtnClicked += HandleStartBtnClick;
+            _menuUIPresenter.OnShopBtnClicked += HandleShopBtnClick;
+        }
+
+        public void Exit()
+        {
+            _menuUIPresenter.Hide();
+            
+            _menuUIPresenter.OnStartBtnClicked -= HandleStartBtnClick;
+            _menuUIPresenter.OnShopBtnClicked -= HandleShopBtnClick;
+        }
+
+        private async void HandleStartBtnClick()
+        {
+            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.GAMEPLAY_SCENE_NAME);
 
             while (!loadSceneAsync.isDone)
                 await UniTask.Yield();
             
-            _menuUIPresenter = (MenuUIPresenter) _uiService.GetPresenter<MenuUIPresenter>();
-            
-            _menuUIPresenter.Show();
-            _menuUIPresenter.OnStartBtnClicked += _gameStatesSwitcher.SetState<GamePlayState>;
-            _menuUIPresenter.OnShopBtnClicked += _gameStatesSwitcher.SetState<ShopState>;
+            _gameStatesMachine.SetState<GamePlayState>();
         }
 
-        public override void Exit()
+        private async void HandleShopBtnClick()
         {
-            _menuUIPresenter.Hide();
+            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.SHOP_SCENE_NAME);
+
+            while (!loadSceneAsync.isDone)
+                await UniTask.Yield();
             
-            _menuUIPresenter.OnStartBtnClicked -= _gameStatesSwitcher.SetState<GamePlayState>;
-            _menuUIPresenter.OnShopBtnClicked -= _gameStatesSwitcher.SetState<ShopState>;
+            _gameStatesMachine.SetState<ShopState>();
         }
     }
 }

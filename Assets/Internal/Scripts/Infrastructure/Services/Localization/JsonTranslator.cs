@@ -23,7 +23,7 @@ namespace Internal.Scripts.Infrastructure.Services.Localization
             _localization  = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(localizationJson);
 
             if (_localization == null)
-                throw new Exception("Cant parse localization JSON");
+                throw new Exception("Cant parse localization JSON in Resources");
         }
 
         public string GetTranslation(LocalizationKeys key)

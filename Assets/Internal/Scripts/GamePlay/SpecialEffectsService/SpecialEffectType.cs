@@ -3,6 +3,8 @@
     public enum SpecialEffectType
     {
         EnemyResurrection,
-        CloudyExplosion
+        CloudyExplosion,
+        BuySparkles,
+        CoinsFountain,
     }
 }

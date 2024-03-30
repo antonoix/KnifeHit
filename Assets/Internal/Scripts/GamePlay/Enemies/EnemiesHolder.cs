@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Internal.Scripts.GamePlay.SpecialEffectsService;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,7 +14,7 @@ namespace Internal.Scripts.GamePlay.Enemies
         public int RewardForEnemies { get; private set; }
         public int EnemiesCount { get; private set; }
 
-        public void Initialize(ISpecialEffectsService specialEffectsService)
+        public void Awake()
         {
             _packsQueue = new Queue<EnemiesPack>();
 
@@ -23,7 +22,6 @@ namespace Internal.Scripts.GamePlay.Enemies
             {
                 foreach (var enemy in pack.AliveEnemies)
                 {
-                    enemy.Initialize(specialEffectsService);
                     RewardForEnemies += enemy.RewardCoinsCount;
                     EnemiesCount++;
                 }

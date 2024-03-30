@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -5,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Destroyable;
 using Internal.Scripts.GamePlay.SpecialEffectsService;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Scripts.GamePlay.Enemies
 {
@@ -32,10 +34,14 @@ namespace Internal.Scripts.GamePlay.Enemies
         private Rigidbody Rigidbody => _rigidbody ??= GetComponent<Rigidbody>();
         private List<Rigidbody> Rigidbodies => _rigidbodies ??= GetComponentsInChildren<Rigidbody>().ToList();
 
-        public void Initialize(ISpecialEffectsService specialEffectsService)
+        [Inject]
+        private void Construct(ISpecialEffectsService specialEffectsService)
         {
             _specialEffectsService = specialEffectsService;
-            envDestroyer.Construct(_specialEffectsService);
+        }
+
+        private void Start()
+        {
             _health = config.Health;
         }
 

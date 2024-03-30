@@ -4,8 +4,6 @@ namespace Internal.Scripts.Infrastructure.Services.UiService
 {
     public interface IUiService : IService
     {
-        void Initialize();
-
         IBaseUiView<BaseUIView> GetPresenter<T>() where T : IBaseUiView<BaseUIView>;
     }
 }

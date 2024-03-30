@@ -1,6 +1,11 @@
+using System;
+using System.Linq;
+using Internal.Scripts.Infrastructure.Factory;
+using Internal.Scripts.Infrastructure.Injection;
 using Internal.Scripts.Infrastructure.Services.ProgressService;
 using Internal.Scripts.Infrastructure.Services.Sound;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Scripts.GamePlay.TheMainHero.Combat
 {
@@ -10,16 +15,25 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
         [SerializeField] private LayerMask enemyHipsMask;
 
         private Projectile _projectilePrefab;
+        private LevelFactoryConfig _levelFactoryConfig;
         private ISoundsService _soundsService;
+        private IPlayerProgressService _playerProgressService;
         private Camera _mainCamera;
         private float _lastShootTime;
 
         private Camera MainCamera => _mainCamera ??= Camera.main;
 
-        public void Construct(ISoundsService soundsService, Projectile projectilePrefab)
+        [Inject]
+        private void Construct(ISoundsService soundsService, LevelFactoryConfig levelFactoryConfig, IPlayerProgressService playerProgressService)
         {
             _soundsService = soundsService;
-            _projectilePrefab = projectilePrefab;
+            _levelFactoryConfig = levelFactoryConfig;
+            _playerProgressService = playerProgressService;
+        }
+
+        private void Start()
+        {
+            _projectilePrefab = _levelFactoryConfig.AllProjectiles.FirstOrDefault(x => x.Type == _playerProgressService.GetCurrentSelectedWeapon());
         }
 
         public void Shoot(Vector2 screenPosition)

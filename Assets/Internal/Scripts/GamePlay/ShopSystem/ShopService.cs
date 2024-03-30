@@ -1,14 +1,15 @@
-﻿using Internal.Scripts.GamePlay.Context;
+﻿using Internal.Scripts.Infrastructure.Factory;
 using Internal.Scripts.Infrastructure.Services.ProgressService;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.ShopUI;
+using Zenject;
 
 namespace Internal.Scripts.GamePlay.ShopSystem
 {
-    public class ShopService : IShopService
+    public class ShopService : IShopService, IInitializable
     {
         private readonly IUiService _uiService;
-        private readonly ShopContextFactory _shopContextFactory;
+        private readonly ShopFactory _shopFactory;
         private readonly IPlayerProgressService _playerProgressService;
         private ShopContext _shopContext;
         private ShopUIPresenter _shopUIPresenter;
@@ -16,21 +17,21 @@ namespace Internal.Scripts.GamePlay.ShopSystem
         private int _currentShopItemIndex;
         private ShopItem CurrentShopItem => _shopContext.ShopItems[_currentShopItemIndex];
 
-        public ShopService(IUiService uiService, ShopContext shopContext, IPlayerProgressService playerProgressService)
+        public ShopService(IUiService uiService, ShopFactory shopFactory, IPlayerProgressService playerProgressService)
         {
             _uiService = uiService;
-            _shopContextFactory = new ShopContextFactory(shopContext);
+            _shopFactory = shopFactory;
             _playerProgressService = playerProgressService;
         }
 
-        public void Init()
+        public void Initialize()
         {
             _shopUIPresenter = (ShopUIPresenter) _uiService.GetPresenter<ShopUIPresenter>();
         }
 
         public void StartWork()
         {
-            _shopContext = _shopContextFactory.InstantiateShopContext();
+            _shopContext = _shopFactory.InstantiateShopContext();
             
             FocusCurrentWeapon();
 

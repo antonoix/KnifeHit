@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Internal.Scripts.Infrastructure.Services.Sound;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Internal.Scripts.UI.GamePlay
 {
@@ -15,28 +17,39 @@ namespace Internal.Scripts.UI.GamePlay
         [SerializeField] private Button toMenuButton;
         [SerializeField] private List<GameObject> stars;
 
+        private ISoundsService _soundsService;
+        private Sequence _showAnim;
+
         public event Action OnNextBtnClick;
         public event Action OnMenuBtnClick;
 
+        [Inject]
+        private void Construct(ISoundsService soundsService)
+        {
+            _soundsService = soundsService;
+        }
+
         public void Show(GameplayResult result)
         {
+            _showAnim?.Kill();
+            
             transform.localScale = Vector3.zero;
-            transform.DOScale(Vector3.one, 0.5f);
-            var textAnim = DOTween.Sequence();
-            textAnim.Append(DOTween
-                .To(value => coinsReward.text = $"{value:f0}<sprite=0>", 0, result.CoinsCount, 2));
-            textAnim.Join(DOTween
-                .To(value => starsReward.text = $"{value:f0}<sprite=0>", 0, result.StarsCount, 2));
-
             foreach (var star in stars) 
                 star.transform.localScale = Vector3.zero;
-            var starsAnim = DOTween.Sequence();
-            for (int i = 0; i < result.StarsCount; i++)
-            {
-                starsAnim.Append(stars[i].transform.DOScale(Vector3.one, 0.8f).SetEase(Ease.InOutBack));
-            }
             
+            _showAnim = DOTween.Sequence();
+            _showAnim.Append(transform.DOScale(Vector3.one, 0.5f));
+            
+            for (int i = 0; i < result.StarsCount; i++)
+                _showAnim.Append(stars[i].transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack));
+
+            _showAnim.Append(DOTween
+                .To(value => coinsReward.text = $"{value:f0}<sprite=0>", 0, result.CoinsCount, 2));
+            _showAnim.Join(DOTween
+                .To(value => starsReward.text = $"{value:f0}<sprite=0>", 0, result.StarsCount, 2));
+
             gameObject.SetActive(true);
+            _soundsService.PlaySound(SoundType.Zajebaty);
         }
 
         public void Hide()

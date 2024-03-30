@@ -10,6 +10,7 @@ using Internal.Scripts.Infrastructure.Input;
 using Internal.Scripts.Infrastructure.Services.Sound;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 namespace Internal.Scripts.GamePlay.TheMainHero
 {
@@ -20,7 +21,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
         [SerializeField] private new MainHeroCamera camera;
         [SerializeField] private EnvDestroyer destroyer;
         
-        private InputService _playerInputService;
+        private IInputService _playerInputService;
         private CancellationTokenSource _cancellation;
         
         public Transform Transform => transform;
@@ -29,14 +30,15 @@ namespace Internal.Scripts.GamePlay.TheMainHero
         
         public event Action OnKilled;
 
-        public void Setup(InputService inputService, ISpecialEffectsService specialEffectsService,
-            ISoundsService soundsService, Projectile projectile)
+        [Inject]
+        private void Construct(IInputService inputService)
         {
             _playerInputService = inputService;
-            inputService.OnClicked += Shoot;
-            
-            destroyer.Construct(specialEffectsService);
-            combat.Construct(soundsService, projectile);
+        }
+
+        private void Start()
+        {
+            _playerInputService.OnClicked += Shoot;
         }
 
         private void OnDestroy()

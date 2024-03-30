@@ -17,3 +17,7 @@ MonoBehaviour:
     <SpecialEffectPrefab>k__BackingField: {fileID: 19816416, guid: 96a96c08c36361544affb3c783e0056e, type: 3}
   - <Type>k__BackingField: 1
     <SpecialEffectPrefab>k__BackingField: {fileID: 19855650, guid: 437c4cac1f65d32428104b1a687269ff, type: 3}
+  - <Type>k__BackingField: 2
+    <SpecialEffectPrefab>k__BackingField: {fileID: 19849778, guid: 0e5ef80beee6f234b9b27568218dbaf1, type: 3}
+  - <Type>k__BackingField: 3
+    <SpecialEffectPrefab>k__BackingField: {fileID: 19865234, guid: 5a3799b600abe864c951d14b93a92752, type: 3}

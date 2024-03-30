@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using Internal.Scripts.GamePlay.ShopSystem;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Scripts.Infrastructure.Services.ProgressService
 {
-    public class PlayerPrefsProgressService : IPlayerProgressService
+    public class PlayerPrefsProgressService : IPlayerProgressService, IInitializable
     {
         private const string PLAYER_COINS_KEY = "PlayerCoins";
         private const string PLAYER_PASSED_LEVEL_COUNT_KEY = "PlayerPassedLevelCount";

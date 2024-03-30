@@ -1,80 +1,29 @@
-using Internal.Scripts.GamePlay.ShopSystem;
-using Internal.Scripts.GamePlay.SpecialEffectsService;
+using Cysharp.Threading.Tasks;
+using Internal.Scripts.Infrastructure.Constants;
 using Internal.Scripts.Infrastructure.GameStatesMachine;
-using Internal.Scripts.Infrastructure.Injection;
-using Internal.Scripts.Infrastructure.Services.Ads;
-using Internal.Scripts.Infrastructure.Services.Analytics;
-using Internal.Scripts.Infrastructure.Services.Localization;
-using Internal.Scripts.Infrastructure.Services.ProgressService;
-using Internal.Scripts.Infrastructure.Services.Sound;
-using Internal.Scripts.Infrastructure.Services.UiService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Zenject;
 
 public class GameBootstrap : MonoBehaviour
 {
-    [SerializeField] private ProjectDependencies projectDependencies;
-    
-    private GameStatesMachine _gameStatesMachine;
-    
-    private SpecialEffectsInjector _specialEffectsInjector;
-    private UiServiceInjector _uiServiceInjector;
-    private PlayerProgressServiceInjector _playerProgressInjector;
-    private LocalizationServiceInjector _localizationServiceInjector;
-    private SoundsServiceInjector _soundsServiceInjector;
-    private ShopServiceInjector _shopServiceInjector;
-    private AdsManagerInjector _adsManagerInjector;
-    private AnalyticsManagerInjector _analyticsManagerInjector;
+    private IGameStatesMachine _gameStatesMachine;
 
-    private void Awake()
+    [Inject]
+    private void Construct(IGameStatesMachine gameStatesMachine)
+    {
+        _gameStatesMachine = gameStatesMachine;
+    }
+    
+    private async void Start()
     {
         DontDestroyOnLoad(this);
         
-        _specialEffectsInjector = projectDependencies.SpecialEffectsInjector;
-        _uiServiceInjector = projectDependencies.UiServiceInjector;
-        _playerProgressInjector = projectDependencies.PlayerProgressServiceInjector;
-        _localizationServiceInjector = projectDependencies.LocalizationServiceInjector;
-        _soundsServiceInjector = projectDependencies.SoundsServiceInjector;
-        _shopServiceInjector = projectDependencies.ShopServiceInjector;
-        _adsManagerInjector = projectDependencies.AdsManagerInjector;
-        _analyticsManagerInjector = projectDependencies.AnalyticsManagerInjector;
+        AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.MENU_SCENE_NAME);
 
-        ResolveDependencies();
-        InitializeServices();
-
-        _gameStatesMachine = new GameStatesMachine(projectDependencies);
-        _gameStatesMachine.Enter();
-    }
-
-    private void ResolveDependencies()
-    {
-        _specialEffectsInjector.Create();
-        _localizationServiceInjector.Create();
-        _playerProgressInjector.Create();
-        _soundsServiceInjector.Create();
-        _adsManagerInjector.Create();
-        _analyticsManagerInjector.Create();
-
-        _uiServiceInjector.Construct(_playerProgressInjector.Service, _localizationServiceInjector.Service, _soundsServiceInjector.Service);
-        _uiServiceInjector.Create();
+        while (!loadSceneAsync.isDone)
+            await UniTask.Yield();
         
-        _shopServiceInjector.Construct(_uiServiceInjector.Service, projectDependencies.ShopContext, _playerProgressInjector.Service);
-        _shopServiceInjector.Create();
-    }
-
-    private void InitializeServices()
-    {
-        _specialEffectsInjector.Initialize();
-        _playerProgressInjector.Initialize();
-        _localizationServiceInjector.Initialize();
-        _uiServiceInjector.Initialize();
-        _soundsServiceInjector.Initialize();
-        _shopServiceInjector.Initialize();
-        _adsManagerInjector.Initialize();
-        _analyticsManagerInjector.Initialize();
-    }
-
-    private void OnDestroy()
-    {
-        //_gameStatesMachine.Dispose();
+        _gameStatesMachine.Enter();
     }
 }

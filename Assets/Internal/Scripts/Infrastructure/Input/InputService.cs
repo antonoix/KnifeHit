@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 namespace Internal.Scripts.Infrastructure.Input
 {
-    public class InputService : IDisposable
+    public class InputService : IInitializable, ILateDisposable, IInputService
     {
         private readonly PlayerInputMap _playerMap;
         
@@ -20,13 +21,13 @@ namespace Internal.Scripts.Infrastructure.Input
             _playerMap.Enable();
             _playerMap.Player.Click.started += HandleClick;
         }
-        
-        public void Dispose()
+
+        public void LateDispose()
         {
             _playerMap.Disable();
             _playerMap.Player.Click.started -= HandleClick;
         }
-        
+
         public Vector2 GetPointerPosition()
         {
             return _playerMap.Player.PointerPosition.ReadValue<Vector2>();

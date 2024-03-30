@@ -1,5 +1,6 @@
 using Internal.Scripts.GamePlay.SpecialEffectsService;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Internal.Scripts.GamePlay.Destroyable
@@ -19,7 +20,8 @@ namespace Internal.Scripts.GamePlay.Destroyable
             transform.parent = null;
         }
 
-        public void Construct(ISpecialEffectsService specialEffectsService)
+        [Inject]
+        private void Construct(ISpecialEffectsService specialEffectsService)
         {
             _specialEffects = specialEffectsService;
         }

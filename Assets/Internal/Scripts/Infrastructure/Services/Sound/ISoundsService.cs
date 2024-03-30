@@ -2,7 +2,6 @@
 {
     public interface ISoundsService : IService
     {
-        void Initialize();
         void PlaySound(SoundType soundType);
     }
 }

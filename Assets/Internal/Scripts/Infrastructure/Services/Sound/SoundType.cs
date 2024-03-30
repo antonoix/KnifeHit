@@ -4,6 +4,7 @@
     {
         ButtonClick,
         Throw,
-        Cash
+        Cash,
+        Zajebaty
     }
 }

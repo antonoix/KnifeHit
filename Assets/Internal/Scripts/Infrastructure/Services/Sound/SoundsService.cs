@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Scripts.Infrastructure.Services.Sound
 {
-    public class SoundsService : ISoundsService
+    public class SoundsService : ISoundsService, IInitializable
     {
+        private const string ROOT_NAME = "Sound";
+        
         private readonly SoundsConfig _config;
         private readonly Dictionary<SoundType, AudioSource> _soundTypeAndSources = new();
 
@@ -15,7 +18,7 @@ namespace Internal.Scripts.Infrastructure.Services.Sound
         
         public void Initialize()
         {
-            var root = Object.Instantiate(new GameObject("Sound"));
+            var root = Object.Instantiate(new GameObject(ROOT_NAME));
             Object.DontDestroyOnLoad(root);
 
             foreach (var audioSet in _config.AudioSets)
