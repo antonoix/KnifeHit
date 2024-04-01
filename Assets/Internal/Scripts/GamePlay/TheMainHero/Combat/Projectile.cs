@@ -10,7 +10,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
     {
         private const int DEGREES_IN_TURNOVER = 360;
 
-        public ShopItemType Type;
+        public WeaponType Type;
         [SerializeField] private int damage = 40;
         [SerializeField] private int speedMeterPerSec = 15;
         private Rigidbody _body;

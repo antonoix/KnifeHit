@@ -1,6 +1,6 @@
 ﻿namespace Internal.Scripts.GamePlay.ShopSystem
 {
-    public enum ShopItemType
+    public enum WeaponType
     {
         Axe,
         Pickaxe,

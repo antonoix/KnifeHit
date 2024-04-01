@@ -11,9 +11,9 @@ namespace Internal.Scripts.Infrastructure.Services.ProgressService
         int GetCoinsCount();
         void IncreasePassedLevel();
         int GetPassedLevelsCount();
-        ShopItemType GetCurrentSelectedWeapon();
-        List<ShopItemType> GetAllAvailableWeapons();
-        void AddAvailableWeapon(ShopItemType type);
-        void SetCurrentSelectedWeapon(ShopItemType type);
+        WeaponType GetCurrentSelectedWeapon();
+        List<WeaponType> GetAllAvailableWeapons();
+        void AddAvailableWeapon(WeaponType type);
+        void SetCurrentSelectedWeapon(WeaponType type);
     }
 }

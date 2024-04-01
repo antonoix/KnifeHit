@@ -16,10 +16,10 @@ namespace Internal.Scripts.Infrastructure.Services.ProgressService
         {
             if (!PlayerPrefs.HasKey(PLAYER_WEAPON_KEY))
             {
-                PlayerPrefs.SetString(PLAYER_WEAPON_KEY, ShopItemType.Axe.ToString());
+                PlayerPrefs.SetString(PLAYER_WEAPON_KEY, WeaponType.Axe.ToString());
             }
             
-            PlayerPrefs.SetInt(ShopItemType.Axe.ToString(), 1);
+            PlayerPrefs.SetInt(WeaponType.Axe.ToString(), 1);
         }
 
         public int GetCoinsCount()
@@ -28,33 +28,33 @@ namespace Internal.Scripts.Infrastructure.Services.ProgressService
         public int GetPassedLevelsCount()
             => PlayerPrefs.GetInt(PLAYER_PASSED_LEVEL_COUNT_KEY);
 
-        public void AddAvailableWeapon(ShopItemType type)
+        public void AddAvailableWeapon(WeaponType type)
         {
             PlayerPrefs.SetInt(type.ToString(), 1);
         }
 
-        public void SetCurrentSelectedWeapon(ShopItemType type)
+        public void SetCurrentSelectedWeapon(WeaponType type)
         {
             PlayerPrefs.SetString(PLAYER_WEAPON_KEY, type.ToString());
         }
 
-        public ShopItemType GetCurrentSelectedWeapon()
+        public WeaponType GetCurrentSelectedWeapon()
         {
             if (PlayerPrefs.HasKey(PLAYER_WEAPON_KEY))
             {
-                if (Enum.TryParse(PlayerPrefs.GetString(PLAYER_WEAPON_KEY), out ShopItemType shopItem))
+                if (Enum.TryParse(PlayerPrefs.GetString(PLAYER_WEAPON_KEY), out WeaponType shopItem))
                 {
                     return shopItem;
                 }
             }
 
-            return ShopItemType.Axe;
+            return WeaponType.Axe;
         }
 
-        public List<ShopItemType> GetAllAvailableWeapons()
+        public List<WeaponType> GetAllAvailableWeapons()
         {
-            List<ShopItemType> availableWeapons = new();
-            foreach (ShopItemType shopItem in Enum.GetValues(typeof(ShopItemType)))
+            List<WeaponType> availableWeapons = new();
+            foreach (WeaponType shopItem in Enum.GetValues(typeof(WeaponType)))
             {
                 if (PlayerPrefs.GetInt(shopItem.ToString()) == 1)
                     availableWeapons.Add(shopItem);
