@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEditor;
+using InternalAssets.Scripts.Data.PlayerData.PlayerResources;
 
 namespace Internal.Scripts.Infrastructure.PlayerProgressService
 {

@@ -1,7 +1,7 @@
 ﻿using Internal.Scripts.Infrastructure.Input;
+using Internal.Scripts.Infrastructure.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.Analytics;
 using Internal.Scripts.Infrastructure.Services.Localization;
-using Internal.Scripts.Infrastructure.Services.ProgressService;
 using UnityEngine;
 using Zenject;
 
@@ -12,9 +12,9 @@ namespace Internal.Scripts.Infrastructure.Injection
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<CustomUnityAnalyticsService>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<JsonLocalizationService>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerPrefsProgressService>().AsSingle();
+            Container.BindInterfacesTo<CustomUnityAnalyticsService>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<JsonLocalizationService>().AsSingle();
+            Container.BindInterfacesTo<SaveLoadService>().AsSingle();
             Container.BindInterfacesTo<InputService>().AsSingle();
         }
     }

@@ -1,8 +1,6 @@
-using System;
 using System.Linq;
 using Internal.Scripts.Infrastructure.Factory;
-using Internal.Scripts.Infrastructure.Injection;
-using Internal.Scripts.Infrastructure.Services.ProgressService;
+using Internal.Scripts.Infrastructure.PlayerProgressService;
 using Internal.Scripts.Infrastructure.Services.Sound;
 using UnityEngine;
 using Zenject;
@@ -17,14 +15,14 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
         private Projectile _projectilePrefab;
         private LevelFactoryConfig _levelFactoryConfig;
         private ISoundsService _soundsService;
-        private IPlayerProgressService _playerProgressService;
+        private IPersistentProgressService _playerProgressService;
         private Camera _mainCamera;
         private float _lastShootTime;
 
         private Camera MainCamera => _mainCamera ??= Camera.main;
 
         [Inject]
-        private void Construct(ISoundsService soundsService, LevelFactoryConfig levelFactoryConfig, IPlayerProgressService playerProgressService)
+        private void Construct(ISoundsService soundsService, LevelFactoryConfig levelFactoryConfig, IPersistentProgressService playerProgressService)
         {
             _soundsService = soundsService;
             _levelFactoryConfig = levelFactoryConfig;
@@ -33,7 +31,8 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
 
         private void Start()
         {
-            _projectilePrefab = _levelFactoryConfig.AllProjectiles.FirstOrDefault(x => x.Type == _playerProgressService.GetCurrentSelectedWeapon());
+            _projectilePrefab = _levelFactoryConfig.AllProjectiles.FirstOrDefault(
+                x => x.Type == _playerProgressService.PlayerProgress.PlayerState.GetCurrentWeaponType());
         }
 
         public void Shoot(Vector2 screenPosition)

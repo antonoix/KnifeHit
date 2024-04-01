@@ -45,7 +45,7 @@ namespace Internal.Scripts.UI.ShopUI
             SetClickable(!isSelected);
         }
 
-        public void SetBuyState(int cost, bool canBuy)
+        public void SetBuyState(long cost, bool canBuy)
         {
             buyStateRoot.SetActive(true);
             selectStateRoot.SetActive(false);

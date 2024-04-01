@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.GamePlay.TheMainHero;
-using Internal.Scripts.Infrastructure.Constants;
 using Internal.Scripts.Infrastructure.Factory;
-using Internal.Scripts.Infrastructure.Injection;
-using Internal.Scripts.Infrastructure.Input;
+using Internal.Scripts.Infrastructure.PlayerProgressService;
+using Internal.Scripts.Infrastructure.ResourceService;
+using Internal.Scripts.Infrastructure.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.Ads;
 using Internal.Scripts.Infrastructure.Services.Analytics;
-using Internal.Scripts.Infrastructure.Services.ProgressService;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.GamePlay;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -25,7 +22,8 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         private readonly LevelFactoryConfig _levelFactoryConfig;
         private readonly IGameStatesMachine _gameStatesMachine;
         private readonly IUiService _uiService;
-        private readonly IPlayerProgressService _playerProgressService;
+        private readonly IPersistentProgressService _playerProgressService;
+        private readonly ISaveLoadService _saveLoadService;
         private readonly IAdsService _adsService;
         private readonly IAnalyticsService _analyticsService;
         private GameplayUIPresenter _gameplayUiPresenter;
@@ -37,7 +35,8 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             LevelFactory levelFactory,
             LevelFactoryConfig levelFactoryConfig,
             IUiService uiService,
-            IPlayerProgressService playerProgressService,
+            IPersistentProgressService playerProgressService,
+            ISaveLoadService saveLoadService,
             IAdsService adsService,
             IAnalyticsService analyticsService)
         {
@@ -49,6 +48,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             
             _uiService = uiService;
             _playerProgressService = playerProgressService;
+            _saveLoadService = saveLoadService;
         }
 
         public void Initialize()
@@ -109,7 +109,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 
         private int GetLevelIndex()
         {
-            var index = _playerProgressService.GetPassedLevelsCount();
+            var index = _playerProgressService.PlayerProgress.PlayerState.LastCompletedLevelIndex;
             if (index >= 0 && index < _levelFactoryConfig.LevelContexts.Length)
             {
                 return index;
@@ -123,8 +123,12 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             float resultPercent = _enemiesHolder.EnemiesCount * 3.5f / _hero.ShotsCount;
             int starsCount = (int)Math.Round(resultPercent / 0.33f);
             _gameplayUiPresenter.ShowWinPanel(_enemiesHolder.RewardForEnemies, starsCount);
-            _playerProgressService.IncreasePassedLevel();
-            _playerProgressService.AddCoins(_enemiesHolder.RewardForEnemies);
+            
+            _playerProgressService.PlayerProgress.PlayerState.IncreasePassedLevel();
+            _playerProgressService.PlayerProgress.ResourcePack[ResourceType.Coin].Value += _enemiesHolder.RewardForEnemies;
+            _playerProgressService.PlayerProgress.ResourcePack[ResourceType.Star].Value += starsCount;
+            
+            _saveLoadService.SaveProgress();
 
             _analyticsService.SendCustomEvent("GameplayResult", new Dictionary<string, object>(){{"Win", true}});
         }

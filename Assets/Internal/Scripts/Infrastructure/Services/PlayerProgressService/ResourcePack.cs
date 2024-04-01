@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Internal.Scripts.Infrastructure.ResourceService;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace Internal.Scripts.Infrastructure.PlayerProgressService
+namespace InternalAssets.Scripts.Data.PlayerData.PlayerResources
 {
     [Serializable]
     public class ResourcePack : IEnumerable<Resource>
@@ -14,6 +15,12 @@ namespace Internal.Scripts.Infrastructure.PlayerProgressService
         [SerializeField] private SerializedDictionary<ResourceType, Resource> items = new SerializedDictionary<ResourceType, Resource>();
         
         public Dictionary<ResourceType, Resource> Items => items;
+
+        /// <summary>
+        /// Количество объектов с положительным значением
+        /// </summary>
+        public int Count => 
+            items.Values.Count(r => r.IsNotEmpty);
 
         public event System.Action<ResourceType, long> OnChanged;
 
@@ -58,6 +65,14 @@ namespace Internal.Scripts.Infrastructure.PlayerProgressService
         public void Set(Resource item)
         {
             Get(item.Key).Value = item.Value;
+        }
+
+        /// <summary>
+        /// Проверка есть ли ресурс в наличие
+        /// </summary>
+        public bool Contains(ResourceType key)
+        {
+            return Get(key).IsNotEmpty;
         }
 
         /// <summary>
@@ -150,6 +165,24 @@ namespace Internal.Scripts.Infrastructure.PlayerProgressService
             
             items.Add(item.Key, item);
             items[item.Key].OnChanged += (long value) => OnChanged?.Invoke(item.Key, value);
+        }
+
+        /// <summary>
+        /// Перезаписать текущий новым
+        /// </summary>
+        public void RewriteAll(ResourcePack newPack)
+        {
+            foreach (var item in this)
+            {
+                if (!newPack.Contains(item.Key))
+                {
+                    item.Value = 0;
+                }
+            }
+            foreach (var item in newPack)
+            {
+                Get(item.Key).Value = item.Value;
+            }
         }
 
         /// <summary>

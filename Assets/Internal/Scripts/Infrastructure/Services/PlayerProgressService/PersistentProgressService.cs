@@ -1,11 +1,5 @@
 ﻿namespace Internal.Scripts.Infrastructure.PlayerProgressService
 {
-    public interface IPersistentProgressService
-    {
-        PlayerProgress PlayerProgress { get; set; }
-        void InitNewProgress();
-    }
-
     public class PersistentProgressService : IPersistentProgressService
     {
         private readonly Settings _settings;

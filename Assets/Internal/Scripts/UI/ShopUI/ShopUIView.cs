@@ -63,12 +63,12 @@ namespace Internal.Scripts.UI.ShopUI
             buyBtn.SetSelectState(isSelected);
         }
 
-        public void SetBuyState(int cost, bool canBuy)
+        public void SetBuyState(long cost, bool canBuy)
         {
             buyBtn.SetBuyState(cost, canBuy);
         }
 
-        public void SetCurrentCoins(int count)
+        public void SetCurrentCoins(long count)
         {
             currentCoins.text = $"{count}<sprite=0>";
         }

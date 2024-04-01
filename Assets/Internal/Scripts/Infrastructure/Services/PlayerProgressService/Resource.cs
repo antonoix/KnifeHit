@@ -21,6 +21,7 @@ namespace Internal.Scripts.Infrastructure.ResourceService
                 OnChanged?.Invoke(_value);
             }
         }
+        public bool IsNotEmpty => Value > 0;
         
         public event Action<long> OnChanged;
         

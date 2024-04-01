@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Internal.Scripts.Infrastructure.PlayerProgressService
 {
-    [CreateAssetMenu(menuName = "Config/Installers/PlayerProgressInstaller", fileName = nameof(PlayerProgressInstaller))]
+    [CreateAssetMenu(menuName = "Installers/PlayerProgressInstaller", fileName = nameof(PlayerProgressInstaller))]
     public class PlayerProgressInstaller : ScriptableObjectInstaller<PlayerProgressInstaller>
     {
         [SerializeField] private Settings settings;

@@ -40,7 +40,7 @@ namespace Internal.Scripts.UI.Menu
             return base.Hide();
         }
         
-        public void SetCurrentCoins(int count)
+        public void SetCurrentCoins(long count)
         {
             coinsCountText.text = $"{count}<sprite=0>";
         }

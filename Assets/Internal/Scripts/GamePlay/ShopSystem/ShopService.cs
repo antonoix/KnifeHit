@@ -1,5 +1,6 @@
 ﻿using Internal.Scripts.Infrastructure.Factory;
-using Internal.Scripts.Infrastructure.Services.ProgressService;
+using Internal.Scripts.Infrastructure.PlayerProgressService;
+using Internal.Scripts.Infrastructure.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.ShopUI;
 using Zenject;
@@ -10,18 +11,20 @@ namespace Internal.Scripts.GamePlay.ShopSystem
     {
         private readonly IUiService _uiService;
         private readonly ShopFactory _shopFactory;
-        private readonly IPlayerProgressService _playerProgressService;
+        private readonly IPersistentProgressService _playerProgressService;
+        private readonly ISaveLoadService _saveLoadService;
         private ShopContext _shopContext;
         private ShopUIPresenter _shopUIPresenter;
 
         private int _currentShopItemIndex;
         private ShopItem CurrentShopItem => _shopContext.ShopItems[_currentShopItemIndex];
 
-        public ShopService(IUiService uiService, ShopFactory shopFactory, IPlayerProgressService playerProgressService)
+        public ShopService(IUiService uiService, ShopFactory shopFactory, IPersistentProgressService playerProgressService, ISaveLoadService saveLoadService)
         {
             _uiService = uiService;
             _shopFactory = shopFactory;
             _playerProgressService = playerProgressService;
+            _saveLoadService = saveLoadService;
         }
 
         public void Initialize()
@@ -46,7 +49,7 @@ namespace Internal.Scripts.GamePlay.ShopSystem
 
         private void FocusCurrentWeapon()
         {
-            var selectedWeapon = _playerProgressService.GetCurrentSelectedWeapon();
+            var selectedWeapon = _playerProgressService.PlayerProgress.PlayerState.GetCurrentWeaponType();
             for (int i = 0; i < _shopContext.ShopItems.Length; i++)
             {
                 if (_shopContext.ShopItems[i].Type == selectedWeapon)
@@ -88,30 +91,35 @@ namespace Internal.Scripts.GamePlay.ShopSystem
 
         private void HandleBuyClicked()
         {
-            _playerProgressService.RemoveCoins(CurrentShopItem.Cost);
-            _playerProgressService.AddAvailableWeapon(CurrentShopItem.Type);
+            _playerProgressService.PlayerProgress.ResourcePack.Subtract(CurrentShopItem.ResourceCost);
+            _playerProgressService.PlayerProgress.PlayerState.TryAddNewWeapon(CurrentShopItem.Type);
+            
+            _saveLoadService.SaveProgress();
             
             UpdateUI();
         }
 
         private void HandleSelectClicked()
         {
-            _playerProgressService.SetCurrentSelectedWeapon(CurrentShopItem.Type);
+            _playerProgressService.PlayerProgress.PlayerState.SetCurrentWeapon(CurrentShopItem.Type);
+            
+            _saveLoadService.SaveProgress();
             
             UpdateUI();
         }
 
         private void UpdateUI()
         {
-            _shopUIPresenter.SetCurrentCoins(_playerProgressService.GetCoinsCount());
+            _shopUIPresenter.SetCurrentCoins(_playerProgressService.PlayerProgress.ResourcePack[0].Value);
             
-            if (_playerProgressService.GetAllAvailableWeapons().Contains(CurrentShopItem.Type))
+            if (_playerProgressService.PlayerProgress.PlayerState.IsWeaponAvailable(CurrentShopItem.Type))
             {
-                _shopUIPresenter.SetSelectState(_playerProgressService.GetCurrentSelectedWeapon() == CurrentShopItem.Type);
+                _shopUIPresenter.SetSelectState(_playerProgressService.PlayerProgress.PlayerState.GetCurrentWeaponType() == CurrentShopItem.Type);
             }
             else
             {
-                _shopUIPresenter.SetBuyState(CurrentShopItem.Cost, _playerProgressService.GetCoinsCount() >= CurrentShopItem.Cost);
+                _shopUIPresenter.SetBuyState(CurrentShopItem.ResourceCost.Value,
+                    _playerProgressService.PlayerProgress.ResourcePack.CheckEnoughPrice(CurrentShopItem.ResourceCost));
             }
         }
     }
