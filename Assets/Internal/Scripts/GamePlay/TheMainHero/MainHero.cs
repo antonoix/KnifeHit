@@ -6,6 +6,7 @@ using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.GamePlay.HeroRoute;
 using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.GamePlay.TheMainHero.Combat;
+using Internal.Scripts.Infrastructure.Factory;
 using Internal.Scripts.Infrastructure.Input;
 using Internal.Scripts.Infrastructure.Services.Sound;
 using UnityEngine;
@@ -51,6 +52,11 @@ namespace Internal.Scripts.GamePlay.TheMainHero
         public void TakeDamage(int damage)
         {
             OnKilled?.Invoke();
+        }
+
+        public void SetupNavMeshAgent(LevelContext level)
+        {
+            navAgent.agentTypeID = level.AgentTypeId;
         }
 
         public void SetPositionAndRotation(Transform reference)

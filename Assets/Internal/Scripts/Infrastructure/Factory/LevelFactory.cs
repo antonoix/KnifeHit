@@ -8,6 +8,8 @@ namespace Internal.Scripts.Infrastructure.Factory
     {
         private readonly IInstantiator _instantiator;
         private readonly LevelFactoryConfig _levelFactoryConfig;
+        
+        public LevelContext CreatedLevel { get; private set; }
 
         public LevelFactory(IInstantiator instantiator, LevelFactoryConfig levelFactoryConfig)
         {
@@ -17,10 +19,10 @@ namespace Internal.Scripts.Infrastructure.Factory
 
         public LevelContext CreateLevelContext(int levelIndex)
         {
-            var levelContext = _instantiator.InstantiatePrefabForComponent<LevelContext>(_levelFactoryConfig.LevelContexts[levelIndex]);
-            levelContext.transform.position = Vector3.zero;
+            CreatedLevel = _instantiator.InstantiatePrefabForComponent<LevelContext>(_levelFactoryConfig.LevelContexts[levelIndex]);
+            CreatedLevel.transform.position = Vector3.zero;
 
-            return levelContext;
+            return CreatedLevel;
         }
     
         public MainHero InstantiateHero()

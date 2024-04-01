@@ -97,7 +97,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             _enemiesHolder = levelContext.EnemiesHolder;
 
             _hero = _levelFactory.InstantiateHero();
-
+            _hero.SetupNavMeshAgent(_levelFactory.CreatedLevel);
             _hero.OnKilled += HandlePlayerLose;
 
             _heroConductor =
