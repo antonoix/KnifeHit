@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af418a96bb31468980b3213ab6e167bc, type: 3}
-  m_Name: PlayerProgressInstaller
+  m_Script: {fileID: 11500000, guid: 3a189bb168d8d90478a09ea08c2f3d72, type: 3}
+  m_Name: DefaultObject
   m_EditorClassIdentifier: 
-  settings:
-    DefaultWeaponType: 0
-    StartResources:
-    - _value: 20
-      Key: 0
-    - _value: 10
-      Key: 1
+  m_AddressableAssetSettingsGuid: 343ece835b2d07245b9b73ba076b879b

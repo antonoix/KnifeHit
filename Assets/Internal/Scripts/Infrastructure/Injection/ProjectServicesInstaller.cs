@@ -1,4 +1,5 @@
-﻿using Internal.Scripts.Infrastructure.Input;
+﻿using Internal.Scripts.Infrastructure.AssetManagement;
+using Internal.Scripts.Infrastructure.Input;
 using Internal.Scripts.Infrastructure.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.Analytics;
 using Internal.Scripts.Infrastructure.Services.Localization;
@@ -16,6 +17,7 @@ namespace Internal.Scripts.Infrastructure.Injection
             Container.BindInterfacesTo<JsonLocalizationService>().AsSingle();
             Container.BindInterfacesTo<SaveLoadService>().AsSingle();
             Container.BindInterfacesTo<InputService>().AsSingle();
+            Container.BindInterfacesTo<AddressablesAssetsProvider>().AsSingle();
         }
     }
 }

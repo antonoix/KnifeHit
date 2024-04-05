@@ -15,6 +15,10 @@ namespace Internal.Scripts.Infrastructure.PlayerProgressService
         public PlayerProgress(Settings settings)
         {
             ResourcePack = new ResourcePack();
+            foreach (var resource in settings.StartResources)
+            {
+                ResourcePack.Add(resource);
+            }
             ResourcePack.Add(settings.StartResources);
             PlayerState = new PlayerState(settings);
         }

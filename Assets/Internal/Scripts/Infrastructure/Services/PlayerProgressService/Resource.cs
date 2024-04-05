@@ -6,7 +6,7 @@ namespace Internal.Scripts.Infrastructure.ResourceService
     [Serializable]
     public class Resource
     {
-        [SerializeField]  private long _value;
+        [SerializeField] private long _value;
 
         public ResourceType Key;
 
@@ -16,15 +16,19 @@ namespace Internal.Scripts.Infrastructure.ResourceService
             set
             {
                 if (_value == value) return;
-                
+
                 _value = value;
                 OnChanged?.Invoke(_value);
             }
         }
+
         public bool IsNotEmpty => Value > 0;
-        
+
         public event Action<long> OnChanged;
-        
+
+        public Resource()
+        { }
+
         public Resource(ResourceType key, long value = 0)
         {
             Key = key;

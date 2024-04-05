@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Enemies
+  m_EditorClassIdentifier: 
+  m_GroupName: Enemies
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ff0c34f717f0d0c4b96d934729d0f503
+  m_SerializeEntries:
+  - m_GUID: f6f78d9aa9adad342add84723616f19d
+    m_Address: Enemy6 Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 781495ce103c67c4ab07958e393fd83b
+    m_Address: Enemy1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 305e85786d7ffe74bbef98aa2f804cf3
+    m_Address: Enemy11 Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8e87fb9bf4a03664d818feb8e24c4d8e
+    m_Address: Enemy13 Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: abc59109bfde43748b5e693e543e981c
+    m_Address: Enemy4 Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 05e45427b3f684548afc9b098f22ea17
+    m_Address: Enemy5 Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 912ff6d3108ed284fbbca04c683dfe8e
+    m_Address: Enemy3 Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a279b1f968a012845bd83ac1c1020bbe
+    m_Address: Enemy2 Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 317b6684f97a42a4a943c3e315326b7a
+    m_Address: Enemy10 Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a39553618f81a44c890590e73faed2a
+    m_Address: Enemy8 Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0cfdc06dc31e4f47a4e0e7eace5d554
+    m_Address: Enemy7 Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7fc0d2f87f1584e489cc08a6c6a328bd
+    m_Address: Enemy14Farm Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ecc9e1d6d4e423341860916a044c0892
+    m_Address: Enemy12 Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5afbccf372c4d0d4c8e079b1c5500470
+    m_Address: Enemy9 Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 343ece835b2d07245b9b73ba076b879b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5277e0baa584ad94894c29c17aa64f25, type: 2}
+    - {fileID: 11400000, guid: e41a7f4b62e48f94980822c6b1dff82f, type: 2}

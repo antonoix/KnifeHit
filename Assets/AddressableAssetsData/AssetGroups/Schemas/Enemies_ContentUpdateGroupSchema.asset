@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af418a96bb31468980b3213ab6e167bc, type: 3}
-  m_Name: PlayerProgressInstaller
+  m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
+  m_Name: Enemies_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  settings:
-    DefaultWeaponType: 0
-    StartResources:
-    - _value: 20
-      Key: 0
-    - _value: 10
-      Key: 1
+  m_Group: {fileID: 11400000, guid: 548325df09fa80544b68df493c7c3ce4, type: 2}
+  m_StaticContent: 0

@@ -1,5 +1,4 @@
-﻿using Internal.Scripts.Infrastructure.Injection;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Internal.Scripts.Infrastructure.Factory

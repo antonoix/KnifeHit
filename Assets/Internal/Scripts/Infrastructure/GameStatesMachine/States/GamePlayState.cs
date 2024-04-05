@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.GamePlay.TheMainHero;
+using Internal.Scripts.Infrastructure.Constants;
 using Internal.Scripts.Infrastructure.Factory;
 using Internal.Scripts.Infrastructure.PlayerProgressService;
 using Internal.Scripts.Infrastructure.ResourceService;
@@ -11,6 +12,8 @@ using Internal.Scripts.Infrastructure.Services.Ads;
 using Internal.Scripts.Infrastructure.Services.Analytics;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.GamePlay;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -18,6 +21,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 {
     public class GamePlayState : IGameState, IInitializable, ILateDisposable
     {
+        private const float ONE_STAR = 0.33f;
         private readonly LevelFactory _levelFactory;
         private readonly LevelFactoryConfig _levelFactoryConfig;
         private readonly IGameStatesMachine _gameStatesMachine;
@@ -86,14 +90,14 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 
         private void Work()
         {
-            InitGameWorld();
+            InitGameWorld().Forget();
             _adsService.LoadAd();
             _analyticsService.SendCustomEvent("Levels", new Dictionary<string, object>(){{"Level", GetLevelIndex()}});
         }
 
-        private void InitGameWorld()
+        private async UniTaskVoid InitGameWorld()
         {
-            var levelContext = _levelFactory.CreateLevelContext(GetLevelIndex());
+            var levelContext = await _levelFactory.CreateLevelContext(GetLevelIndex());
             _enemiesHolder = levelContext.EnemiesHolder;
 
             _hero = _levelFactory.InstantiateHero();
@@ -121,16 +125,20 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         private void HandlePlayerWin()
         {
             float resultPercent = _enemiesHolder.EnemiesCount * 3.5f / _hero.ShotsCount;
-            int starsCount = (int)Math.Round(resultPercent / 0.33f);
+            int starsCount = (int)Math.Round(resultPercent / ONE_STAR);
             _gameplayUiPresenter.ShowWinPanel(_enemiesHolder.RewardForEnemies, starsCount);
             
+            UpdateProgress(starsCount);
+
+            _analyticsService.SendCustomEvent("GameplayResult", new Dictionary<string, object>(){{"Win", true}});
+        }
+
+        private void UpdateProgress(int starsCount)
+        {
             _playerProgressService.PlayerProgress.PlayerState.IncreasePassedLevel();
             _playerProgressService.PlayerProgress.ResourcePack[ResourceType.Coin].Value += _enemiesHolder.RewardForEnemies;
             _playerProgressService.PlayerProgress.ResourcePack[ResourceType.Star].Value += starsCount;
-            
             _saveLoadService.SaveProgress();
-
-            _analyticsService.SendCustomEvent("GameplayResult", new Dictionary<string, object>(){{"Win", true}});
         }
 
         private async void HandlePlayerLose()
@@ -145,20 +153,35 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             _analyticsService.SendCustomEvent("GameplayResult", new Dictionary<string, object>(){{"Lose", false}});
         }
 
-        private void HandleMenuBtnClick()
+        private async void HandleMenuBtnClick()
         {
+            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.SHOP_SCENE_NAME);
+
+            while (!loadSceneAsync.isDone)
+                await UniTask.Yield();
+            
             _gameStatesMachine.SetState<MenuState>();
         }
 
-        private void HandleNextBtnClick()
+        private async void HandleNextBtnClick()
         {
+            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.SHOP_SCENE_NAME);
+
+            while (!loadSceneAsync.isDone)
+                await UniTask.Yield();
+            
             _gameStatesMachine.SetState<GamePlayState>();
             
             _adsService.ShowAd();
         }
 
-        private void HandleRestartBtnClick()
+        private async void HandleRestartBtnClick()
         {
+            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.SHOP_SCENE_NAME);
+
+            while (!loadSceneAsync.isDone)
+                await UniTask.Yield();
+            
             _gameStatesMachine.SetState<GamePlayState>();
             
             _adsService.ShowAd();

@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.GamePlay.HeroRoute;
@@ -42,41 +43,37 @@ namespace Internal.Scripts.GamePlay.TheMainHero
 
         private async void GoThroughPoints()
         {
-            while (!_cts.IsCancellationRequested)
+            while (_router.TryGetNextPoint(out RouterPoint point) &&
+                   _enemiesHolder.TryGetEnemiesPack(out EnemiesPack enemiesPack))
             {
-                await UniTask.Delay(1000, cancellationToken: _cts.Token);
+                await UniTask.WaitForSeconds(1, cancellationToken: _cts.Token);
+                
+                await _hero.GoToPoint(point, enemiesPack);
+                enemiesPack.Attack(_hero);
+                await WaitUntilPointPassed(enemiesPack, point);
 
-                if (_router.TryGetNextPoint(out RouterPoint point) &&
-                    _enemiesHolder.TryGetEnemiesPack(out EnemiesPack enemiesPack))
+                _gameplayUIPresenter.UpdateProgress((float)++_passesPointsCount / _router.TotalPointsCount);
+            }
+            
+            OnLevelPassed?.Invoke();
+        }
+
+        private async Task WaitUntilPointPassed(EnemiesPack enemiesPack, RouterPoint point)
+        {
+            while (enemiesPack.AliveEnemies.Count > 0 && !_cts.IsCancellationRequested)
+            {
+                var nearestEnemy = enemiesPack.GetNearestEnemy(point.transform.position);
+                foreach (var enemy in enemiesPack.AliveEnemies)
+                    enemy.SetIsNearest(enemy == nearestEnemy);
+
+                var enemyOnScreen = _hero.HeroCam.WorldToViewportPoint(nearestEnemy.Transform.position);
+                if (enemyOnScreen.x < 0.9f && enemyOnScreen.x > 0.1f && enemyOnScreen.z >= 0)
                 {
-                    await _hero.GoToPoint(point, enemiesPack);
-                    enemiesPack.Attack(_hero);
-                    while (enemiesPack.AliveEnemies.Count > 0 && !_cts.IsCancellationRequested)
-                    {
-                        var nearestEnemy = enemiesPack.GetNearestEnemy(point.transform.position);
-                        foreach (var enemy in enemiesPack.AliveEnemies) 
-                            enemy.SetIsNearest(enemy == nearestEnemy);
-
-                        var enemyOnScreen = _hero.HeroCam.WorldToViewportPoint(nearestEnemy.Transform.position);
-                        if (enemyOnScreen.x < 0.9f && enemyOnScreen.x > 0.1f && enemyOnScreen.z >= 0)
-                        {
-                            await UniTask.WaitForSeconds(1);
-                        }
-                        else
-                        {
-                            await _hero.RotateToEnemy(nearestEnemy);
-                        }
-                        
-                    }
-                    
-                    _gameplayUIPresenter.UpdateProgress((float)++_passesPointsCount / _router.TotalPointsCount);
-                    
-                    Debug.Log("GO");
+                    await UniTask.WaitForSeconds(1);
                 }
                 else
                 {
-                    OnLevelPassed?.Invoke();
-                    return;
+                    await _hero.RotateToEnemy(nearestEnemy);
                 }
             }
         }

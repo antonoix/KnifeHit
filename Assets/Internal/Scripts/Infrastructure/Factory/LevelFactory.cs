@@ -1,4 +1,6 @@
+using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.TheMainHero;
+using Internal.Scripts.Infrastructure.AssetManagement;
 using UnityEngine;
 using Zenject;
 
@@ -8,18 +10,21 @@ namespace Internal.Scripts.Infrastructure.Factory
     {
         private readonly IInstantiator _instantiator;
         private readonly LevelFactoryConfig _levelFactoryConfig;
-        
+        private readonly IAssetsProvider _assetsProvider;
+
         public LevelContext CreatedLevel { get; private set; }
 
-        public LevelFactory(IInstantiator instantiator, LevelFactoryConfig levelFactoryConfig)
+        public LevelFactory(IInstantiator instantiator, LevelFactoryConfig levelFactoryConfig, IAssetsProvider assetsProvider)
         {
             _instantiator = instantiator;
             _levelFactoryConfig = levelFactoryConfig;
+            _assetsProvider = assetsProvider;
         }
 
-        public LevelContext CreateLevelContext(int levelIndex)
+        public async UniTask<LevelContext> CreateLevelContext(int levelIndex)
         {
-            CreatedLevel = _instantiator.InstantiatePrefabForComponent<LevelContext>(_levelFactoryConfig.LevelContexts[levelIndex]);
+            var prefab = await _assetsProvider.LoadAsync<GameObject>(_levelFactoryConfig.LevelContexts[levelIndex]);
+            CreatedLevel = _instantiator.InstantiatePrefabForComponent<LevelContext>(prefab);
             CreatedLevel.transform.position = Vector3.zero;
 
             return CreatedLevel;

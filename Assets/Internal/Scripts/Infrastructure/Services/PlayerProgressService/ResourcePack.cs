@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using Internal.Scripts.Infrastructure.ResourceService;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace InternalAssets.Scripts.Data.PlayerData.PlayerResources
 {
     [Serializable]
     public class ResourcePack : IEnumerable<Resource>
     {
-        [SerializeField] private SerializedDictionary<ResourceType, Resource> items = new SerializedDictionary<ResourceType, Resource>();
+        [SerializeField] private Dictionary<ResourceType, Resource> items = new ();
         
         public Dictionary<ResourceType, Resource> Items => items;
 
