@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bfa60cda9ab45328f7caec5a5d00f10, type: 3}
-  m_Name: GameplayServicesInstaller
+  m_Script: {fileID: 11500000, guid: 9b8af281a69d413b855734803bb884f7, type: 3}
+  m_Name: MainHeroConfig
   m_EditorClassIdentifier: 
-  _heroConfig: {fileID: 11400000, guid: 8b0c02a4b41c09a49b05ca69ab06179d, type: 2}
+  RotationDurationSec: 0.7
+  ShootDelaySec: 0.3

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Internal.Scripts.Infrastructure.ResourceService
+namespace Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource
 {
     [Serializable]
     public class Resource

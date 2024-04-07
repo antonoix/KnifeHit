@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Internal.Scripts.Infrastructure.Services.Localization;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 using Internal.Scripts.Infrastructure.Services.Sound;
 using Internal.Scripts.Infrastructure.Services.UiService.Base;
 using UnityEngine;
@@ -56,14 +58,14 @@ namespace Internal.Scripts.UI.ShopUI
             _view.SetSelectState(isSelected);
         }
 
-        public void SetBuyState(long cost, bool canBuy)
+        public void SetBuyState(Resource resource, bool canBuy)
         {
-            _view.SetBuyState(cost, canBuy);
+            _view.SetBuyState(resource, canBuy);
         }
 
-        public void SetCurrentCoins(long count)
+        public void SetCurrentResources(List<Resource> resources)
         {
-            _view.SetCurrentCoins(count);
+            _view.SetCurrentResources(resources);
         }
 
         private void HandleMenuClicked()

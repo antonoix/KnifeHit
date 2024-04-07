@@ -1,5 +1,5 @@
 ﻿using System;
-using InternalAssets.Scripts.Data.PlayerData.PlayerResources;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 
 namespace Internal.Scripts.Infrastructure.PlayerProgressService
 {

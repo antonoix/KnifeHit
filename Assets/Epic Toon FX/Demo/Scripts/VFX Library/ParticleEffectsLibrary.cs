@@ -24,7 +24,7 @@ public class ParticleEffectsLibrary : MonoBehaviour {
 			Debug.LogError ("ParticleEffectsLibrary-ParticleEffectPrefabs: Not all arrays match length, double check counts.");
 		}
 
-		// Setup Starting PE Name String
+		// Throw Starting PE Name String
 		effectNameString = ParticleEffectPrefabs [CurrentParticleEffectIndex].name + " (" + CurrentParticleEffectNum.ToString() + " of " + TotalEffects.ToString() + ")";
 	}
 

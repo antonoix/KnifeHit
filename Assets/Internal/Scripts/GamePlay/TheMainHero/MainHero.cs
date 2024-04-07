@@ -1,14 +1,11 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Internal.Scripts.GamePlay.Destroyable;
 using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.GamePlay.HeroRoute;
-using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.GamePlay.TheMainHero.Combat;
 using Internal.Scripts.Infrastructure.Factory;
 using Internal.Scripts.Infrastructure.Input;
-using Internal.Scripts.Infrastructure.Services.Sound;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -17,12 +14,17 @@ namespace Internal.Scripts.GamePlay.TheMainHero
 {
     public class MainHero : MonoBehaviour, IDamageable
     {
+        private const float THRESHOLD = 0.1f;
+        private const float DISTANCE_TO_START_ROTATE = 3f;
+        private const int MS_IN_SEC = 1000;
+
+        [field: SerializeField] public Transform[] VisualEffectsPoints { get; private set; }
         [SerializeField] private NavMeshAgent navAgent;
         [SerializeField] private CombatComponent combat;
         [SerializeField] private new MainHeroCamera camera;
-        [SerializeField] private EnvDestroyer destroyer;
-        
+
         private IInputService _playerInputService;
+        private MainHeroConfig _config;
         private CancellationTokenSource _cancellation;
         
         public Transform Transform => transform;
@@ -32,9 +34,10 @@ namespace Internal.Scripts.GamePlay.TheMainHero
         public event Action OnKilled;
 
         [Inject]
-        private void Construct(IInputService inputService)
+        private void Construct(IInputService inputService, MainHeroConfig config)
         {
             _playerInputService = inputService;
+            _config = config;
         }
 
         private void Start()
@@ -75,26 +78,26 @@ namespace Internal.Scripts.GamePlay.TheMainHero
             navAgent.updateRotation = true;
             navAgent.SetDestination(point.transform.position);
 
-            while (navAgent.remainingDistance < 0.1f)
+            while (navAgent.remainingDistance < THRESHOLD)
             {
                 await UniTask.WaitForFixedUpdate();
             }
 
-            while (navAgent.remainingDistance > 3f)
+            while (navAgent.remainingDistance > DISTANCE_TO_START_ROTATE)
             {
                 await UniTask.Yield();
             }
             
             navAgent.updateRotation = false;
             
-            await RotateToTarget(point.transform.rotation.eulerAngles, 1000);
+            await RotateToTarget(point.transform.rotation.eulerAngles, _config.RotationDurationSec * MS_IN_SEC);
         }
 
         public async UniTask RotateToEnemy(Enemy enemy)
         {
             Vector3 nearestEnemyPosition = enemy.transform.position;
             var rotation = Quaternion.LookRotation(nearestEnemyPosition - transform.position).eulerAngles;
-            await RotateToTarget(rotation, 700, () => enemy.IsDead);
+            await RotateToTarget(rotation, _config.RotationDurationSec * MS_IN_SEC, () => enemy.IsDead);
         }
 
         public void RotateCameraUp()
@@ -113,20 +116,11 @@ namespace Internal.Scripts.GamePlay.TheMainHero
             var cancellation = new CancellationTokenSource();
 
             var startRotation = transform.rotation.eulerAngles;
-            targetRotation = new Vector3(startRotation.x, targetRotation.y, startRotation.z);
-            float startY = startRotation.y;
-            float targetY = targetRotation.y;
-            if (Mathf.Abs(startY - targetY) > 180)
-            {
-                if (targetY < 180)
-                    targetY = 360 + targetY;
-                else
-                {
-                    targetY = targetY - 360;
-                }
-            }
 
-            targetRotation = new Vector3(targetRotation.x, targetY, targetRotation.z);
+            float targetY = GetTargetYRotation(startRotation.y, targetRotation.y);
+
+            targetRotation = new Vector3(startRotation.x, targetY, startRotation.z);
+            
             float msPassed = 0;
             int frameDelayMs = 15;
 
@@ -143,6 +137,21 @@ namespace Internal.Scripts.GamePlay.TheMainHero
                 await UniTask.Delay(frameDelayMs, cancellationToken: cancellation.Token);
                 msPassed += frameDelayMs;
             }
+        }
+
+        private float GetTargetYRotation(float startY, float targetY)
+        {
+            if (Mathf.Abs(startY - targetY) > 180)
+            {
+                if (targetY < 180)
+                    targetY = 360 + targetY;
+                else
+                {
+                    targetY = targetY - 360;
+                }
+            }
+
+            return targetY;
         }
     }
 }

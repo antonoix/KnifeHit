@@ -11,8 +11,10 @@ namespace Internal.Scripts.UI.GamePlay
 {
     public class GameplayWinPanel : MonoBehaviour
     {
+        private const float TEXT_ANIM_DURATION = 1.5f;
         [SerializeField] private TMP_Text coinsReward;
         [SerializeField] private TMP_Text starsReward;
+        [SerializeField] private TMP_Text usedAxes;
         [SerializeField] private Button goNextButton;
         [SerializeField] private Button toMenuButton;
         [SerializeField] private List<GameObject> stars;
@@ -44,9 +46,11 @@ namespace Internal.Scripts.UI.GamePlay
                 _showAnim.Append(stars[i].transform.DOScale(Vector3.one, 0.45f).SetEase(Ease.OutBack));
 
             _showAnim.Append(DOTween
-                .To(value => coinsReward.text = $"{value:f0}<sprite=0>", 0, result.CoinsCount, 2));
+                .To(value => usedAxes.text = $"{value:f0}<sprite=0>", 0, result.UsedAxes, TEXT_ANIM_DURATION));
+            _showAnim.Append(DOTween
+                .To(value => coinsReward.text = $"{value:f0}<sprite=0>", 0, result.CoinsCount, TEXT_ANIM_DURATION));
             _showAnim.Join(DOTween
-                .To(value => starsReward.text = $"{value:f0}<sprite=0>", 0, result.StarsCount, 2));
+                .To(value => starsReward.text = $"{value:f0}<sprite=0>", 0, result.StarsCount, TEXT_ANIM_DURATION));
 
             gameObject.SetActive(true);
             _soundsService.PlaySound(SoundType.Zajebaty);

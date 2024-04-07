@@ -1,7 +1,7 @@
 using System;
 using Internal.Scripts.Infrastructure.PlayerProgressService;
-using Internal.Scripts.Infrastructure.ResourceService;
 using Internal.Scripts.Infrastructure.Services.Localization;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 using Internal.Scripts.Infrastructure.Services.Sound;
 using Internal.Scripts.Infrastructure.Services.UiService.Base;
 

@@ -2,14 +2,15 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
+using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.GamePlay.TheMainHero;
 using Internal.Scripts.Infrastructure.Constants;
 using Internal.Scripts.Infrastructure.Factory;
 using Internal.Scripts.Infrastructure.PlayerProgressService;
-using Internal.Scripts.Infrastructure.ResourceService;
 using Internal.Scripts.Infrastructure.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.Ads;
 using Internal.Scripts.Infrastructure.Services.Analytics;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.GamePlay;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
     public class GamePlayState : IGameState, IInitializable, ILateDisposable
     {
         private const float ONE_STAR = 0.33f;
+        
         private readonly LevelFactory _levelFactory;
         private readonly LevelFactoryConfig _levelFactoryConfig;
         private readonly IGameStatesMachine _gameStatesMachine;
@@ -30,6 +32,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         private readonly ISaveLoadService _saveLoadService;
         private readonly IAdsService _adsService;
         private readonly IAnalyticsService _analyticsService;
+        private readonly ISpecialEffectsService _specialEffectsService;
         private GameplayUIPresenter _gameplayUiPresenter;
         private MainHeroConductor _heroConductor;
         private MainHero _hero;
@@ -42,14 +45,16 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             IPersistentProgressService playerProgressService,
             ISaveLoadService saveLoadService,
             IAdsService adsService,
-            IAnalyticsService analyticsService)
+            IAnalyticsService analyticsService,
+            ISpecialEffectsService specialEffectsService)
         {
             _gameStatesMachine = gameStatesMachine;
             _levelFactory = levelFactory;
             _levelFactoryConfig = levelFactoryConfig;
             _adsService = adsService;
             _analyticsService = analyticsService;
-            
+            _specialEffectsService = specialEffectsService;
+
             _uiService = uiService;
             _playerProgressService = playerProgressService;
             _saveLoadService = saveLoadService;
@@ -126,8 +131,15 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         {
             float resultPercent = _enemiesHolder.EnemiesCount * 3.5f / _hero.ShotsCount;
             int starsCount = (int)Math.Round(resultPercent / ONE_STAR);
-            _gameplayUiPresenter.ShowWinPanel(_enemiesHolder.RewardForEnemies, starsCount);
             
+            GameplayResult result = new(_enemiesHolder.RewardForEnemies, starsCount, _hero.ShotsCount);
+            _gameplayUiPresenter.ShowWinPanel(result);
+
+            foreach (var point in _hero.VisualEffectsPoints)
+            {
+                _specialEffectsService.ShowEffect(SpecialEffectType.CoinsFountain, point.position);
+            }
+
             UpdateProgress(starsCount);
 
             _analyticsService.SendCustomEvent("GameplayResult", new Dictionary<string, object>(){{"Win", true}});
@@ -155,7 +167,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 
         private async void HandleMenuBtnClick()
         {
-            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.SHOP_SCENE_NAME);
+            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.MENU_SCENE_NAME);
 
             while (!loadSceneAsync.isDone)
                 await UniTask.Yield();
@@ -165,7 +177,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 
         private async void HandleNextBtnClick()
         {
-            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.SHOP_SCENE_NAME);
+            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.MENU_SCENE_NAME);
 
             while (!loadSceneAsync.isDone)
                 await UniTask.Yield();
@@ -177,7 +189,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 
         private async void HandleRestartBtnClick()
         {
-            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.SHOP_SCENE_NAME);
+            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.GAMEPLAY_SCENE_NAME);
 
             while (!loadSceneAsync.isDone)
                 await UniTask.Yield();

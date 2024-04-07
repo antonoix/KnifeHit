@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Internal.Scripts.Infrastructure.Services.Localization;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 using Internal.Scripts.Infrastructure.Services.UiService.Base;
 using TMPro;
 using UnityEngine;
@@ -11,7 +13,7 @@ namespace Internal.Scripts.UI.ShopUI
 {
     public class ShopUIView : BaseUIView
     {
-        [SerializeField] private TMP_Text currentCoins;
+        [SerializeField] private TMP_Text currentResources;
         [SerializeField] private Button nextBtn;
         [SerializeField] private Button prevBtn;
         [SerializeField] private Button menuBtn;
@@ -63,14 +65,20 @@ namespace Internal.Scripts.UI.ShopUI
             buyBtn.SetSelectState(isSelected);
         }
 
-        public void SetBuyState(long cost, bool canBuy)
+        public void SetBuyState(Resource resource, bool canBuy)
         {
-            buyBtn.SetBuyState(cost, canBuy);
+            buyBtn.SetBuyState(resource, canBuy);
         }
 
-        public void SetCurrentCoins(long count)
+        public void SetCurrentResources(List<Resource> resources)
         {
-            currentCoins.text = $"{count}<sprite=0>";
+            string text = string.Empty;
+            foreach (var resource in resources)
+            {
+                text += $"{resource.Value}{resource.GetTextTag()} ";
+            }
+
+            currentResources.text = text;
         }
 
         private void HandleMenuClicked()

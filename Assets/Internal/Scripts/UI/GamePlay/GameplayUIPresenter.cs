@@ -1,12 +1,15 @@
 using System;
+using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.Infrastructure.Services.Sound;
 using Internal.Scripts.Infrastructure.Services.UiService.Base;
+using UnityEngine;
 
 namespace Internal.Scripts.UI.GamePlay
 {
     public class GameplayUIPresenter : BaseUIPresenter<GameplayUIView>
     {
         private readonly ISoundsService _soundsService;
+
         public event Action OnNextBtnClick;
         public event Action OnMenuBtnClick;
         public event Action OnRestartBtnClick;
@@ -35,9 +38,8 @@ namespace Internal.Scripts.UI.GamePlay
             base.Hide();
         }
 
-        public void ShowWinPanel(int rewardCoinsCount, int starsCount)
+        public void ShowWinPanel(GameplayResult result)
         {
-            GameplayResult result = new(rewardCoinsCount, starsCount);
             _view.ShowWinPanel(result);
             _view.SetActiveProgress(false);
         }

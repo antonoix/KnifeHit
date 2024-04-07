@@ -31,14 +31,7 @@ Transform:
   m_Children:
   - {fileID: 2699454174232216700}
   - {fileID: 6006474417092294306}
-  - {fileID: 8301681877055464933}
-  - {fileID: 514127515283242549}
-  - {fileID: 3632309603770843705}
-  - {fileID: 4021853695292174870}
-  - {fileID: 3480358094233690526}
-  - {fileID: 2716828485555995469}
-  - {fileID: 4279055488966837649}
-  - {fileID: 8479399968154788427}
+  - {fileID: 4725970176196126603}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -82,7 +75,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &514127515283242549
 Transform:
@@ -96,7 +89,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 8771042009202505447}
+  m_Father: {fileID: 4725970176196126603}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7136007828165345083
@@ -183,8 +176,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ce880367b24c10a0ac3884c2e5d9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ResourceCost>k__BackingField:
+    _value: 30
+    Key: 0
   <Type>k__BackingField: 1
-  <Cost>k__BackingField: 50
 --- !u!1 &5044169396737863171
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +197,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8479399968154788427
 Transform:
@@ -216,7 +211,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8771042009202505447}
+  m_Father: {fileID: 4725970176196126603}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2143049252493381930
@@ -283,8 +278,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ce880367b24c10a0ac3884c2e5d9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ResourceCost>k__BackingField:
+    _value: 15
+    Key: 1
   <Type>k__BackingField: 7
-  <Cost>k__BackingField: 200
 --- !u!1 &5380021751192438862
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +299,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4279055488966837649
 Transform:
@@ -316,7 +313,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8771042009202505447}
+  m_Father: {fileID: 4725970176196126603}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3916735154770984790
@@ -382,8 +379,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ce880367b24c10a0ac3884c2e5d9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ResourceCost>k__BackingField:
+    _value: 150
+    Key: 0
   <Type>k__BackingField: 6
-  <Cost>k__BackingField: 200
 --- !u!1 &6156225254681706497
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +400,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3632309603770843705
 Transform:
@@ -415,7 +414,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8771042009202505447}
+  m_Father: {fileID: 4725970176196126603}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3384634081812536657
@@ -481,8 +480,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ce880367b24c10a0ac3884c2e5d9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ResourceCost>k__BackingField:
+    _value: 6
+    Key: 1
   <Type>k__BackingField: 2
-  <Cost>k__BackingField: 70
 --- !u!1 &7265302279997155318
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +501,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3480358094233690526
 Transform:
@@ -514,7 +515,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8771042009202505447}
+  m_Father: {fileID: 4725970176196126603}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4318158140591701030
@@ -583,8 +584,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ce880367b24c10a0ac3884c2e5d9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ResourceCost>k__BackingField:
+    _value: 10
+    Key: 1
   <Type>k__BackingField: 4
-  <Cost>k__BackingField: 100
 --- !u!1 &7362132064014147654
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,7 +605,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2716828485555995469
 Transform:
@@ -616,7 +619,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8771042009202505447}
+  m_Father: {fileID: 4725970176196126603}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &852361808980545395
@@ -683,8 +686,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ce880367b24c10a0ac3884c2e5d9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ResourceCost>k__BackingField:
+    _value: 100
+    Key: 0
   <Type>k__BackingField: 5
-  <Cost>k__BackingField: 150
 --- !u!1 &7379570079352345238
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,7 +708,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8301681877055464933
 Transform:
@@ -717,7 +722,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 8771042009202505447}
+  m_Father: {fileID: 4725970176196126603}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &1469902160635805368
@@ -804,8 +809,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ce880367b24c10a0ac3884c2e5d9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ResourceCost>k__BackingField:
+    _value: 0
+    Key: 0
   <Type>k__BackingField: 0
-  <Cost>k__BackingField: 0
+--- !u!1 &7760826991904101374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4725970176196126603}
+  m_Layer: 0
+  m_Name: Items
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4725970176196126603
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760826991904101374}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8301681877055464933}
+  - {fileID: 514127515283242549}
+  - {fileID: 3632309603770843705}
+  - {fileID: 4021853695292174870}
+  - {fileID: 3480358094233690526}
+  - {fileID: 2716828485555995469}
+  - {fileID: 4279055488966837649}
+  - {fileID: 8479399968154788427}
+  m_Father: {fileID: 8771042009202505447}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9084374469966277962
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,7 +1019,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4021853695292174870
 Transform:
@@ -987,7 +1033,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8771042009202505447}
+  m_Father: {fileID: 4725970176196126603}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4599448074492014198
@@ -1053,8 +1099,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ce880367b24c10a0ac3884c2e5d9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ResourceCost>k__BackingField:
+    _value: 60
+    Key: 0
   <Type>k__BackingField: 3
-  <Cost>k__BackingField: 70
 --- !u!1001 &2699454174231900792
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,9 @@
-﻿using Internal.Scripts.Infrastructure.Factory;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using Internal.Scripts.GamePlay.SpecialEffectsService;
+using Internal.Scripts.Infrastructure.Factory;
 using Internal.Scripts.Infrastructure.PlayerProgressService;
 using Internal.Scripts.Infrastructure.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.UiService;
@@ -13,18 +18,25 @@ namespace Internal.Scripts.GamePlay.ShopSystem
         private readonly ShopFactory _shopFactory;
         private readonly IPersistentProgressService _playerProgressService;
         private readonly ISaveLoadService _saveLoadService;
+        private readonly ISpecialEffectsService _specialEffectsService;
         private ShopContext _shopContext;
         private ShopUIPresenter _shopUIPresenter;
+        private CancellationTokenSource _cancellationToken;
 
         private int _currentShopItemIndex;
         private ShopItem CurrentShopItem => _shopContext.ShopItems[_currentShopItemIndex];
 
-        public ShopService(IUiService uiService, ShopFactory shopFactory, IPersistentProgressService playerProgressService, ISaveLoadService saveLoadService)
+        public ShopService(IUiService uiService,
+            ShopFactory shopFactory,
+            IPersistentProgressService playerProgressService,
+            ISaveLoadService saveLoadService,
+            ISpecialEffectsService specialEffectsService)
         {
             _uiService = uiService;
             _shopFactory = shopFactory;
             _playerProgressService = playerProgressService;
             _saveLoadService = saveLoadService;
+            _specialEffectsService = specialEffectsService;
         }
 
         public void Initialize()
@@ -75,24 +87,36 @@ namespace Internal.Scripts.GamePlay.ShopSystem
         {
             if (--_currentShopItemIndex < 0)
                 _currentShopItemIndex = _shopContext.ShopItems.Length - 1;
-            _shopContext.ShopCamera.Focus(CurrentShopItem.transform);
-            
-            UpdateUI();
+
+            FocusItem().Forget();
         }
 
         private void HandleNextClicked()
         {
             if (++_currentShopItemIndex >= _shopContext.ShopItems.Length)
                 _currentShopItemIndex = 0;
-            _shopContext.ShopCamera.Focus(CurrentShopItem.transform);
             
+            FocusItem().Forget();
+        }
+
+        private async UniTaskVoid FocusItem()
+        {
+            _cancellationToken?.Cancel();
+            _cancellationToken = new CancellationTokenSource();
+
+            await _shopContext.ShopCamera.Focus(CurrentShopItem.transform)
+                .AttachExternalCancellation(_cancellationToken.Token)
+                .SuppressCancellationThrow();
+
             UpdateUI();
+            CurrentShopItem.PlayScaleEffect();
         }
 
         private void HandleBuyClicked()
         {
             _playerProgressService.PlayerProgress.ResourcePack.Subtract(CurrentShopItem.ResourceCost);
             _playerProgressService.PlayerProgress.PlayerState.TryAddNewWeapon(CurrentShopItem.Type);
+            _specialEffectsService.ShowEffect(SpecialEffectType.BuySparkles, CurrentShopItem.transform.position);
             
             _saveLoadService.SaveProgress();
             
@@ -110,7 +134,7 @@ namespace Internal.Scripts.GamePlay.ShopSystem
 
         private void UpdateUI()
         {
-            _shopUIPresenter.SetCurrentCoins(_playerProgressService.PlayerProgress.ResourcePack[0].Value);
+            _shopUIPresenter.SetCurrentResources(_playerProgressService.PlayerProgress.ResourcePack.ToList());
             
             if (_playerProgressService.PlayerProgress.PlayerState.IsWeaponAvailable(CurrentShopItem.Type))
             {
@@ -118,7 +142,7 @@ namespace Internal.Scripts.GamePlay.ShopSystem
             }
             else
             {
-                _shopUIPresenter.SetBuyState(CurrentShopItem.ResourceCost.Value,
+                _shopUIPresenter.SetBuyState(CurrentShopItem.ResourceCost,
                     _playerProgressService.PlayerProgress.ResourcePack.CheckEnoughPrice(CurrentShopItem.ResourceCost));
             }
         }

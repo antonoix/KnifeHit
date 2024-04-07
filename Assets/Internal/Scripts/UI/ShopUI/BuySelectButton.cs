@@ -1,5 +1,6 @@
 ﻿using System;
 using Internal.Scripts.Infrastructure.Services.Localization;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -45,11 +46,11 @@ namespace Internal.Scripts.UI.ShopUI
             SetClickable(!isSelected);
         }
 
-        public void SetBuyState(long cost, bool canBuy)
+        public void SetBuyState(Resource resource, bool canBuy)
         {
             buyStateRoot.SetActive(true);
             selectStateRoot.SetActive(false);
-            buyPrice.text = $"{cost}<sprite=0>";
+            buyPrice.text = $"{resource.Value}{resource.GetTextTag()}";
             _isBuyState = true;
             
             SetClickable(canBuy);

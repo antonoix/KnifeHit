@@ -1,6 +1,6 @@
 ﻿using System;
 using Internal.Scripts.GamePlay.ShopSystem;
-using Internal.Scripts.Infrastructure.ResourceService;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 using UnityEngine;
 using Zenject;
 

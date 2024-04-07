@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Internal.Scripts.Infrastructure.ResourceService;
 using UnityEngine;
 
-namespace InternalAssets.Scripts.Data.PlayerData.PlayerResources
+namespace Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource
 {
     [Serializable]
     public class ResourcePack : IEnumerable<Resource>

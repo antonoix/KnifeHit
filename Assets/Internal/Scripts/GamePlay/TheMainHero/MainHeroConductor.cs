@@ -5,12 +5,13 @@ using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.GamePlay.HeroRoute;
 using Internal.Scripts.UI.GamePlay;
-using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.TheMainHero
 {
     public class MainHeroConductor
     {
+        private const float MAX_ENEMY_SCREEN_POS = 0.75f;
+        private const float MIN_ENEMY_SCREEN_POS = 0.25f;
         private readonly MainHero _hero;
         private readonly HeroRouter _router;
         private readonly EnemiesHolder _enemiesHolder;
@@ -46,7 +47,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
             while (_router.TryGetNextPoint(out RouterPoint point) &&
                    _enemiesHolder.TryGetEnemiesPack(out EnemiesPack enemiesPack))
             {
-                await UniTask.WaitForSeconds(1, cancellationToken: _cts.Token);
+                await UniTask.WaitForSeconds(1, cancellationToken: _cts.Token).SuppressCancellationThrow();
                 
                 await _hero.GoToPoint(point, enemiesPack);
                 enemiesPack.Attack(_hero);
@@ -67,7 +68,8 @@ namespace Internal.Scripts.GamePlay.TheMainHero
                     enemy.SetIsNearest(enemy == nearestEnemy);
 
                 var enemyOnScreen = _hero.HeroCam.WorldToViewportPoint(nearestEnemy.Transform.position);
-                if (enemyOnScreen.x < 0.9f && enemyOnScreen.x > 0.1f && enemyOnScreen.z >= 0)
+                var IsEnemyOnScreen = enemyOnScreen.x < MAX_ENEMY_SCREEN_POS && enemyOnScreen.x > MIN_ENEMY_SCREEN_POS && enemyOnScreen.z >= 0;
+                if (IsEnemyOnScreen)
                 {
                     await UniTask.WaitForSeconds(1);
                 }
