@@ -12,22 +12,26 @@ namespace Internal.Scripts.GamePlay.TheMainHero
     {
         private const float MAX_ENEMY_SCREEN_POS = 0.75f;
         private const float MIN_ENEMY_SCREEN_POS = 0.25f;
+        
         private readonly MainHero _hero;
         private readonly HeroRouter _router;
         private readonly EnemiesHolder _enemiesHolder;
         private readonly GameplayUIPresenter _gameplayUIPresenter;
+        private readonly MainHeroConfig _config;
 
         private int _passesPointsCount;
         private CancellationTokenSource _cts;
 
         public event Action OnLevelPassed;
 
-        public MainHeroConductor(MainHero hero, HeroRouter router, EnemiesHolder enemiesHolder, GameplayUIPresenter gameplayUIPresenter)
+        public MainHeroConductor(MainHero hero, HeroRouter router,
+            EnemiesHolder enemiesHolder, GameplayUIPresenter gameplayUIPresenter, MainHeroConfig config)
         {
             _hero = hero;
             _router = router;
             _enemiesHolder = enemiesHolder;
             _gameplayUIPresenter = gameplayUIPresenter;
+            _config = config;
             _cts = new CancellationTokenSource();
         }
 
@@ -71,7 +75,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
                 var IsEnemyOnScreen = enemyOnScreen.x < MAX_ENEMY_SCREEN_POS && enemyOnScreen.x > MIN_ENEMY_SCREEN_POS && enemyOnScreen.z >= 0;
                 if (IsEnemyOnScreen)
                 {
-                    await UniTask.WaitForSeconds(1);
+                    await UniTask.WaitForSeconds(_config.TimeBetweenRotationCheck);
                 }
                 else
                 {

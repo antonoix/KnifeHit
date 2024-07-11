@@ -1,4 +1,4 @@
-﻿namespace Internal.Scripts.Infrastructure.PlayerProgressService
+﻿namespace Internal.Scripts.Infrastructure.Services.PlayerProgressService
 {
     public class PersistentProgressService : IPersistentProgressService
     {

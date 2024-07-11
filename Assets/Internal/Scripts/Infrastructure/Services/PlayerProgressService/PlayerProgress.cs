@@ -1,7 +1,7 @@
 ﻿using System;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 
-namespace Internal.Scripts.Infrastructure.PlayerProgressService
+namespace Internal.Scripts.Infrastructure.Services.PlayerProgressService
 {
     [Serializable]
     public class PlayerProgress
@@ -15,10 +15,6 @@ namespace Internal.Scripts.Infrastructure.PlayerProgressService
         public PlayerProgress(Settings settings)
         {
             ResourcePack = new ResourcePack();
-            foreach (var resource in settings.StartResources)
-            {
-                ResourcePack.Add(resource);
-            }
             ResourcePack.Add(settings.StartResources);
             PlayerState = new PlayerState(settings);
         }

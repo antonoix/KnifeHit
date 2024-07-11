@@ -1,5 +1,5 @@
 ﻿using System;
-using Internal.Scripts.Infrastructure.PlayerProgressService;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using UnityEngine;
 using Zenject;
 

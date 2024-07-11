@@ -13,11 +13,15 @@ namespace Internal.Scripts.UI.ShopUI
 {
     public class ShopUIView : BaseUIView
     {
+        private const float ONE_SEC = 1;
+        
         [SerializeField] private TMP_Text currentResources;
         [SerializeField] private Button nextBtn;
         [SerializeField] private Button prevBtn;
         [SerializeField] private Button menuBtn;
         [SerializeField] private BuySelectButton buyBtn;
+
+        private readonly Dictionary<ResourceType, long> _lastResourcesValues = new();
 
         public event Action OnNextClicked;
         public event Action OnPrevClicked;
@@ -33,6 +37,8 @@ namespace Internal.Scripts.UI.ShopUI
         public override async UniTask Show()
         {
             base.Show().Forget();
+            
+            _lastResourcesValues.Clear();
             
             nextBtn.transform.position += Vector3.right * 300;
             nextBtn.transform.DOMove(nextBtn.transform.position - Vector3.right * 300, .3f);
@@ -70,15 +76,39 @@ namespace Internal.Scripts.UI.ShopUI
             buyBtn.SetBuyState(resource, canBuy);
         }
 
-        public void SetCurrentResources(List<Resource> resources)
+        public async void SetCurrentResources(List<Resource> resources)
         {
-            string text = string.Empty;
+            currentResources.text = string.Empty;
             foreach (var resource in resources)
             {
-                text += $"{resource.Value}{resource.GetTextTag()} ";
+                var startValue = _lastResourcesValues.ContainsKey(resource.Key)
+                    ? _lastResourcesValues[resource.Key]
+                    : 0;
+
+                string startText = currentResources.text;
+                
+                if (resource.Value == startValue)
+                {
+                    currentResources.text = $"{startText} {resource.Value:0}{resource.GetTextTag()}";
+                    continue;
+                }
+
+
+                var seq = DOTween.To(x => currentResources.text = $"{startText} {x:0}{resource.GetTextTag()}",
+                    startValue, resource.Value, ONE_SEC * 0.5f);
+
+                await UniTask.WaitUntil(() => !seq.active || seq.IsComplete());
+
+                if (!_lastResourcesValues.ContainsKey(resource.Key))
+                    _lastResourcesValues.Add(resource.Key, resource.Value);
+                else
+                    _lastResourcesValues[resource.Key] = resource.Value;
+
+
+                //text += $"{resource.Value}{resource.GetTextTag()} ";
             }
 
-            currentResources.text = text;
+            //currentResources.text = text;
         }
 
         private void HandleMenuClicked()

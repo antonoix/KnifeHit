@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Internal.Scripts.GamePlay.ShopSystem;
 using UnityEngine;
 
-namespace Internal.Scripts.Infrastructure.PlayerProgressService
+namespace Internal.Scripts.Infrastructure.Services.PlayerProgressService
 {
     [Serializable]
     public class PlayerState

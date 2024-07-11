@@ -1,4 +1,4 @@
-﻿using Internal.Scripts.Infrastructure.PlayerProgressService;
+﻿using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 
 namespace Internal.Scripts.Infrastructure.SaveLoad
 {

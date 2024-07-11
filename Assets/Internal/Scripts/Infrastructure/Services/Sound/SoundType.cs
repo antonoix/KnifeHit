@@ -5,6 +5,7 @@
         ButtonClick,
         Throw,
         Cash,
-        Zajebaty
+        Zajebaty,
+        Lose
     }
 }

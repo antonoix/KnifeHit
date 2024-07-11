@@ -2,7 +2,6 @@
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.TheMainHero.Combat;
 using Internal.Scripts.Infrastructure.Factory;
-using Internal.Scripts.Infrastructure.PlayerProgressService;
 using UnityEngine;
 using UnityEngine.Pool;
 using Zenject;

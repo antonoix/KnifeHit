@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 using UnityEngine;
 

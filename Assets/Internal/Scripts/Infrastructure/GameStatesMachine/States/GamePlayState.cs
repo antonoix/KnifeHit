@@ -6,10 +6,10 @@ using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.GamePlay.TheMainHero;
 using Internal.Scripts.Infrastructure.Constants;
 using Internal.Scripts.Infrastructure.Factory;
-using Internal.Scripts.Infrastructure.PlayerProgressService;
 using Internal.Scripts.Infrastructure.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.Ads;
 using Internal.Scripts.Infrastructure.Services.Analytics;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.GamePlay;
@@ -33,8 +33,10 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         private readonly IAdsService _adsService;
         private readonly IAnalyticsService _analyticsService;
         private readonly ISpecialEffectsService _specialEffectsService;
-        private GameplayUIPresenter _gameplayUiPresenter;
+        private readonly MainHeroConfig _heroConfig;
+        
         private MainHeroConductor _heroConductor;
+        private GameplayUIPresenter _gameplayUiPresenter;
         private MainHero _hero;
         private EnemiesHolder _enemiesHolder;
 
@@ -46,18 +48,19 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             ISaveLoadService saveLoadService,
             IAdsService adsService,
             IAnalyticsService analyticsService,
-            ISpecialEffectsService specialEffectsService)
+            ISpecialEffectsService specialEffectsService,
+            MainHeroConfig heroConfig)
         {
             _gameStatesMachine = gameStatesMachine;
             _levelFactory = levelFactory;
             _levelFactoryConfig = levelFactoryConfig;
-            _adsService = adsService;
-            _analyticsService = analyticsService;
-            _specialEffectsService = specialEffectsService;
-
             _uiService = uiService;
             _playerProgressService = playerProgressService;
             _saveLoadService = saveLoadService;
+            _adsService = adsService;
+            _analyticsService = analyticsService;
+            _specialEffectsService = specialEffectsService;
+            _heroConfig = heroConfig;
         }
 
         public void Initialize()
@@ -109,8 +112,8 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             _hero.SetupNavMeshAgent(_levelFactory.CreatedLevel);
             _hero.OnKilled += HandlePlayerLose;
 
-            _heroConductor =
-                new MainHeroConductor(_hero, levelContext.HeroRouter, levelContext.EnemiesHolder, _gameplayUiPresenter);
+            _heroConductor = new MainHeroConductor(_hero, levelContext.HeroRouter,
+                levelContext.EnemiesHolder, _gameplayUiPresenter, _heroConfig);
 
             _heroConductor.StartLevel();
             _heroConductor.OnLevelPassed += HandlePlayerWin;
@@ -177,7 +180,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 
         private async void HandleNextBtnClick()
         {
-            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.MENU_SCENE_NAME);
+            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.GAMEPLAY_SCENE_NAME);
 
             while (!loadSceneAsync.isDone)
                 await UniTask.Yield();

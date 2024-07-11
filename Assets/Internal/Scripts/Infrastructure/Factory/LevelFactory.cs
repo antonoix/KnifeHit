@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.TheMainHero;
 using Internal.Scripts.GamePlay.TheMainHero.Combat;
 using Internal.Scripts.Infrastructure.AssetManagement;
-using Internal.Scripts.Infrastructure.PlayerProgressService;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using UnityEngine;
 using Zenject;
 

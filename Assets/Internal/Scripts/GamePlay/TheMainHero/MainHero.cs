@@ -131,10 +131,10 @@ namespace Internal.Scripts.GamePlay.TheMainHero
                     cancellation.Cancel();
                     return;
                 }
-                
+
+                await UniTask.Delay(frameDelayMs, cancellationToken: cancellation.Token);
                 var newRotation = Vector3.Lerp(startRotation, targetRotation, msPassed / timeMs);
                 transform.rotation = Quaternion.Euler(newRotation);
-                await UniTask.Delay(frameDelayMs, cancellationToken: cancellation.Token);
                 msPassed += frameDelayMs;
             }
         }
@@ -147,7 +147,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
                     targetY = 360 + targetY;
                 else
                 {
-                    targetY = targetY - 360;
+                    targetY -= 360;
                 }
             }
 

@@ -1,4 +1,4 @@
-﻿namespace Internal.Scripts.GamePlay.ShopSystem
+﻿namespace Internal.Scripts.Infrastructure.Services.PlayerProgressService
 {
     public enum WeaponType
     {

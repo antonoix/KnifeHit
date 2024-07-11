@@ -17,5 +17,5 @@ MonoBehaviour:
     StartResources:
     - _value: 20
       Key: 0
-    - _value: 10
+    - _value: 15
       Key: 1

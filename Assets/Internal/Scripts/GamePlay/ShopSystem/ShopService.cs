@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.Infrastructure.Factory;
-using Internal.Scripts.Infrastructure.PlayerProgressService;
 using Internal.Scripts.Infrastructure.SaveLoad;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.ShopUI;
 using Zenject;
@@ -109,6 +109,12 @@ namespace Internal.Scripts.GamePlay.ShopSystem
                 .SuppressCancellationThrow();
 
             UpdateUI();
+            
+            float delayBetweenCameraAndItemEffects = 0.2f;
+            await UniTask.WaitForSeconds(delayBetweenCameraAndItemEffects)
+                .AttachExternalCancellation(_cancellationToken.Token)
+                .SuppressCancellationThrow();
+            
             CurrentShopItem.PlayScaleEffect();
         }
 

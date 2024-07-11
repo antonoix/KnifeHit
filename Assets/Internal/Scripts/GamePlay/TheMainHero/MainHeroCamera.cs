@@ -6,7 +6,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
 {
     public class MainHeroCamera : MonoBehaviour
     {
-        [SerializeField] private float loseRotationX;
+        private const float LOOSE_ROTATION_X = -90;
         private bool _isRotated;
         
         public IEnumerator SmoothlyRotateUp()
@@ -18,14 +18,16 @@ namespace Internal.Scripts.GamePlay.TheMainHero
             
             float timeOfRotation = 1;
             int stepsPerSec = 50;
-            float totalRotationDelta = -loseRotationX;
+            float totalRotationDelta = LOOSE_ROTATION_X;
             
             float rotationDelta = totalRotationDelta / (stepsPerSec * timeOfRotation);
             float delayBetweenSteps = 1f / stepsPerSec;
-            
-            while (transform.localRotation.x > loseRotationX)
+
+            float currentRotation = transform.localRotation.eulerAngles.x;
+            while (currentRotation > LOOSE_ROTATION_X)
             {
-                transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x - rotationDelta, 0, 0);
+                currentRotation += rotationDelta;
+                transform.localRotation = Quaternion.Euler(currentRotation, 0, 0);
                 yield return new WaitForSeconds(delayBetweenSteps);
             }
         }

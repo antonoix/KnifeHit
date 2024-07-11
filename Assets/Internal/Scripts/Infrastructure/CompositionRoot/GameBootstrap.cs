@@ -1,8 +1,8 @@
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.Infrastructure.Constants;
 using Internal.Scripts.Infrastructure.GameStatesMachine;
-using Internal.Scripts.Infrastructure.PlayerProgressService;
 using Internal.Scripts.Infrastructure.SaveLoad;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;

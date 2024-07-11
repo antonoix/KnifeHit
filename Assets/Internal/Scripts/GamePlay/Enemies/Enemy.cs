@@ -76,13 +76,22 @@ namespace Internal.Scripts.GamePlay.Enemies
         {
             while (!_cancellation.IsCancellationRequested)
             {
-                await UniTask.Delay(25, cancellationToken: _cancellation.Token);
+                await UniTask.Yield(PlayerLoopTiming.FixedUpdate, cancellationToken: _cancellation.Token);
                 if (_isGetDamageAnimationPlaying) continue;
 
                 animation.SetWalk(true);
                 
-                var lerpAim = Vector3.Lerp(transform.position + transform.forward, _currentAim.Transform.position, 0.03f);
-                transform.LookAt(lerpAim);
+                // var lerpAim = Vector3.Lerp(transform.position + transform.forward, _currentAim.Transform.position, 0.03f);
+                // transform.LookAt(lerpAim);
+                
+                
+                Vector3 relativePos = _currentAim.Transform.position - transform.position;
+
+                // the second argument, upwards, defaults to Vector3.up
+                Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+                var lerpRot = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+                rootBody.MoveRotation(lerpRot);
+                
                 rootBody.velocity = transform.forward * config.SpeedMeterPerSec;
                 if (Vector3.Distance(transform.position, _currentAim.Transform.position) < config.AttackDistance)
                 {
@@ -91,7 +100,6 @@ namespace Internal.Scripts.GamePlay.Enemies
                     animation.SetWalk(false);
                     await UniTask.Delay(1000, cancellationToken: _cancellation.Token);
                     _currentAim.TakeDamage(0);
-                    //_cancellation.Cancel();
                 }
             }
         }
@@ -124,7 +132,7 @@ namespace Internal.Scripts.GamePlay.Enemies
             
             _specialEffectsService.ShowEffect(SpecialEffectType.EnemyResurrection, transform.position + Vector3.up * 0.5f).Forget();
             
-            await UniTask.Delay((int)(config.StandingUpTimeAfterDamagedSec * 2200));
+            await UniTask.Delay((int)(config.StandingUpTimeAfterDamagedSec * 1000));
             _isGetDamageAnimationPlaying = false;
         }
 

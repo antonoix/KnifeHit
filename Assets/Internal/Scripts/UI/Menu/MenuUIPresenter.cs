@@ -1,6 +1,6 @@
 using System;
-using Internal.Scripts.Infrastructure.PlayerProgressService;
 using Internal.Scripts.Infrastructure.Services.Localization;
+using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 using Internal.Scripts.Infrastructure.Services.Sound;
 using Internal.Scripts.Infrastructure.Services.UiService.Base;
@@ -33,6 +33,7 @@ namespace Internal.Scripts.UI.Menu
             
             _view.SetStartText(_localizationService.GetLocalized(LocalizationKeys.Start));
             _view.SetCurrentCoins(_playerProgressService.PlayerProgress.ResourcePack[ResourceType.Coin].Value);
+            _view.SetCurrentStars(_playerProgressService.PlayerProgress.ResourcePack[ResourceType.Star].Value);
             
             base.Show();
         }

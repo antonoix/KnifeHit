@@ -1,5 +1,6 @@
 using Internal.Scripts.GamePlay.ProjectilesService;
 using Internal.Scripts.Infrastructure.Services.Sound;
+using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -7,7 +8,8 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
 {
     public class CombatComponent : MonoBehaviour
     {
-        private const int MAX_SHOOT_DISTANCE = 500;
+        private const int MAX_SHOOT_DISTANCE = 100;
+        
         [SerializeField] private Transform projectileSpawnPoint;
         [SerializeField] private LayerMask enemyHipsMask;
         
@@ -41,12 +43,15 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
         {
             Ray ray = MainCamera.ScreenPointToRay(screenPosition);
 
-            Vector3 destination = ray.direction * MAX_SHOOT_DISTANCE;
+            Vector3 destination = ray.GetPoint(MAX_SHOOT_DISTANCE);
             
-            if (Physics.Raycast(ray, out RaycastHit hit, MAX_SHOOT_DISTANCE))
+            if (Physics.Raycast(ray, out RaycastHit hit, MAX_SHOOT_DISTANCE, _config.AimLayers))
             {
                 destination = hit.point;
             }
+            
+            // Debug.DrawRay(ray.origin, ray.direction * 20, Color.red);
+            // EditorApplication.isPaused = true;
 
             return destination;
         }

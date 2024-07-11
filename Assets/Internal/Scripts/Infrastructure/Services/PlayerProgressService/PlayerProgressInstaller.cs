@@ -1,10 +1,9 @@
 ﻿using System;
-using Internal.Scripts.GamePlay.ShopSystem;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 using UnityEngine;
 using Zenject;
 
-namespace Internal.Scripts.Infrastructure.PlayerProgressService
+namespace Internal.Scripts.Infrastructure.Services.PlayerProgressService
 {
     [CreateAssetMenu(menuName = "Installers/PlayerProgressInstaller", fileName = nameof(PlayerProgressInstaller))]
     public class PlayerProgressInstaller : ScriptableObjectInstaller<PlayerProgressInstaller>

@@ -164,6 +164,10 @@ PrefabInstance:
       propertyPath: Type
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9117348784328457622, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
+      propertyPath: speedMeterPerSec
+      value: 18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4469780139046764576, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}

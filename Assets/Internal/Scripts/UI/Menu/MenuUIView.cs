@@ -10,11 +10,14 @@ namespace Internal.Scripts.UI.Menu
 {
     public class MenuUIView : BaseUIView
     {
+        private const float ONE_SEC = 1;
+        
         [SerializeField] private Button startGameBtn;
         [SerializeField] private Button shopBtn;
         [SerializeField] private TMP_Text startText;
         [SerializeField] private TMP_Text levelText;
         [SerializeField] private TMP_Text coinsCountText;
+        [SerializeField] private TMP_Text starsCountText;
 
         public event Action OnStartBtnClicked;
         public event Action OnShopBtnClicked;
@@ -42,7 +45,12 @@ namespace Internal.Scripts.UI.Menu
         
         public void SetCurrentCoins(long count)
         {
-            coinsCountText.text = $"{count}<sprite=0>";
+            DOTween.To(x => coinsCountText.text = $"{x:0}<sprite=0>", 0, count, ONE_SEC);
+        }
+        
+        public void SetCurrentStars(long count)
+        {
+            DOTween.To(x => starsCountText.text = $"{x:0}<sprite=1>", 0, count, ONE_SEC);
         }
 
         public void SetCurrentLevel(string text) 
