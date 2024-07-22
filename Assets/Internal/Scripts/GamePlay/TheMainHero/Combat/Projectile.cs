@@ -76,7 +76,6 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
             while (!_collided)
             {
                 modelRoot.Rotate(degreesPerSec / delayBetweenFrame, 0, 0);
-                //_body.MoveRotation(_body.rotation * Quaternion.Euler(degreesPerSec / delayBetweenFrame, 0, 0));
                 yield return new WaitForSeconds(1f / delayBetweenFrame);
             }
         }

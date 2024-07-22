@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Internal.Scripts.GamePlay.ShopSystem;
+using UnityEngine;
 
 namespace Internal.Scripts.Infrastructure.Factory
 {
@@ -6,5 +7,6 @@ namespace Internal.Scripts.Infrastructure.Factory
     public class ShopFactoryConfig : ScriptableObject
     {
         [field: SerializeField] public ShopContext ShopContextPrefab { get; private set; }
+        [field: SerializeField] public ShopItem[] ShopItems { get; private set; }
     }
 }

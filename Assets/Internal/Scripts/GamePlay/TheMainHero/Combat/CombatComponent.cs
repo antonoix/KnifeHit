@@ -1,6 +1,5 @@
 using Internal.Scripts.GamePlay.ProjectilesService;
 using Internal.Scripts.Infrastructure.Services.Sound;
-using UnityEditor;
 using UnityEngine;
 using Zenject;
 

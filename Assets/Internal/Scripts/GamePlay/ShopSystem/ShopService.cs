@@ -16,6 +16,7 @@ namespace Internal.Scripts.GamePlay.ShopSystem
     {
         private readonly IUiService _uiService;
         private readonly ShopFactory _shopFactory;
+        private readonly ShopFactoryConfig _shopConfig;
         private readonly IPersistentProgressService _playerProgressService;
         private readonly ISaveLoadService _saveLoadService;
         private readonly ISpecialEffectsService _specialEffectsService;
@@ -24,16 +25,18 @@ namespace Internal.Scripts.GamePlay.ShopSystem
         private CancellationTokenSource _cancellationToken;
 
         private int _currentShopItemIndex;
-        private ShopItem CurrentShopItem => _shopContext.ShopItems[_currentShopItemIndex];
+        private ShopItem CurrentShopItem => _shopConfig.ShopItems[_currentShopItemIndex];
 
         public ShopService(IUiService uiService,
             ShopFactory shopFactory,
+            ShopFactoryConfig shopConfig,
             IPersistentProgressService playerProgressService,
             ISaveLoadService saveLoadService,
             ISpecialEffectsService specialEffectsService)
         {
             _uiService = uiService;
             _shopFactory = shopFactory;
+            _shopConfig = shopConfig;
             _playerProgressService = playerProgressService;
             _saveLoadService = saveLoadService;
             _specialEffectsService = specialEffectsService;
@@ -62,11 +65,11 @@ namespace Internal.Scripts.GamePlay.ShopSystem
         private void FocusCurrentWeapon()
         {
             var selectedWeapon = _playerProgressService.PlayerProgress.PlayerState.GetCurrentWeaponType();
-            for (int i = 0; i < _shopContext.ShopItems.Length; i++)
+            for (int i = 0; i < _shopConfig.ShopItems.Length; i++)
             {
-                if (_shopContext.ShopItems[i].Type == selectedWeapon)
+                if (_shopConfig.ShopItems[i].Type == selectedWeapon)
                 {
-                    _shopContext.ShopCamera.Focus(_shopContext.ShopItems[i].transform);
+                    _shopContext.ShopCamera.Focus(_shopConfig.ShopItems[i].transform);
                     _currentShopItemIndex = i;
                     break;
                 }
@@ -86,14 +89,14 @@ namespace Internal.Scripts.GamePlay.ShopSystem
         private void HandlePrevClicked()
         {
             if (--_currentShopItemIndex < 0)
-                _currentShopItemIndex = _shopContext.ShopItems.Length - 1;
+                _currentShopItemIndex = _shopConfig.ShopItems.Length - 1;
 
             FocusItem().Forget();
         }
 
         private void HandleNextClicked()
         {
-            if (++_currentShopItemIndex >= _shopContext.ShopItems.Length)
+            if (++_currentShopItemIndex >= _shopConfig.ShopItems.Length)
                 _currentShopItemIndex = 0;
             
             FocusItem().Forget();
