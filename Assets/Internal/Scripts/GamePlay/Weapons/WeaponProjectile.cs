@@ -2,13 +2,12 @@ using System;
 using System.Collections;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
-using Internal.Scripts.GamePlay.ShopSystem;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.TheMainHero.Combat
 {
-    public class Projectile : MonoBehaviour
+    public class WeaponProjectile : MonoBehaviour
     {
         private const int DEGREES_IN_TURNOVER = 360;
         private const int LIFE_TIME = 5;
@@ -23,7 +22,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
         private bool _collided;
         private Coroutine _rotatingRoutine;
 
-        public event Action<Projectile> OnNeedRelease;
+        public event Action<WeaponProjectile> OnNeedRelease;
 
         public async UniTaskVoid Throw(Vector3 startPos, Vector3 destinationPos)
         {

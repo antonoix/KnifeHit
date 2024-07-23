@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Internal.Scripts.GamePlay.TheMainHero.Combat;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 using UnityEngine;
@@ -7,10 +8,12 @@ namespace Internal.Scripts.GamePlay.ShopSystem
 {
     public class ShopItem : MonoBehaviour
     {
-        [field: SerializeField] public Resource ResourceCost { get; private set; }
-        [field: SerializeField] public WeaponType Type { get; private set; }
-
         private Sequence _scaleEffectAnim;
+        
+        public WeaponConfig CurrentWeapon { get; private set; }
+
+        public void Setup(WeaponConfig config)
+            => CurrentWeapon = config;
 
         public void PlayScaleEffect()
         {

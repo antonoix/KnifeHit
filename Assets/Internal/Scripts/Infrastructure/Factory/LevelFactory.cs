@@ -16,7 +16,7 @@ namespace Internal.Scripts.Infrastructure.Factory
         private readonly IPersistentProgressService _persistentProgressService;
         private readonly LevelFactoryConfig _levelFactoryConfig;
         
-        private Projectile _projectilePrefab;
+        private WeaponProjectile _weaponProjectilePrefab;
 
         public LevelContext CreatedLevel { get; private set; }
 
@@ -33,7 +33,7 @@ namespace Internal.Scripts.Infrastructure.Factory
 
         public void Initialize()
         {
-            _projectilePrefab = _levelFactoryConfig.AllProjectiles.FirstOrDefault(
+            _weaponProjectilePrefab = _levelFactoryConfig.AllProjectiles.FirstOrDefault(
                 x => x.Type == _persistentProgressService.PlayerProgress.PlayerState.GetCurrentWeaponType());
         }
 
@@ -53,9 +53,9 @@ namespace Internal.Scripts.Infrastructure.Factory
             return hero;
         }
 
-        public Projectile CreateProjectile()
+        public WeaponProjectile CreateProjectile()
         {
-            return _instantiator.InstantiatePrefabForComponent<Projectile>(_projectilePrefab);
+            return _instantiator.InstantiatePrefabForComponent<WeaponProjectile>(_weaponProjectilePrefab);
         }
     }
 }

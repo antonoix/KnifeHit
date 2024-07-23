@@ -10,6 +10,6 @@ namespace Internal.Scripts.Infrastructure.Factory
     {
         [field: SerializeField] public MainHero MainHero { get; private set; }
         [field: SerializeField] public AssetReferenceGameObject[] LevelContexts { get; private set; }
-        [field: SerializeField] public Projectile[] AllProjectiles { get; private set; }
+        [field: SerializeField] public WeaponProjectile[] AllProjectiles { get; private set; }
     }
 }

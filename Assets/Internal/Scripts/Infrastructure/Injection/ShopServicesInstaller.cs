@@ -10,8 +10,7 @@ namespace Internal.Scripts.Infrastructure.Injection
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesTo<ShopState>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ShopService>().AsSingle();
+
         }
     }
 }

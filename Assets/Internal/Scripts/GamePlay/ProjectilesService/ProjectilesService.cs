@@ -9,7 +9,7 @@ namespace Internal.Scripts.GamePlay.ProjectilesService
     public class ProjectilesService : IProjectilesService, IInitializable
     {
         private readonly LevelFactory _levelFactory;
-        private IObjectPool<Projectile> _pool;
+        private IObjectPool<WeaponProjectile> _pool;
 
         public ProjectilesService(LevelFactory levelFactory)
         {
@@ -18,7 +18,7 @@ namespace Internal.Scripts.GamePlay.ProjectilesService
 
         public void Initialize()
         {
-            _pool = new ObjectPool<Projectile>(CreateProjectile, OnGetProjectile, OnReleaseProjectile);
+            _pool = new ObjectPool<WeaponProjectile>(CreateProjectile, OnGetProjectile, OnReleaseProjectile);
         }
 
         public void ThrowProjectile(Vector3 startPoint, Vector3 destinationPoint)
@@ -29,25 +29,25 @@ namespace Internal.Scripts.GamePlay.ProjectilesService
             projectile.OnNeedRelease += HandleProjectileRelease;
         }
 
-        private void HandleProjectileRelease(Projectile projectile)
+        private void HandleProjectileRelease(WeaponProjectile weaponProjectile)
         {
-            projectile.OnNeedRelease -= HandleProjectileRelease;
-            _pool.Release(projectile);
+            weaponProjectile.OnNeedRelease -= HandleProjectileRelease;
+            _pool.Release(weaponProjectile);
         }
 
-        private Projectile CreateProjectile()
+        private WeaponProjectile CreateProjectile()
         {
             return _levelFactory.CreateProjectile();
         }
 
-        private void OnGetProjectile(Projectile projectile)
+        private void OnGetProjectile(WeaponProjectile weaponProjectile)
         {
-            projectile.SetActive(true);
+            weaponProjectile.SetActive(true);
         }
 
-        private void OnReleaseProjectile(Projectile projectile)
+        private void OnReleaseProjectile(WeaponProjectile weaponProjectile)
         {
-            projectile.SetActive(false);
+            weaponProjectile.SetActive(false);
         }
     }
 }

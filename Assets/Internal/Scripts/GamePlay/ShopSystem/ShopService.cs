@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.SpecialEffectsService;
+using Internal.Scripts.GamePlay.TheMainHero.Combat;
 using Internal.Scripts.Infrastructure.Factory;
 using Internal.Scripts.Infrastructure.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
@@ -16,7 +16,8 @@ namespace Internal.Scripts.GamePlay.ShopSystem
     {
         private readonly IUiService _uiService;
         private readonly ShopFactory _shopFactory;
-        private readonly ShopFactoryConfig _shopConfig;
+        private readonly ShopConfig _shopConfig;
+        private readonly AllWeaponsConfig _allWeaponsConfig;
         private readonly IPersistentProgressService _playerProgressService;
         private readonly ISaveLoadService _saveLoadService;
         private readonly ISpecialEffectsService _specialEffectsService;
@@ -25,11 +26,13 @@ namespace Internal.Scripts.GamePlay.ShopSystem
         private CancellationTokenSource _cancellationToken;
 
         private int _currentShopItemIndex;
-        private ShopItem CurrentShopItem => _shopConfig.ShopItems[_currentShopItemIndex];
+        private ShopItem CurrentShopItem => _shopContext.ShopItems[_currentShopItemIndex];
+        private PlayerProgress PlayerProgress => _playerProgressService.PlayerProgress;
 
         public ShopService(IUiService uiService,
             ShopFactory shopFactory,
-            ShopFactoryConfig shopConfig,
+            ShopConfig shopConfig,
+            AllWeaponsConfig allWeaponsConfig,
             IPersistentProgressService playerProgressService,
             ISaveLoadService saveLoadService,
             ISpecialEffectsService specialEffectsService)
@@ -37,6 +40,7 @@ namespace Internal.Scripts.GamePlay.ShopSystem
             _uiService = uiService;
             _shopFactory = shopFactory;
             _shopConfig = shopConfig;
+            _allWeaponsConfig = allWeaponsConfig;
             _playerProgressService = playerProgressService;
             _saveLoadService = saveLoadService;
             _specialEffectsService = specialEffectsService;
@@ -50,7 +54,7 @@ namespace Internal.Scripts.GamePlay.ShopSystem
         public void StartWork()
         {
             _shopContext = _shopFactory.InstantiateShopContext();
-            
+            FillShopItems();
             FocusCurrentWeapon();
 
             _shopUIPresenter.Show();
@@ -62,14 +66,25 @@ namespace Internal.Scripts.GamePlay.ShopSystem
             _shopUIPresenter.OnSelectClicked += HandleSelectClicked;
         }
 
+        private void FillShopItems()
+        {
+            int i = 0;
+            foreach (var shopItem in _shopContext.ShopItems)
+            {
+                shopItem.Setup(_allWeaponsConfig.AllConfigs[i++]);
+            }
+
+            
+        }
+
         private void FocusCurrentWeapon()
         {
             var selectedWeapon = _playerProgressService.PlayerProgress.PlayerState.GetCurrentWeaponType();
-            for (int i = 0; i < _shopConfig.ShopItems.Length; i++)
+            for (int i = 0; i < _shopContext.ShopItems.Length; i++)
             {
-                if (_shopConfig.ShopItems[i].Type == selectedWeapon)
+                if (_shopContext.ShopItems[i].CurrentWeapon.Type == selectedWeapon)
                 {
-                    _shopContext.ShopCamera.Focus(_shopConfig.ShopItems[i].transform);
+                    _shopContext.ShopCamera.Focus(_shopContext.ShopItems[i].transform);
                     _currentShopItemIndex = i;
                     break;
                 }
@@ -89,14 +104,14 @@ namespace Internal.Scripts.GamePlay.ShopSystem
         private void HandlePrevClicked()
         {
             if (--_currentShopItemIndex < 0)
-                _currentShopItemIndex = _shopConfig.ShopItems.Length - 1;
+                _currentShopItemIndex = _shopContext.ShopItems.Length - 1;
 
             FocusItem().Forget();
         }
 
         private void HandleNextClicked()
         {
-            if (++_currentShopItemIndex >= _shopConfig.ShopItems.Length)
+            if (++_currentShopItemIndex >= _shopContext.ShopItems.Length)
                 _currentShopItemIndex = 0;
             
             FocusItem().Forget();
@@ -123,8 +138,8 @@ namespace Internal.Scripts.GamePlay.ShopSystem
 
         private void HandleBuyClicked()
         {
-            _playerProgressService.PlayerProgress.ResourcePack.Subtract(CurrentShopItem.ResourceCost);
-            _playerProgressService.PlayerProgress.PlayerState.TryAddNewWeapon(CurrentShopItem.Type);
+            PlayerProgress.ResourcePack.Subtract(CurrentShopItem.CurrentWeapon.ResourceCost);
+            PlayerProgress.PlayerState.TryAddNewWeapon(CurrentShopItem.CurrentWeapon.Type);
             _specialEffectsService.ShowEffect(SpecialEffectType.BuySparkles, CurrentShopItem.transform.position);
             
             _saveLoadService.SaveProgress();
@@ -134,7 +149,7 @@ namespace Internal.Scripts.GamePlay.ShopSystem
 
         private void HandleSelectClicked()
         {
-            _playerProgressService.PlayerProgress.PlayerState.SetCurrentWeapon(CurrentShopItem.Type);
+            PlayerProgress.PlayerState.SetCurrentWeapon(CurrentShopItem.CurrentWeapon.Type);
             
             _saveLoadService.SaveProgress();
             
@@ -143,16 +158,17 @@ namespace Internal.Scripts.GamePlay.ShopSystem
 
         private void UpdateUI()
         {
-            _shopUIPresenter.SetCurrentResources(_playerProgressService.PlayerProgress.ResourcePack.ToList());
+            _shopUIPresenter.SetCurrentResources(PlayerProgress.ResourcePack.ToList());
             
-            if (_playerProgressService.PlayerProgress.PlayerState.IsWeaponAvailable(CurrentShopItem.Type))
+            if (PlayerProgress.PlayerState.IsWeaponAvailable(CurrentShopItem.CurrentWeapon.Type))
             {
-                _shopUIPresenter.SetSelectState(_playerProgressService.PlayerProgress.PlayerState.GetCurrentWeaponType() == CurrentShopItem.Type);
+                _shopUIPresenter.SetSelectState(
+                    PlayerProgress.PlayerState.GetCurrentWeaponType() == CurrentShopItem.CurrentWeapon.Type);
             }
             else
             {
-                _shopUIPresenter.SetBuyState(CurrentShopItem.ResourceCost,
-                    _playerProgressService.PlayerProgress.ResourcePack.CheckEnoughPrice(CurrentShopItem.ResourceCost));
+                _shopUIPresenter.SetBuyState(CurrentShopItem.CurrentWeapon.ResourceCost,
+                    PlayerProgress.ResourcePack.CheckEnoughPrice(CurrentShopItem.CurrentWeapon.ResourceCost));
             }
         }
     }

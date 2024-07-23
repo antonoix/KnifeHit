@@ -4,9 +4,9 @@ namespace Internal.Scripts.Infrastructure.Factory
 {
     public class ShopFactory
     {
-        private readonly ShopFactoryConfig _config;
+        private readonly ShopConfig _config;
 
-        public ShopFactory(ShopFactoryConfig config)
+        public ShopFactory(ShopConfig config)
         {
             _config = config;
         }
