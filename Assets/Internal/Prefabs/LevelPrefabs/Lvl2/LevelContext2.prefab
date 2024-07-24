@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &8844867631817369897
 Transform:
@@ -81,7 +81,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &5884069802054875572
 Transform:
@@ -170,7 +170,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &7599115976357939813
 Transform:
@@ -205,7 +205,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &6092133431916791214
 Transform:
@@ -256,7 +256,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &4966307353720772975
 Transform:
@@ -306,7 +306,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &8367729675653077493
 Transform:
@@ -372,7 +372,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &8617044414925256230
 Transform:
@@ -437,7 +437,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &7247808561042377925
 Transform:
@@ -491,7 +491,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 0
 --- !u!4 &7005862235684697018
 Transform:
@@ -620,7 +620,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &2846309382522731148
 Transform:
@@ -662,7 +662,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &7613289362032955006
 Transform:
@@ -762,7 +762,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &4781623947969402203
 Transform:
@@ -826,7 +826,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &7536307936136260237
 Transform:
@@ -890,7 +890,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &6569134877623235649
 Transform:
@@ -928,7 +928,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &1063207265428789742
 Transform:
@@ -990,7 +990,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &6131690443687725064
 Transform:
@@ -1042,7 +1042,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &3110382136975066764
 Transform:
@@ -1458,6 +1458,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skyscraper-part-middle
       objectReference: {fileID: 0}
+    - target: {fileID: 8683906770379572748, guid: 2d7c339082c74a8419567313ee15003f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1716,6 +1720,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoxExploding (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2969393531628405175, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2971934476538788703, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -1781,6 +1789,10 @@ PrefabInstance:
     - target: {fileID: 5514254909080190838, guid: aaa9ba77a0da27240a83067bebc31465, type: 3}
       propertyPath: m_Name
       value: PalleteExploding (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5514254909080190838, guid: aaa9ba77a0da27240a83067bebc31465, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5515833742843773086, guid: aaa9ba77a0da27240a83067bebc31465, type: 3}
       propertyPath: m_RootOrder
@@ -1925,6 +1937,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PalleteExploding
       objectReference: {fileID: 0}
+    - target: {fileID: 5514254909080190838, guid: aaa9ba77a0da27240a83067bebc31465, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5515833742843773086, guid: aaa9ba77a0da27240a83067bebc31465, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -1990,6 +2006,10 @@ PrefabInstance:
     - target: {fileID: 1657682059889758, guid: adf7979a398244cfaa6e31333ced4b39, type: 3}
       propertyPath: m_Name
       value: terrain-mountains
+      objectReference: {fileID: 0}
+    - target: {fileID: 1657682059889758, guid: adf7979a398244cfaa6e31333ced4b39, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4781452209106370, guid: adf7979a398244cfaa6e31333ced4b39, type: 3}
       propertyPath: m_RootOrder
@@ -2060,6 +2080,10 @@ PrefabInstance:
     - target: {fileID: 2969393531628405175, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
       propertyPath: m_Name
       value: BoxExploding
+      objectReference: {fileID: 0}
+    - target: {fileID: 2969393531628405175, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2971934476538788703, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
       propertyPath: m_RootOrder
@@ -2372,6 +2396,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tile-mainroad-tunnel-curve
       objectReference: {fileID: 0}
+    - target: {fileID: 2301794499135562655, guid: 643de4425845e05498791d3da6ff4b0e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2393,6 +2421,10 @@ PrefabInstance:
     - target: {fileID: 1000012688162062, guid: d59e82c884b986744bab64694ce10038, type: 3}
       propertyPath: m_Name
       value: tree-simple_orange (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000012688162062, guid: d59e82c884b986744bab64694ce10038, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4000013491118858, guid: d59e82c884b986744bab64694ce10038, type: 3}
       propertyPath: m_RootOrder
@@ -2456,9 +2488,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2846309382522731148}
     m_Modifications:
+    - target: {fileID: 7715511189378293808, guid: 5843abf15ee238a4f94fa73e7be251ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715511189378293810, guid: 5843abf15ee238a4f94fa73e7be251ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7715511189378293816, guid: 5843abf15ee238a4f94fa73e7be251ee, type: 3}
       propertyPath: m_Name
       value: car-police
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715511189378293816, guid: 5843abf15ee238a4f94fa73e7be251ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715511189378293818, guid: 5843abf15ee238a4f94fa73e7be251ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715511189378293820, guid: 5843abf15ee238a4f94fa73e7be251ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715511189378293822, guid: 5843abf15ee238a4f94fa73e7be251ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7715511189378595864, guid: 5843abf15ee238a4f94fa73e7be251ee, type: 3}
       propertyPath: m_RootOrder
@@ -2525,6 +2581,10 @@ PrefabInstance:
     - target: {fileID: 2969393531628405175, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
       propertyPath: m_Name
       value: BoxExploding (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2969393531628405175, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2971934476538788703, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
       propertyPath: m_RootOrder
@@ -2747,6 +2807,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone-round_orange
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012973575592, guid: 5c6e01cf12ba8934f82b4c08f4cb262c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4000013134691540, guid: 5c6e01cf12ba8934f82b4c08f4cb262c, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -2813,6 +2877,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-simple_orange
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012688162062, guid: d59e82c884b986744bab64694ce10038, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4000013491118858, guid: d59e82c884b986744bab64694ce10038, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -2878,6 +2946,10 @@ PrefabInstance:
     - target: {fileID: 2969393531628405175, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
       propertyPath: m_Name
       value: BoxExploding (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2969393531628405175, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2971934476538788703, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
       propertyPath: m_RootOrder
@@ -3093,6 +3165,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoxExploding (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2969393531628405175, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2971934476538788703, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -3249,6 +3325,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tile-road-tunnel-entrance
       objectReference: {fileID: 0}
+    - target: {fileID: 1178956668468510, guid: 7e1b456a31ce2435db757f7f5f17bb86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4610443259609220, guid: 7e1b456a31ce2435db757f7f5f17bb86, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -3314,6 +3394,10 @@ PrefabInstance:
     - target: {fileID: 1962112057092706, guid: 10559c3c45c9e4714b032dc317910152, type: 3}
       propertyPath: m_Name
       value: tile-mainroad-straight (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1962112057092706, guid: 10559c3c45c9e4714b032dc317910152, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4985220069815420, guid: 10559c3c45c9e4714b032dc317910152, type: 3}
       propertyPath: m_RootOrder
@@ -3458,6 +3542,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: rock-pillar (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010050705002, guid: abe740c479c745546851d15a0ffe6cef, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010418255126, guid: abe740c479c745546851d15a0ffe6cef, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -3523,6 +3611,10 @@ PrefabInstance:
     - target: {fileID: 1000011409013810, guid: 6b664b526df62ee41be7b9d307dedd81, type: 3}
       propertyPath: m_Name
       value: tree-spruce (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011409013810, guid: 6b664b526df62ee41be7b9d307dedd81, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4000013848290528, guid: 6b664b526df62ee41be7b9d307dedd81, type: 3}
       propertyPath: m_RootOrder
@@ -3660,6 +3752,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: mountains
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010667862826, guid: dd28cee60ff222848ada1197745eb6d4, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4000013070176524, guid: dd28cee60ff222848ada1197745eb6d4, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -3725,6 +3821,10 @@ PrefabInstance:
     - target: {fileID: 1621884117224612, guid: d3b06ba093e514cff9a2cf0356aa127f, type: 3}
       propertyPath: m_Name
       value: tile-road-curve (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1621884117224612, guid: d3b06ba093e514cff9a2cf0356aa127f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4410709243882798, guid: d3b06ba093e514cff9a2cf0356aa127f, type: 3}
       propertyPath: m_RootOrder
@@ -3792,6 +3892,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoxExploding (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2969393531628405175, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2971934476538788703, guid: 8249543f9a4954e47b6a2b8a7a6ac9e5, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -3858,6 +3962,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-spruce
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011409013810, guid: 6b664b526df62ee41be7b9d307dedd81, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4000013848290528, guid: 6b664b526df62ee41be7b9d307dedd81, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -3923,6 +4031,10 @@ PrefabInstance:
     - target: {fileID: 100894, guid: d4d6a29c9156ee948a0a44b98b1f1da8, type: 3}
       propertyPath: m_Name
       value: DustMotesCalm (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100894, guid: d4d6a29c9156ee948a0a44b98b1f1da8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 446198, guid: d4d6a29c9156ee948a0a44b98b1f1da8, type: 3}
       propertyPath: m_RootOrder
@@ -4183,6 +4295,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: terrain-valley
       objectReference: {fileID: 0}
+    - target: {fileID: 1139087279969116, guid: 07985b999f58e4d61bd46741814b3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4018561223560312, guid: 07985b999f58e4d61bd46741814b3199, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -4249,6 +4365,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: building-office-balcony
       objectReference: {fileID: 0}
+    - target: {fileID: 4814210312323024179, guid: 5fdc9b9c76496614aa7ff2941dfa05b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4814210312323389715, guid: 5fdc9b9c76496614aa7ff2941dfa05b5, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -4314,6 +4434,10 @@ PrefabInstance:
     - target: {fileID: 100894, guid: d4d6a29c9156ee948a0a44b98b1f1da8, type: 3}
       propertyPath: m_Name
       value: DustMotesCalm
+      objectReference: {fileID: 0}
+    - target: {fileID: 100894, guid: d4d6a29c9156ee948a0a44b98b1f1da8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 446198, guid: d4d6a29c9156ee948a0a44b98b1f1da8, type: 3}
       propertyPath: m_RootOrder
@@ -4393,6 +4517,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: rock-pillar
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010050705002, guid: abe740c479c745546851d15a0ffe6cef, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010418255126, guid: abe740c479c745546851d15a0ffe6cef, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -4458,6 +4586,10 @@ PrefabInstance:
     - target: {fileID: 1000012357082908, guid: 2734acf15de9df94185a3c0e6dabe9d3, type: 3}
       propertyPath: m_Name
       value: tree-triangle (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000012357082908, guid: 2734acf15de9df94185a3c0e6dabe9d3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4000013339377778, guid: 2734acf15de9df94185a3c0e6dabe9d3, type: 3}
       propertyPath: m_RootOrder
@@ -4525,6 +4657,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tile-road-curve
       objectReference: {fileID: 0}
+    - target: {fileID: 1621884117224612, guid: d3b06ba093e514cff9a2cf0356aa127f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4410709243882798, guid: d3b06ba093e514cff9a2cf0356aa127f, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -4590,6 +4726,10 @@ PrefabInstance:
     - target: {fileID: 1000012357082908, guid: 2734acf15de9df94185a3c0e6dabe9d3, type: 3}
       propertyPath: m_Name
       value: tree-triangle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000012357082908, guid: 2734acf15de9df94185a3c0e6dabe9d3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4000013339377778, guid: 2734acf15de9df94185a3c0e6dabe9d3, type: 3}
       propertyPath: m_RootOrder
@@ -4915,6 +5055,10 @@ PrefabInstance:
     - target: {fileID: 4126242630912377185, guid: 9228c00d818169342a7fbe4686cc4497, type: 3}
       propertyPath: m_Name
       value: tile-road-to-mainroad-intersection-t
+      objectReference: {fileID: 0}
+    - target: {fileID: 4126242630912377185, guid: 9228c00d818169342a7fbe4686cc4497, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4126242630912482625, guid: 9228c00d818169342a7fbe4686cc4497, type: 3}
       propertyPath: m_RootOrder

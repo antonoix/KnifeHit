@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &8968410642867178180
 Transform:
@@ -132,7 +132,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &2834282669171508735
 Transform:
@@ -172,7 +172,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &6958366337699387829
 Transform:
@@ -4988,7 +4988,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &8691308504557832787
 Transform:
@@ -5109,7 +5109,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &4112193255986474851
 Transform:
@@ -5358,7 +5358,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &4395373363341660692
 Transform:
@@ -5410,7 +5410,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &1417634983049115845
 Transform:
@@ -5510,7 +5510,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &496980411434523062
 Transform:
@@ -5670,7 +5670,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &4885666111234516303
 Transform:
@@ -5734,7 +5734,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &447238156850504652
 Transform:
@@ -10550,7 +10550,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &644702495864311532
 Transform:
@@ -10667,7 +10667,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &4796769251439882988
 Transform:
@@ -10758,6 +10758,10 @@ PrefabInstance:
     - target: {fileID: 7102736485461258328, guid: cff9e6625f42a744db812b672d951b85, type: 3}
       propertyPath: m_Name
       value: basketball (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102736485461258328, guid: cff9e6625f42a744db812b672d951b85, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11022,6 +11026,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: basketball
       objectReference: {fileID: 0}
+    - target: {fileID: 7102736485461258328, guid: cff9e6625f42a744db812b672d951b85, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11166,6 +11174,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: basketball-stand (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2695333849829756387, guid: 638e79d8a44393c47859778ed1fd73ec, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3719205296222016350, guid: 638e79d8a44393c47859778ed1fd73ec, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -11275,6 +11287,10 @@ PrefabInstance:
     - target: {fileID: 7102736485461258328, guid: cff9e6625f42a744db812b672d951b85, type: 3}
       propertyPath: m_Name
       value: basketball (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102736485461258328, guid: cff9e6625f42a744db812b672d951b85, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13035,6 +13051,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: basketball-stand
       objectReference: {fileID: 0}
+    - target: {fileID: 2695333849829756387, guid: 638e79d8a44393c47859778ed1fd73ec, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3719205296222016350, guid: 638e79d8a44393c47859778ed1fd73ec, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -13601,6 +13621,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: basketball (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7102736485461258328, guid: cff9e6625f42a744db812b672d951b85, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14052,6 +14076,10 @@ PrefabInstance:
     - target: {fileID: 7102736485461258328, guid: cff9e6625f42a744db812b672d951b85, type: 3}
       propertyPath: m_Name
       value: basketball (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102736485461258328, guid: cff9e6625f42a744db812b672d951b85, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

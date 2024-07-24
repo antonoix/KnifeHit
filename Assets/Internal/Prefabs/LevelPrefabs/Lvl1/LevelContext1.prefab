@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &8844867631817369897
 Transform:
@@ -259,7 +259,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &5884069802054875572
 Transform:
@@ -310,7 +310,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &6318159523942464700
 Transform:
@@ -905,7 +905,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &6092133431916791214
 Transform:
@@ -954,7 +954,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &4966307353720772975
 Transform:
@@ -1004,7 +1004,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &8367729675653077493
 Transform:
@@ -1287,7 +1287,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &8617044414925256230
 Transform:
@@ -1352,7 +1352,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &7247808561042377925
 Transform:
@@ -1451,7 +1451,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &2846309382522731148
 Transform:
@@ -1489,7 +1489,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &7613289362032955006
 Transform:
@@ -1554,7 +1554,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &4781623947969402203
 Transform:
@@ -1829,7 +1829,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &7536307936136260237
 Transform:
@@ -1895,7 +1895,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &589931786761128216
 Transform:
@@ -2139,7 +2139,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &1063207265428789742
 Transform:
@@ -2230,7 +2230,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &6131690443687725064
 Transform:
@@ -3532,6 +3532,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7504427179368989423}
     m_Modifications:
+    - target: {fileID: 3444881422504264624, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4686094960605456532, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -3583,6 +3587,22 @@ PrefabInstance:
     - target: {fileID: 4827898087193353222, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
       propertyPath: m_Name
       value: Bridge (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827898087193353222, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682549835257420022, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541503223978844212, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8736859532674072373, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4411,6 +4431,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7504427179368989423}
     m_Modifications:
+    - target: {fileID: 3444881422504264624, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4686094960605456532, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -4458,6 +4482,22 @@ PrefabInstance:
     - target: {fileID: 4827898087193353222, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
       propertyPath: m_Name
       value: Bridge (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827898087193353222, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682549835257420022, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541503223978844212, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8736859532674072373, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5044,6 +5084,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7504427179368989423}
     m_Modifications:
+    - target: {fileID: 3444881422504264624, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4686094960605456532, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -5091,6 +5135,22 @@ PrefabInstance:
     - target: {fileID: 4827898087193353222, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
       propertyPath: m_Name
       value: Bridge
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827898087193353222, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682549835257420022, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541503223978844212, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8736859532674072373, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5328,6 +5388,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7504427179368989423}
     m_Modifications:
+    - target: {fileID: 3444881422504264624, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4686094960605456532, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -5379,6 +5443,22 @@ PrefabInstance:
     - target: {fileID: 4827898087193353222, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
       propertyPath: m_Name
       value: Bridge (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827898087193353222, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682549835257420022, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541503223978844212, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8736859532674072373, guid: 5f99c22d7ed34d94caab31296deb45d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6829,6 +6909,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Logs (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1985533099894644658, guid: 3818517c979a6ef488b2b2c50c165971, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2767483872052383035, guid: 3818517c979a6ef488b2b2c50c165971, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417259642003335728, guid: 3818517c979a6ef488b2b2c50c165971, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503938626138221628, guid: 3818517c979a6ef488b2b2c50c165971, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7634,6 +7730,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Logs
       objectReference: {fileID: 0}
+    - target: {fileID: 1985533099894644658, guid: 3818517c979a6ef488b2b2c50c165971, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2767483872052383035, guid: 3818517c979a6ef488b2b2c50c165971, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417259642003335728, guid: 3818517c979a6ef488b2b2c50c165971, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503938626138221628, guid: 3818517c979a6ef488b2b2c50c165971, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8084,6 +8196,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: mushroom-boletus
       objectReference: {fileID: 0}
+    - target: {fileID: 1365145111868937719, guid: b1dd9c9d5562367418d0a6ffa4175d6a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1368039046766337619, guid: b1dd9c9d5562367418d0a6ffa4175d6a, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -8231,6 +8347,10 @@ PrefabInstance:
     - target: {fileID: 100894, guid: d4d6a29c9156ee948a0a44b98b1f1da8, type: 3}
       propertyPath: m_Name
       value: DustMotesCalm (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100894, guid: d4d6a29c9156ee948a0a44b98b1f1da8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 446198, guid: d4d6a29c9156ee948a0a44b98b1f1da8, type: 3}
       propertyPath: m_RootOrder
@@ -8922,6 +9042,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: mushroom-boletus (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1365145111868937719, guid: b1dd9c9d5562367418d0a6ffa4175d6a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1368039046766337619, guid: b1dd9c9d5562367418d0a6ffa4175d6a, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -9065,6 +9189,10 @@ PrefabInstance:
     - target: {fileID: 100894, guid: d4d6a29c9156ee948a0a44b98b1f1da8, type: 3}
       propertyPath: m_Name
       value: DustMotesCalm
+      objectReference: {fileID: 0}
+    - target: {fileID: 100894, guid: d4d6a29c9156ee948a0a44b98b1f1da8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 446198, guid: d4d6a29c9156ee948a0a44b98b1f1da8, type: 3}
       propertyPath: m_RootOrder
@@ -10445,6 +10573,10 @@ PrefabInstance:
     - target: {fileID: 1365145111868937719, guid: b1dd9c9d5562367418d0a6ffa4175d6a, type: 3}
       propertyPath: m_Name
       value: mushroom-boletus (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1365145111868937719, guid: b1dd9c9d5562367418d0a6ffa4175d6a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1368039046766337619, guid: b1dd9c9d5562367418d0a6ffa4175d6a, type: 3}
       propertyPath: m_RootOrder

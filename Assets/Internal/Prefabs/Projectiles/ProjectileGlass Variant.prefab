@@ -26,12 +26,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2910040718819123036}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.069, z: -0.498}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4306250224106733607}
+  m_Father: {fileID: 2273069155822328388}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &6054853854993426395
@@ -97,10 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ce880367b24c10a0ac3884c2e5d9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ResourceCost>k__BackingField:
-    _value: 0
-    Key: 0
-  <Type>k__BackingField: 2
 --- !u!1001 &4220777720451675410
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -157,6 +153,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProjectileGlass Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7202272246939586890, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
+      propertyPath: m_Radius
+      value: 0.09575484
+      objectReference: {fileID: 0}
+    - target: {fileID: 7202272246939586890, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
+      propertyPath: m_Center.y
+      value: -0.06575484
+      objectReference: {fileID: 0}
     - target: {fileID: 9117348784328457622, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
       propertyPath: Type
       value: 2
@@ -169,13 +173,13 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 4469780139046764576, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 95113503386613045, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2673069601105407830, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8936671852666261093}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
---- !u!4 &4306250224106733607 stripped
+--- !u!4 &2273069155822328388 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 95113503386613045, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2673069601105407830, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
   m_PrefabInstance: {fileID: 4220777720451675410}
   m_PrefabAsset: {fileID: 0}

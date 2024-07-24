@@ -224,7 +224,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &7212112088578781113
 Transform:
@@ -503,7 +503,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &753093273628532014
 Transform:
@@ -557,7 +557,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &7508352745813610916
 Transform:
@@ -682,7 +682,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &7841692121847648186
 Transform:
@@ -853,7 +853,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &3010628984612300654
 Transform:
@@ -5835,7 +5835,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &76638526795874508
 Transform:
@@ -5924,7 +5924,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &8071992082684650731
 Transform:
@@ -6017,7 +6017,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &9135866078657248688
 Transform:
@@ -6117,7 +6117,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &7644983704282003407
 Transform:
@@ -6167,7 +6167,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &2170370602414329085
 Transform:
@@ -6356,7 +6356,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &3530382724471624476
 Transform:
@@ -6390,7 +6390,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &4211299393756150329
 Transform:
@@ -6580,7 +6580,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &5616475389715658014
 Transform:
@@ -11396,7 +11396,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &467283927998492720
 Transform:
@@ -11962,6 +11962,10 @@ PrefabInstance:
     - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_Name
       value: pumkin-leaves (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4887810024293506, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_RootOrder
@@ -12789,6 +12793,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: well (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013729230236, guid: a95afc340b7d21348a22207edba026df, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4000012174342246, guid: a95afc340b7d21348a22207edba026df, type: 3}
       propertyPath: m_RootOrder
       value: 135
@@ -13257,6 +13265,10 @@ PrefabInstance:
     - target: {fileID: 5872060669118936623, guid: 70d5fdd72877bda41b3d5efe0dea8659, type: 3}
       propertyPath: m_Name
       value: shrub-flowers
+      objectReference: {fileID: 0}
+    - target: {fileID: 5872060669118936623, guid: 70d5fdd72877bda41b3d5efe0dea8659, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5872060669119425039, guid: 70d5fdd72877bda41b3d5efe0dea8659, type: 3}
       propertyPath: m_RootOrder
@@ -15990,6 +16002,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pumkin-leaves (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4887810024293506, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -16487,6 +16503,10 @@ PrefabInstance:
     - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_Name
       value: pumkin-leaves (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4887810024293506, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_RootOrder
@@ -18671,6 +18691,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shrub
       objectReference: {fileID: 0}
+    - target: {fileID: 6910565505681172824, guid: 3a361b15a376ef0408c0dbf3a2355b3c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6911612331515256098, guid: 3a361b15a376ef0408c0dbf3a2355b3c, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -19349,6 +19373,10 @@ PrefabInstance:
     - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_Name
       value: pumkin-leaves (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4887810024293506, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_RootOrder
@@ -21054,6 +21082,10 @@ PrefabInstance:
     - target: {fileID: 1000013729230236, guid: a95afc340b7d21348a22207edba026df, type: 3}
       propertyPath: m_Name
       value: well (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013729230236, guid: a95afc340b7d21348a22207edba026df, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4000012174342246, guid: a95afc340b7d21348a22207edba026df, type: 3}
       propertyPath: m_RootOrder
@@ -23068,6 +23100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: farm-house (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1169681003932024, guid: 06b472f147551488aa5393e9477e4e0b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4979098901876776, guid: 06b472f147551488aa5393e9477e4e0b, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -24683,9 +24719,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 66299399408349101, guid: cdb4ca5c8a8d3314ea92f26807af991b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 66439271734973849, guid: cdb4ca5c8a8d3314ea92f26807af991b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 66559261472375099, guid: cdb4ca5c8a8d3314ea92f26807af991b, type: 3}
       propertyPath: m_Name
       value: tractor
+      objectReference: {fileID: 0}
+    - target: {fileID: 66559261472375099, guid: cdb4ca5c8a8d3314ea92f26807af991b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 66931251386403573, guid: cdb4ca5c8a8d3314ea92f26807af991b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 67032404696337799, guid: cdb4ca5c8a8d3314ea92f26807af991b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 67228002070275203, guid: cdb4ca5c8a8d3314ea92f26807af991b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25239,6 +25299,10 @@ PrefabInstance:
     - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_Name
       value: pumkin-leaves (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4887810024293506, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_RootOrder
@@ -26639,6 +26703,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pumkin-leaves (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4887810024293506, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -27326,6 +27394,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pumkin-leaves (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4887810024293506, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -27613,6 +27685,10 @@ PrefabInstance:
     - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_Name
       value: pumkin-leaves (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4887810024293506, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_RootOrder
@@ -29285,6 +29361,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: farm-house
       objectReference: {fileID: 0}
+    - target: {fileID: 1169681003932024, guid: 06b472f147551488aa5393e9477e4e0b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4979098901876776, guid: 06b472f147551488aa5393e9477e4e0b, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -29432,6 +29512,10 @@ PrefabInstance:
     - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_Name
       value: pumkin-leaves (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4887810024293506, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_RootOrder
@@ -30238,6 +30322,10 @@ PrefabInstance:
     - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_Name
       value: pumkin-leaves (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4887810024293506, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_RootOrder
@@ -31245,6 +31333,10 @@ PrefabInstance:
     - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_Name
       value: pumkin-leaves (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310938446081940, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4887810024293506, guid: 3d6f48db001be46c2963450e86497f99, type: 3}
       propertyPath: m_RootOrder

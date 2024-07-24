@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
@@ -84,12 +85,21 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
             _body.isKinematic = true;
             GetComponent<Collider>().enabled = false;
             Destroy(GetComponent<Rigidbody>());
-            transform.SetParent(other.collider.transform, true);
+            ChangeTransform(other).Forget();
+            TryFindEnemy(other.transform)?.TakeDamage(damage);
+            _collided = true;
+        }
+
+        private async UniTaskVoid ChangeTransform(Collision other)
+        {
+            Debug.Log("ChangeTransform");
             transform.position = other.contacts[0].point;
             transform.rotation = Quaternion.Euler(-other.contacts[0].normal);
             modelRoot.localRotation = Quaternion.identity;
-            TryFindEnemy(other.transform)?.TakeDamage(damage);
-            _collided = true;
+            await UniTask.WaitForFixedUpdate();
+            await UniTask.WaitForFixedUpdate();
+            transform.SetParent(other.collider.transform, true);
+            Debug.Log("ChangeTransform2");
         }
 
         private IDamageable TryFindEnemy(Transform gameObj)
