@@ -37,6 +37,9 @@ namespace Internal.Scripts.UI.GamePlay
             
             base.Hide();
         }
+        
+        public void ShowLevelsCount(int allLevelsCount)
+            => _view.SetLevelsCount(allLevelsCount);
 
         public void ShowWinPanel(GameplayResult result)
         {

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.TheMainHero;
@@ -9,38 +10,31 @@ using Zenject;
 
 namespace Internal.Scripts.Infrastructure.Factory
 {
-    public class LevelFactory : IInitializable
+    public class LevelFactory
     {
         private readonly IInstantiator _instantiator;
         private readonly IAssetsProvider _assetsProvider;
         private readonly IPersistentProgressService _persistentProgressService;
-        private readonly LevelFactoryConfig _levelFactoryConfig;
+        private readonly LevelsConfig _levelsConfig;
         
         private WeaponProjectile _weaponProjectilePrefab;
 
         public LevelContext CreatedLevel { get; private set; }
 
         public LevelFactory(IInstantiator instantiator,
-            LevelFactoryConfig levelFactoryConfig,
+            LevelsConfig levelsConfig,
             IAssetsProvider assetsProvider,
             IPersistentProgressService persistentProgressService)
         {
             _instantiator = instantiator;
-            _levelFactoryConfig = levelFactoryConfig;
+            _levelsConfig = levelsConfig;
             _assetsProvider = assetsProvider;
             _persistentProgressService = persistentProgressService;
         }
 
-        public void Initialize()
+        public LevelContext CreateLevelContext(GameObject levelPrefab)
         {
-            _weaponProjectilePrefab = _levelFactoryConfig.AllProjectiles.FirstOrDefault(
-                x => x.Type == _persistentProgressService.PlayerProgress.PlayerState.GetCurrentWeaponType());
-        }
-
-        public async UniTask<LevelContext> CreateLevelContext(int levelIndex)
-        {
-            var prefab = await _assetsProvider.LoadAsync<GameObject>(_levelFactoryConfig.LevelContexts[levelIndex]);
-            CreatedLevel = _instantiator.InstantiatePrefabForComponent<LevelContext>(prefab);
+            CreatedLevel = _instantiator.InstantiatePrefabForComponent<LevelContext>(levelPrefab);
             CreatedLevel.transform.position = Vector3.zero;
 
             return CreatedLevel;
@@ -48,13 +42,15 @@ namespace Internal.Scripts.Infrastructure.Factory
 
         public MainHero InstantiateHero()
         {
-            var hero = _instantiator.InstantiatePrefabForComponent<MainHero>(_levelFactoryConfig.MainHero);
+            var hero = _instantiator.InstantiatePrefabForComponent<MainHero>(_levelsConfig.MainHero);
 
             return hero;
         }
 
         public WeaponProjectile CreateProjectile()
         {
+            _weaponProjectilePrefab ??= _levelsConfig.AllProjectiles.FirstOrDefault(
+                x => x.Type == _persistentProgressService.PlayerProgress.PlayerState.GetCurrentWeaponType());
             return _instantiator.InstantiatePrefabForComponent<WeaponProjectile>(_weaponProjectilePrefab);
         }
     }

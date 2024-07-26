@@ -1,4 +1,5 @@
 using System;
+using Internal.Scripts.GamePlay.LevelsService;
 using Internal.Scripts.Infrastructure.Services.Localization;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
@@ -12,15 +13,17 @@ namespace Internal.Scripts.UI.Menu
         private readonly IPersistentProgressService _playerProgressService;
         private readonly ILocalizationService _localizationService;
         private readonly ISoundsService _soundsService;
+        private readonly ILevelsService _levelsService;
         public event Action OnStartBtnClicked;
         public event Action OnShopBtnClicked;
 
         public MenuUIPresenter(IPersistentProgressService playerProgressService,
-            ILocalizationService localizationService, ISoundsService soundsService)
+            ILocalizationService localizationService, ISoundsService soundsService, ILevelsService levelsService)
         {
             _playerProgressService = playerProgressService;
             _localizationService = localizationService;
             _soundsService = soundsService;
+            _levelsService = levelsService;
         }
 
         public override void Show()

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -44,6 +46,17 @@ namespace Internal.Scripts.Infrastructure.AssetManagement
 			return await RunWithCacheOnComplete(
 				Addressables.LoadAssetAsync<T>(address),
 				cacheKey: address);
+		}
+		
+		public async UniTask<List<T>> LoadAssetsByLabelAsync<T>(AssetLabelReference label) where T : class
+		{
+			var downloadHandle = Addressables.LoadAssetsAsync<T>(label, (addressable) => { });
+			
+			var a = await RunWithCacheOnComplete(
+				downloadHandle,
+				cacheKey: label.labelString);
+			
+			return a.ToList();
 		}
 
 		public async UniTask<List<T>> LoadAllAsyncByLabel<T>(string path)

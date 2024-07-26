@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Internal.Scripts.Infrastructure.Services.UiService.Base;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ namespace Internal.Scripts.UI.GamePlay
         [SerializeField] private GameObject progress;
         [SerializeField] private Image progressImage;
         [SerializeField] private Button menuButton;
+        [SerializeField] private TMP_Text levelsCountText;
         
         public event Action OnNextBtnClick;
         public event Action OnMenuBtnClick;
@@ -51,6 +53,9 @@ namespace Internal.Scripts.UI.GamePlay
             
             return base.Hide();
         }
+        
+        public void SetLevelsCount(int count)
+            => levelsCountText.text = count.ToString();
 
         public void ShowWinPanel(GameplayResult result)
         {

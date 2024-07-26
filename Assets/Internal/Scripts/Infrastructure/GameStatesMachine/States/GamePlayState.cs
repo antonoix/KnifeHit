@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
+using Internal.Scripts.GamePlay.LevelsService;
 using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.GamePlay.TheMainHero;
 using Internal.Scripts.Infrastructure.Constants;
@@ -14,6 +15,7 @@ using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResou
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.GamePlay;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -24,9 +26,8 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
     {
         private const float ONE_STAR = 0.33f;
         
-        private readonly LevelFactory _levelFactory;
-        private readonly LevelFactoryConfig _levelFactoryConfig;
         private readonly IGameStatesMachine _gameStatesMachine;
+        private readonly ILevelsService _levelsService;
         private readonly IUiService _uiService;
         private readonly IPersistentProgressService _playerProgressService;
         private readonly ISaveLoadService _saveLoadService;
@@ -41,8 +42,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         private EnemiesHolder _enemiesHolder;
 
         public GamePlayState(IGameStatesMachine gameStatesMachine,
-            LevelFactory levelFactory,
-            LevelFactoryConfig levelFactoryConfig,
+            ILevelsService levelsService,
             IUiService uiService,
             IPersistentProgressService playerProgressService,
             ISaveLoadService saveLoadService,
@@ -52,8 +52,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             MainHeroConfig heroConfig)
         {
             _gameStatesMachine = gameStatesMachine;
-            _levelFactory = levelFactory;
-            _levelFactoryConfig = levelFactoryConfig;
+            _levelsService = levelsService;
             _uiService = uiService;
             _playerProgressService = playerProgressService;
             _saveLoadService = saveLoadService;
@@ -96,20 +95,27 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             _gameplayUiPresenter.Hide();
         }
 
-        private void Work()
+        private async UniTaskVoid Work()
         {
-            InitGameWorld().Forget();
+            await Addressables.InitializeAsync();
+            await Addressables.CheckForCatalogUpdates();
+            await _levelsService.Initialize();
+
+            _gameplayUiPresenter.ShowLevelsCount(_levelsService.GetAllLevelsCount());
+            InitGameWorld();
             _adsService.LoadAd();
-            _analyticsService.SendCustomEvent("Levels", new Dictionary<string, object>(){{"Level", GetLevelIndex()}});
+            
+            _analyticsService.SendCustomEvent("Levels",
+                new Dictionary<string, object>(){{"Level", _levelsService.GetCurrentLevelIndex()}});
         }
 
-        private async UniTaskVoid InitGameWorld()
+        private void InitGameWorld()
         {
-            var levelContext = await _levelFactory.CreateLevelContext(GetLevelIndex());
+            var levelContext = _levelsService.CreateLevelContext();
             _enemiesHolder = levelContext.EnemiesHolder;
 
-            _hero = _levelFactory.InstantiateHero();
-            _hero.SetupNavMeshAgent(_levelFactory.CreatedLevel);
+            _hero = _levelsService.InstantiateHero();
+            _hero.SetupNavMeshAgent(_levelsService.CurrentLevel);
             _hero.OnKilled += HandlePlayerLose;
 
             _heroConductor = new MainHeroConductor(_hero, levelContext.HeroRouter,
@@ -119,16 +125,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             _heroConductor.OnLevelPassed += HandlePlayerWin;
         }
 
-        private int GetLevelIndex()
-        {
-            var index = _playerProgressService.PlayerProgress.PlayerState.LastCompletedLevelIndex;
-            if (index >= 0 && index < _levelFactoryConfig.LevelContexts.Length)
-            {
-                return index;
-            }
 
-            return Random.Range(0, _levelFactoryConfig.LevelContexts.Length);
-        }
 
         private void HandlePlayerWin()
         {

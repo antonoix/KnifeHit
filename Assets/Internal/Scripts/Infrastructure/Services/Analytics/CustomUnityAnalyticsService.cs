@@ -7,9 +7,10 @@ namespace Internal.Scripts.Infrastructure.Services.Analytics
 {
     public class CustomUnityAnalyticsService : IAnalyticsService, IInitializable
     {
-        public void Initialize()
+        public async void Initialize()
         {
-            UnityServices.InitializeAsync();
+            await UnityServices.InitializeAsync();
+            AnalyticsService.Instance.StartDataCollection();
         }
         
         public void SendCustomEvent(string eventName, Dictionary<string, object> parameters)

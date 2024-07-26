@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee655413befd4ca5992277caa35d1917, type: 3}
-  m_Name: LevelFactoryInstaller
+  m_Name: LevelsServiceInstaller
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: c7d6f7bb154629c4aac1746c0c348dd1, type: 2}

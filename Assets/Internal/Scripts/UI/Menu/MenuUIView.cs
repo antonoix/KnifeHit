@@ -63,7 +63,7 @@ namespace Internal.Scripts.UI.Menu
         {
             OnStartBtnClicked?.Invoke();
         }
-        
+
         private void HandleShopBtnClicked()
         {
             OnShopBtnClicked?.Invoke();

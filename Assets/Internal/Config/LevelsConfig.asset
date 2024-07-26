@@ -10,38 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 438af657ec45022459ac5f4283b0a304, type: 3}
-  m_Name: LevelFactoryConfig
+  m_Name: LevelsConfig
   m_EditorClassIdentifier: 
   <MainHero>k__BackingField: {fileID: 7571399002054019424, guid: 188a6b4e228eddf4681900d0cfdef935, type: 3}
-  <LevelContexts>k__BackingField:
-  - m_AssetGUID: 36751e60858f2a242a90bb72cfd896f1
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: b4b50fab099c40f4497efbeb7b2ce69b
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: ec8deee2c6dbc7d45a054b9b254c8a5e
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: c4596c0929d882b4091a1778a6274102
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 35bf61527e9e1524f935e71cf2c34e5b
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 3de67a8384572d44eacee8fd19f1e6db
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 6329e250d2cd78b4ebf99be74a95d6d0
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
+  <LevelLabel>k__BackingField:
+    m_LabelString: Level
   <AllProjectiles>k__BackingField:
   - {fileID: 9117348784328457622, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
   - {fileID: 4905654266881575044, guid: c80f64d48f1341a4ab350550ac982615, type: 3}
