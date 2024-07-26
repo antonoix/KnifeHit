@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -7,19 +6,21 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
-using Zenject;
 using Debug = UnityEngine.Debug;
 
 namespace Internal.Scripts.Infrastructure.AssetManagement
 {
-    public class AddressablesAssetsProvider : IAssetsProvider, IInitializable
+    public class AddressablesAssetsProvider : IAssetsProvider
     {
 		private readonly Dictionary<string, AsyncOperationHandle> _competedCache = new();
 		private readonly Dictionary<string, List<AsyncOperationHandle>> _handles = new();
 		private bool _isLogging;
 
-		public void Initialize() =>
-			Addressables.InitializeAsync();
+		public async UniTask Initialize()
+		{
+			await Addressables.InitializeAsync();
+			await Addressables.CheckForCatalogUpdates();
+		}
 		
 		public async UniTask<GameObject> InstantiateAsync(AssetReference reference, Vector3 at, Transform parent)
 		{

@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Internal.Scripts.GamePlay.LevelsService;
 using Internal.Scripts.Infrastructure.Constants;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.Menu;
@@ -12,12 +13,14 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
     {
         private readonly IGameStatesMachine _gameStatesMachine;
         private readonly IUiService _uiService;
+        private readonly ILevelsService _levelsService;
         private MenuUIPresenter _menuUIPresenter;
 
-        public MenuState(IGameStatesMachine gameStatesMachine, IUiService uiService)
+        public MenuState(IGameStatesMachine gameStatesMachine, IUiService uiService, ILevelsService levelsService)
         {
             _gameStatesMachine = gameStatesMachine;
             _uiService = uiService;
+            _levelsService = levelsService;
         }
 
         public void Initialize()
@@ -30,8 +33,10 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             _gameStatesMachine.UnRegisterState<MenuState>();
         }
 
-        public void Enter()
+        public async void Enter()
         {
+            await _levelsService.Initialize();
+            
             _menuUIPresenter = (MenuUIPresenter) _uiService.GetPresenter<MenuUIPresenter>();
             
             _menuUIPresenter.Show();

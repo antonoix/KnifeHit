@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Internal.Scripts.Infrastructure.AssetManagement;
 using Internal.Scripts.Infrastructure.Constants;
 using Internal.Scripts.Infrastructure.GameStatesMachine;
 using Internal.Scripts.Infrastructure.SaveLoad;
@@ -12,15 +13,18 @@ public class GameBootstrap : MonoBehaviour
     private IGameStatesMachine _gameStatesMachine;
     private IPersistentProgressService _persistentProgressService;
     private ISaveLoadService _saveLoadService;
+    private IAssetsProvider _assetsProvider;
 
     [Inject]
     private void Construct(IGameStatesMachine gameStatesMachine,
         IPersistentProgressService persistentProgressService,
-        ISaveLoadService saveLoadService)
+        ISaveLoadService saveLoadService,
+        IAssetsProvider assetsProvider)
     {
         _gameStatesMachine = gameStatesMachine;
         _persistentProgressService = persistentProgressService;
         _saveLoadService = saveLoadService;
+        _assetsProvider = assetsProvider;
     }
     
     private async void Start()
@@ -28,6 +32,8 @@ public class GameBootstrap : MonoBehaviour
         DontDestroyOnLoad(this);
         
         LoadProgress();
+
+        await _assetsProvider.Initialize();
         
         AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.MENU_SCENE_NAME);
 

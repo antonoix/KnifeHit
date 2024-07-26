@@ -27,6 +27,7 @@ namespace Internal.Scripts.UI.GamePlay
             gameplayWinPanel.Hide();
             gameplayLosePanel.Hide();
             
+            Debug.Log("Show");
             progress.transform.position += Vector3.down * 300;
             progress.transform.DOMove(progress.transform.position - Vector3.down * 300, .3f);
             

@@ -84,7 +84,7 @@ namespace Internal.Scripts.GamePlay.ShopSystem
             {
                 if (_shopContext.ShopItems[i].CurrentWeapon.Type == selectedWeapon)
                 {
-                    _shopContext.ShopCamera.Focus(_shopContext.ShopItems[i].transform);
+                    _shopContext.ShopCamera.Focus(_shopContext.ShopItems[i].transform).Forget();
                     _currentShopItemIndex = i;
                     break;
                 }

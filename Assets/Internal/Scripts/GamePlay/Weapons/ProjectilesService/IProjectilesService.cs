@@ -5,6 +5,6 @@ namespace Internal.Scripts.GamePlay.ProjectilesService
 {
     public interface IProjectilesService
     {
-        void ThrowProjectile(Vector3 startPoint, Vector3 destinationPoint);
+        UniTaskVoid ThrowProjectile(Vector3 startPoint, Vector3 destinationPoint);
     }
 }

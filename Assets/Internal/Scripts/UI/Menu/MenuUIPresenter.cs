@@ -32,7 +32,7 @@ namespace Internal.Scripts.UI.Menu
             _view.OnShopBtnClicked += HandleShopBtnClicked;
             
             string levelWord = _localizationService.GetLocalized(LocalizationKeys.Level);
-            _view.SetCurrentLevel($"{levelWord} {_playerProgressService.PlayerProgress.PlayerState.LastCompletedLevelIndex + 1}");
+            _view.SetCurrentLevel($"{levelWord} {_levelsService.GetCurrentLevelIndex() + 1}");
             
             _view.SetStartText(_localizationService.GetLocalized(LocalizationKeys.Start));
             _view.SetCurrentCoins(_playerProgressService.PlayerProgress.ResourcePack[ResourceType.Coin].Value);

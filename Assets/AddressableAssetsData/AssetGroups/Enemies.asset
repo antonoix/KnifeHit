@@ -77,6 +77,46 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fee59bbb5d45e044a915f8b4969d2466
+    m_Address: Assets/Internal/Prefabs/Projectiles/Projectile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c80f64d48f1341a4ab350550ac982615
+    m_Address: Assets/Internal/Prefabs/Projectiles/ProjectileGlass Variant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d2fee9f740c17124e80eab86e4693605
+    m_Address: Assets/Internal/Prefabs/Projectiles/ProjectileLollipop Variant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aeb8602ced9643947a44c37d19f15094
+    m_Address: Assets/Internal/Prefabs/Projectiles/ProjectileMace Variant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8499b76f4847b34cb914c16be0c00a5
+    m_Address: Assets/Internal/Prefabs/Projectiles/ProjectilePickaxe Variant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d80fd16158abc4a4ba0e6a125c947155
+    m_Address: Assets/Internal/Prefabs/Projectiles/ProjectilePitchfork Variant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f51509bdc9bd21c4d9a806225d893772
+    m_Address: Assets/Internal/Prefabs/Projectiles/ProjectilePlunger Variant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0bbc291d26891d94fb4eb7951dc2b87d
+    m_Address: Assets/Internal/Prefabs/Projectiles/ProjectileUmbrella Variant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 343ece835b2d07245b9b73ba076b879b, type: 2}
   m_SchemaSet:

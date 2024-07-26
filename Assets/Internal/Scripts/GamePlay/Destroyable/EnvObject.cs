@@ -1,5 +1,6 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Internal.Scripts.GamePlay.TheMainHero.Combat;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.Destroyable
@@ -23,6 +24,12 @@ namespace Internal.Scripts.GamePlay.Destroyable
         private void OnDestroy()
         {
             _cancellation?.Cancel();
+            
+            var projectiles = transform.GetComponentsInChildren<WeaponProjectile>();
+            foreach (var projectile in projectiles)
+            {
+                projectile.ForceRelease();
+            }
         }
 
         public async UniTaskVoid Explode(Vector3 explosionPos, float force)

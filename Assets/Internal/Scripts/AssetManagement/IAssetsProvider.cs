@@ -16,5 +16,6 @@ namespace Internal.Scripts.Infrastructure.AssetManagement
         void CleanUp();
         void Release(AssetReference assetReference);
         void Release(string assetGuid);
+        UniTask Initialize();
     }
 }

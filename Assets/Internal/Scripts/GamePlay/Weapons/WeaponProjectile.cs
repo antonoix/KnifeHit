@@ -42,9 +42,14 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
             StartRotating(destinationPos);
             
             GetComponent<Collider>().enabled = true;
-            transform.parent = null;
 
             await UniTask.WaitForSeconds(LIFE_TIME);
+            OnNeedRelease?.Invoke(this);
+        }
+
+        public void ForceRelease()
+        {
+            Debug.Log("ForceRelease");
             OnNeedRelease?.Invoke(this);
         }
 
@@ -58,6 +63,11 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
                 _rotatingRoutine = null;
                 _collided = false;
             }
+        }
+
+        public void SetParent(Transform parent)
+        {
+            transform.SetParent(parent, true);
         }
 
         private void StartRotating(Vector3 destinationPos)
@@ -92,14 +102,12 @@ namespace Internal.Scripts.GamePlay.TheMainHero.Combat
 
         private async UniTaskVoid ChangeTransform(Collision other)
         {
-            Debug.Log("ChangeTransform");
+            Transform parent = other.transform;
             transform.position = other.contacts[0].point;
-            transform.rotation = Quaternion.Euler(-other.contacts[0].normal);
+            //transform.rotation = Quaternion.Euler(other.contacts[0].normal);
             modelRoot.localRotation = Quaternion.identity;
-            await UniTask.WaitForFixedUpdate();
-            await UniTask.WaitForFixedUpdate();
-            transform.SetParent(other.collider.transform, true);
-            Debug.Log("ChangeTransform2");
+            await UniTask.Yield(PlayerLoopTiming.Update);
+            SetParent(parent);
         }
 
         private IDamageable TryFindEnemy(Transform gameObj)

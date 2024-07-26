@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8af281a69d413b855734803bb884f7, type: 3}
   m_Name: MainHeroConfig
   m_EditorClassIdentifier: 
+  <MainHeroReference>k__BackingField:
+    m_AssetGUID: 188a6b4e228eddf4681900d0cfdef935
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   <RotationDurationSec>k__BackingField: 1
   <ShootDelaySec>k__BackingField: 0.3
   <TimeBetweenRotationCheck>k__BackingField: 0.4

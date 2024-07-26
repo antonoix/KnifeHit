@@ -11,12 +11,10 @@ namespace Internal.Scripts.Infrastructure.Factory
     public class ShopInstaller : ScriptableObjectInstaller
     {
         [SerializeField] private ShopConfig shopConfig;
-        [SerializeField] private AllWeaponsConfig allWeaponsConfig;
         
         public override void InstallBindings()
         {
             Container.BindInstance(shopConfig);
-            Container.BindInstance(allWeaponsConfig);
             Container.BindInterfacesAndSelfTo<ShopFactory>().AsSingle();
             Container.BindInterfacesTo<ShopState>().AsSingle();
             Container.BindInterfacesAndSelfTo<ShopService>().AsSingle();

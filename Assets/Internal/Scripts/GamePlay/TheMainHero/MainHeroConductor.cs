@@ -53,7 +53,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
             {
                 await UniTask.WaitForSeconds(1, cancellationToken: _cts.Token).SuppressCancellationThrow();
                 
-                await _hero.GoToPoint(point, enemiesPack);
+                await _hero.GoToPoint(point, enemiesPack).AttachExternalCancellation(_cts.Token).SuppressCancellationThrow();
                 enemiesPack.Attack(_hero);
                 await WaitUntilPointPassed(enemiesPack, point);
 

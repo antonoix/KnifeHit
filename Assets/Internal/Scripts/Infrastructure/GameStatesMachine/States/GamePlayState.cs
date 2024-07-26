@@ -5,6 +5,7 @@ using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.GamePlay.LevelsService;
 using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.GamePlay.TheMainHero;
+using Internal.Scripts.GamePlay.TheMainHero.Factory;
 using Internal.Scripts.Infrastructure.Constants;
 using Internal.Scripts.Infrastructure.Factory;
 using Internal.Scripts.Infrastructure.SaveLoad;
@@ -28,6 +29,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         
         private readonly IGameStatesMachine _gameStatesMachine;
         private readonly ILevelsService _levelsService;
+        private readonly MainHeroFactory _mainHeroFactory;
         private readonly IUiService _uiService;
         private readonly IPersistentProgressService _playerProgressService;
         private readonly ISaveLoadService _saveLoadService;
@@ -43,6 +45,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 
         public GamePlayState(IGameStatesMachine gameStatesMachine,
             ILevelsService levelsService,
+            MainHeroFactory mainHeroFactory,
             IUiService uiService,
             IPersistentProgressService playerProgressService,
             ISaveLoadService saveLoadService,
@@ -53,6 +56,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         {
             _gameStatesMachine = gameStatesMachine;
             _levelsService = levelsService;
+            _mainHeroFactory = mainHeroFactory;
             _uiService = uiService;
             _playerProgressService = playerProgressService;
             _saveLoadService = saveLoadService;
@@ -95,26 +99,22 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             _gameplayUiPresenter.Hide();
         }
 
-        private async UniTaskVoid Work()
+        private void Work()
         {
-            await Addressables.InitializeAsync();
-            await Addressables.CheckForCatalogUpdates();
-            await _levelsService.Initialize();
-
             _gameplayUiPresenter.ShowLevelsCount(_levelsService.GetAllLevelsCount());
-            InitGameWorld();
+            InitGameWorld().Forget();
             _adsService.LoadAd();
             
             _analyticsService.SendCustomEvent("Levels",
                 new Dictionary<string, object>(){{"Level", _levelsService.GetCurrentLevelIndex()}});
         }
 
-        private void InitGameWorld()
+        private async UniTaskVoid InitGameWorld()
         {
             var levelContext = _levelsService.CreateLevelContext();
             _enemiesHolder = levelContext.EnemiesHolder;
 
-            _hero = _levelsService.InstantiateHero();
+            _hero = await _mainHeroFactory.InstantiateHero();
             _hero.SetupNavMeshAgent(_levelsService.CurrentLevel);
             _hero.OnKilled += HandlePlayerLose;
 

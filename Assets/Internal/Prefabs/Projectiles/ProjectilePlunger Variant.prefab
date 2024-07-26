@@ -150,6 +150,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2673069601105407830, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.97816145
+      objectReference: {fileID: 0}
+    - target: {fileID: 2673069601105407830, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.20784676
+      objectReference: {fileID: 0}
+    - target: {fileID: 2673069601105407830, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2673069601105407830, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2673069601105407830, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 23.992
+      objectReference: {fileID: 0}
     - target: {fileID: 5043242940543386642, guid: fee59bbb5d45e044a915f8b4969d2466, type: 3}
       propertyPath: m_Name
       value: ProjectilePlunger Variant

@@ -38,9 +38,6 @@ namespace Internal.Scripts.GamePlay.LevelsService
             _allLevels = await _assetsProvider.LoadAssetsByLabelAsync<GameObject>(_config.LevelLabel);
         }
 
-        public MainHero InstantiateHero() 
-            => _levelFactory.InstantiateHero();
-
         public int GetAllLevelsCount()
         {
             if (!CheckIfInitialized()) return 0;
@@ -59,12 +56,12 @@ namespace Internal.Scripts.GamePlay.LevelsService
             if (!CheckIfInitialized()) return 0;
             
             var index = _progressService.PlayerProgress.PlayerState.LastCompletedLevelIndex;
-            if (index >= 0 && index < _allLevels.Count)
-            {
-                return index;
-            }
-
-            return Random.Range(0, _allLevels.Count);
+            if (index < 0)
+                index = 0;
+            
+            return index < _allLevels.Count ? 
+                index 
+                : Random.Range(0, _allLevels.Count);
         }
 
         private bool CheckIfInitialized()

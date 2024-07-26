@@ -1,4 +1,5 @@
-﻿using Internal.Scripts.GamePlay.TheMainHero.Combat;
+﻿using Cysharp.Threading.Tasks;
+using Internal.Scripts.GamePlay.TheMainHero.Combat;
 using Internal.Scripts.Infrastructure.Factory;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -8,21 +9,24 @@ namespace Internal.Scripts.GamePlay.ProjectilesService
 {
     public class ProjectilesService : IProjectilesService, IInitializable
     {
-        private readonly LevelFactory _levelFactory;
+        private readonly ProjectilesFactory _projectilesFactory;
         private IObjectPool<WeaponProjectile> _pool;
 
-        public ProjectilesService(LevelFactory levelFactory)
+        public ProjectilesService(ProjectilesFactory projectilesFactory)
         {
-            _levelFactory = levelFactory;
+            _projectilesFactory = projectilesFactory;
         }
 
         public void Initialize()
         {
             _pool = new ObjectPool<WeaponProjectile>(CreateProjectile, OnGetProjectile, OnReleaseProjectile);
+            _projectilesFactory.Initialize().Forget();
         }
 
-        public void ThrowProjectile(Vector3 startPoint, Vector3 destinationPoint)
+        public async UniTaskVoid ThrowProjectile(Vector3 startPoint, Vector3 destinationPoint)
         {
+            await UniTask.WaitUntil(() => _projectilesFactory.IsInitialized);
+            
             var projectile = _pool.Get();
             projectile.Throw(startPoint, destinationPoint).Forget();
 
@@ -37,16 +41,18 @@ namespace Internal.Scripts.GamePlay.ProjectilesService
 
         private WeaponProjectile CreateProjectile()
         {
-            return _levelFactory.CreateProjectile();
+            return _projectilesFactory.CreateProjectile();
         }
 
         private void OnGetProjectile(WeaponProjectile weaponProjectile)
         {
+            weaponProjectile.SetParent(null);
             weaponProjectile.SetActive(true);
         }
 
         private void OnReleaseProjectile(WeaponProjectile weaponProjectile)
         {
+            weaponProjectile.SetParent(null);
             weaponProjectile.SetActive(false);
         }
     }

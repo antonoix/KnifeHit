@@ -9,7 +9,6 @@ namespace Internal.Scripts.GamePlay.LevelsService
         UniTask Initialize();
         int GetAllLevelsCount();
         int GetCurrentLevelIndex();
-        MainHero InstantiateHero();
         LevelContext CreateLevelContext();
         LevelContext CurrentLevel { get; }
     }

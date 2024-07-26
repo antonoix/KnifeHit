@@ -22,7 +22,6 @@ namespace Internal.Scripts.GamePlay.Enemies
         private ISpecialEffectsService _specialEffectsService;
         private int _health = 1;
         private bool _isGetDamageAnimationPlaying;
-        private Rigidbody _rigidbody;
         private List<Rigidbody> _rigidbodies;
         private IDamageable _currentAim;
         private CancellationTokenSource _cancellation = new CancellationTokenSource();
@@ -31,7 +30,6 @@ namespace Internal.Scripts.GamePlay.Enemies
 
         public Transform Transform => transform;
         public int RewardCoinsCount => config.RewardCoinsCount;
-        private Rigidbody Rigidbody => _rigidbody ??= GetComponent<Rigidbody>();
         private List<Rigidbody> Rigidbodies => _rigidbodies ??= GetComponentsInChildren<Rigidbody>().ToList();
 
         [Inject]

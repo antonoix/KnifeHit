@@ -13,23 +13,12 @@ namespace Internal.Scripts.Infrastructure.Factory
     public class LevelFactory
     {
         private readonly IInstantiator _instantiator;
-        private readonly IAssetsProvider _assetsProvider;
-        private readonly IPersistentProgressService _persistentProgressService;
-        private readonly LevelsConfig _levelsConfig;
-        
-        private WeaponProjectile _weaponProjectilePrefab;
 
         public LevelContext CreatedLevel { get; private set; }
 
-        public LevelFactory(IInstantiator instantiator,
-            LevelsConfig levelsConfig,
-            IAssetsProvider assetsProvider,
-            IPersistentProgressService persistentProgressService)
+        public LevelFactory(IInstantiator instantiator)
         {
             _instantiator = instantiator;
-            _levelsConfig = levelsConfig;
-            _assetsProvider = assetsProvider;
-            _persistentProgressService = persistentProgressService;
         }
 
         public LevelContext CreateLevelContext(GameObject levelPrefab)
@@ -38,20 +27,6 @@ namespace Internal.Scripts.Infrastructure.Factory
             CreatedLevel.transform.position = Vector3.zero;
 
             return CreatedLevel;
-        }
-
-        public MainHero InstantiateHero()
-        {
-            var hero = _instantiator.InstantiatePrefabForComponent<MainHero>(_levelsConfig.MainHero);
-
-            return hero;
-        }
-
-        public WeaponProjectile CreateProjectile()
-        {
-            _weaponProjectilePrefab ??= _levelsConfig.AllProjectiles.FirstOrDefault(
-                x => x.Type == _persistentProgressService.PlayerProgress.PlayerState.GetCurrentWeaponType());
-            return _instantiator.InstantiatePrefabForComponent<WeaponProjectile>(_weaponProjectilePrefab);
         }
     }
 }
