@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cebeaa67c3c46afac6196b9200385f2, type: 3}
   m_Name: ProjectServicesInstaller
   m_EditorClassIdentifier: 
+  _allWeaponsConfig: {fileID: 11400000, guid: 3509c303a0460e24fa97a41b7060320e, type: 2}

@@ -1,5 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
-using Internal.Scripts.Infrastructure.AssetManagement;
+using Internal.Scripts.AssetManagement;
 using UnityEngine;
 using Zenject;
 

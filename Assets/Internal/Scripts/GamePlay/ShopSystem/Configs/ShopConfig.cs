@@ -1,7 +1,6 @@
-﻿using Internal.Scripts.GamePlay.ShopSystem;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Internal.Scripts.Infrastructure.Factory
+namespace Internal.Scripts.GamePlay.ShopSystem.Configs
 {
     [CreateAssetMenu(fileName = "ShopConfig", menuName = "Configs/ShopConfig")]
     public class ShopConfig : ScriptableObject

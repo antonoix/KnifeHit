@@ -3,7 +3,7 @@ using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using UnityEngine;
 using Zenject;
 
-namespace Internal.Scripts.Infrastructure.SaveLoad
+namespace Internal.Scripts.Infrastructure.Services.SaveLoad
 {
     public class SaveLoadService : ISaveLoadService, IInitializable, ILateDisposable
     {

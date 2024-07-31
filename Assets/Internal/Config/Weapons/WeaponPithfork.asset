@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c8d993e5534f63befee695e1256e66, type: 3}
   m_Name: WeaponPithfork
   m_EditorClassIdentifier: 
+  <PrefabReference>k__BackingField:
+    m_AssetGUID: d80fd16158abc4a4ba0e6a125c947155
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   <ResourceCost>k__BackingField:
     _value: 150
     Key: 0

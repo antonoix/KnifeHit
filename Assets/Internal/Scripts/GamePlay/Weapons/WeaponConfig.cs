@@ -3,7 +3,7 @@ using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResou
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Internal.Scripts.GamePlay.TheMainHero.Combat
+namespace Internal.Scripts.GamePlay.Weapons
 {
     [CreateAssetMenu(fileName = "WeaponConfig", menuName = "Configs/WeaponConfig")]
     public class WeaponConfig : ScriptableObject

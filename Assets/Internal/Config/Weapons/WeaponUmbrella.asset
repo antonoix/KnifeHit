@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c8d993e5534f63befee695e1256e66, type: 3}
   m_Name: WeaponUmbrella
   m_EditorClassIdentifier: 
+  <PrefabReference>k__BackingField:
+    m_AssetGUID: 0bbc291d26891d94fb4eb7951dc2b87d
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   <ResourceCost>k__BackingField:
     _value: 10
     Key: 1

@@ -1,7 +1,6 @@
-﻿using Internal.Scripts.GamePlay.ShopSystem;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Internal.Scripts.Infrastructure.Factory
+namespace Internal.Scripts.GamePlay.ShopSystem
 {
     public class ShopContext : MonoBehaviour
     {

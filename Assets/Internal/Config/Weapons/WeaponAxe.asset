@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c8d993e5534f63befee695e1256e66, type: 3}
   m_Name: WeaponAxe
   m_EditorClassIdentifier: 
+  <PrefabReference>k__BackingField:
+    m_AssetGUID: fee59bbb5d45e044a915f8b4969d2466
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   <ResourceCost>k__BackingField:
     _value: 0
     Key: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Internal.Scripts.Infrastructure.Input
+namespace Internal.Scripts.Infrastructure.Services.Input
 {
     public class InputService : IInitializable, ILateDisposable, IInputService
     {

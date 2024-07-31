@@ -1,6 +1,6 @@
 ﻿using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 
-namespace Internal.Scripts.Infrastructure.SaveLoad
+namespace Internal.Scripts.Infrastructure.Services.SaveLoad
 {
     public interface ISaveLoadService
     {

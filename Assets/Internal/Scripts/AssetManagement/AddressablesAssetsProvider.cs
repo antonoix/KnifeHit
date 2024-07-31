@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -8,7 +9,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using Debug = UnityEngine.Debug;
 
-namespace Internal.Scripts.Infrastructure.AssetManagement
+namespace Internal.Scripts.AssetManagement
 {
     public class AddressablesAssetsProvider : IAssetsProvider
     {
@@ -19,7 +20,16 @@ namespace Internal.Scripts.Infrastructure.AssetManagement
 		public async UniTask Initialize()
 		{
 			await Addressables.InitializeAsync();
-			await Addressables.CheckForCatalogUpdates();
+#if UNITY_ANDROID
+						try
+			{
+				await Addressables.CheckForCatalogUpdates();
+			}
+			catch (Exception e)
+			{
+				Debug.LogError(e);
+			}
+#endif
 		}
 		
 		public async UniTask<GameObject> InstantiateAsync(AssetReference reference, Vector3 at, Transform parent)

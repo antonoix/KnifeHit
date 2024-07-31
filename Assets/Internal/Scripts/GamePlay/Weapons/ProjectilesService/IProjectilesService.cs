@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Internal.Scripts.GamePlay.ProjectilesService
+namespace Internal.Scripts.GamePlay.Weapons.ProjectilesService
 {
     public interface IProjectilesService
     {

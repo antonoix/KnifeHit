@@ -2,7 +2,7 @@
 using Internal.Scripts.GamePlay.Enemies;
 using UnityEngine;
 
-namespace Internal.Scripts.GamePlay
+namespace Internal.Scripts.GamePlay.Destroyable
 {
     public class EnemiesDestroyer : MonoBehaviour
     {

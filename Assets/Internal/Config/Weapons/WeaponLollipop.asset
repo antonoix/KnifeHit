@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c8d993e5534f63befee695e1256e66, type: 3}
   m_Name: WeaponLollipop
   m_EditorClassIdentifier: 
+  <PrefabReference>k__BackingField:
+    m_AssetGUID: d2fee9f740c17124e80eab86e4693605
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   <ResourceCost>k__BackingField:
     _value: 60
     Key: 0

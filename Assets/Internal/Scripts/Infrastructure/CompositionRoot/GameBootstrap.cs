@@ -1,59 +1,62 @@
 using Cysharp.Threading.Tasks;
-using Internal.Scripts.Infrastructure.AssetManagement;
+using Internal.Scripts.AssetManagement;
 using Internal.Scripts.Infrastructure.Constants;
 using Internal.Scripts.Infrastructure.GameStatesMachine;
-using Internal.Scripts.Infrastructure.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
+using Internal.Scripts.Infrastructure.Services.SaveLoad;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-public class GameBootstrap : MonoBehaviour
+namespace Internal.Scripts.Infrastructure.CompositionRoot
 {
-    private IGameStatesMachine _gameStatesMachine;
-    private IPersistentProgressService _persistentProgressService;
-    private ISaveLoadService _saveLoadService;
-    private IAssetsProvider _assetsProvider;
-
-    [Inject]
-    private void Construct(IGameStatesMachine gameStatesMachine,
-        IPersistentProgressService persistentProgressService,
-        ISaveLoadService saveLoadService,
-        IAssetsProvider assetsProvider)
+    public class GameBootstrap : MonoBehaviour
     {
-        _gameStatesMachine = gameStatesMachine;
-        _persistentProgressService = persistentProgressService;
-        _saveLoadService = saveLoadService;
-        _assetsProvider = assetsProvider;
-    }
-    
-    private async void Start()
-    {
-        DontDestroyOnLoad(this);
-        
-        LoadProgress();
+        private IGameStatesMachine _gameStatesMachine;
+        private IPersistentProgressService _persistentProgressService;
+        private ISaveLoadService _saveLoadService;
+        private IAssetsProvider _assetsProvider;
 
-        await _assetsProvider.Initialize();
-        
-        AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.MENU_SCENE_NAME);
-
-        while (!loadSceneAsync.isDone)
-            await UniTask.Yield();
-        
-        _gameStatesMachine.Enter();
-    }
-    
-    private void LoadProgress()
-    {
-        PlayerProgress playerProgress = _saveLoadService.LoadProgress();
-        if (playerProgress == null)
+        [Inject]
+        private void Construct(IGameStatesMachine gameStatesMachine,
+            IPersistentProgressService persistentProgressService,
+            ISaveLoadService saveLoadService,
+            IAssetsProvider assetsProvider)
         {
-            Debug.Log("PlayerProgress is null, Init New Progress");
-            _persistentProgressService.InitNewProgress();
-            return;
+            _gameStatesMachine = gameStatesMachine;
+            _persistentProgressService = persistentProgressService;
+            _saveLoadService = saveLoadService;
+            _assetsProvider = assetsProvider;
         }
+    
+        private async void Start()
+        {
+            DontDestroyOnLoad(this);
+        
+            LoadProgress();
 
-        Debug.Log("PlayerProgress is loaded");
-        _persistentProgressService.PlayerProgress = playerProgress;
+            await _assetsProvider.Initialize();
+        
+            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(ScenesNames.MENU_SCENE_NAME);
+
+            while (!loadSceneAsync.isDone)
+                await UniTask.Yield();
+        
+            _gameStatesMachine.Enter();
+        }
+    
+        private void LoadProgress()
+        {
+            PlayerProgress playerProgress = _saveLoadService.LoadProgress();
+            if (playerProgress == null)
+            {
+                Debug.Log("PlayerProgress is null, Init New Progress");
+                _persistentProgressService.InitNewProgress();
+                return;
+            }
+
+            Debug.Log("PlayerProgress is loaded");
+            _persistentProgressService.PlayerProgress = playerProgress;
+        }
     }
 }

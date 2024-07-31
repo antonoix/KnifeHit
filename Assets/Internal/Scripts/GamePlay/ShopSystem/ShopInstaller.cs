@@ -1,11 +1,9 @@
-﻿using Internal.Scripts.GamePlay.ShopSystem;
-using Internal.Scripts.GamePlay.TheMainHero.Combat;
+﻿using Internal.Scripts.GamePlay.ShopSystem.Configs;
 using Internal.Scripts.Infrastructure.GameStatesMachine.States;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
-namespace Internal.Scripts.Infrastructure.Factory
+namespace Internal.Scripts.GamePlay.ShopSystem
 {
     [CreateAssetMenu(fileName = "ShopInstaller", menuName = "Installers/ShopInstaller")]
     public class ShopInstaller : ScriptableObjectInstaller

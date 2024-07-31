@@ -1,14 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
-using Cysharp.Threading.Tasks;
-using Internal.Scripts.GamePlay.TheMainHero;
-using Internal.Scripts.GamePlay.TheMainHero.Combat;
-using Internal.Scripts.Infrastructure.AssetManagement;
-using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using UnityEngine;
 using Zenject;
 
-namespace Internal.Scripts.Infrastructure.Factory
+namespace Internal.Scripts.GamePlay.LevelsService
 {
     public class LevelFactory
     {
@@ -24,9 +17,16 @@ namespace Internal.Scripts.Infrastructure.Factory
         public LevelContext CreateLevelContext(GameObject levelPrefab)
         {
             CreatedLevel = _instantiator.InstantiatePrefabForComponent<LevelContext>(levelPrefab);
+            CreatedLevel.transform.parent = null;
             CreatedLevel.transform.position = Vector3.zero;
 
             return CreatedLevel;
+        }
+
+        public void DestroyCurrentLevel()
+        {
+            GameObject.Destroy(CreatedLevel.gameObject);
+            CreatedLevel = null;
         }
     }
 }

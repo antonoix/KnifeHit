@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using Internal.Scripts.AssetManagement;
 using Internal.Scripts.GamePlay.TheMainHero;
-using Internal.Scripts.Infrastructure.AssetManagement;
-using Internal.Scripts.Infrastructure.Factory;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -49,6 +48,11 @@ namespace Internal.Scripts.GamePlay.LevelsService
         {
             int currentIndex = GetCurrentLevelIndex();
             return _levelFactory.CreateLevelContext(_allLevels[currentIndex]);
+        }
+        
+        public void DestroyCurrentLevel()
+        {
+            _levelFactory.DestroyCurrentLevel();
         }
 
         public int GetCurrentLevelIndex()

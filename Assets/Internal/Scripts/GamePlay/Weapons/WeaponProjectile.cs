@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using UnityEngine;
 
-namespace Internal.Scripts.GamePlay.TheMainHero.Combat
+namespace Internal.Scripts.GamePlay.Weapons
 {
     public class WeaponProjectile : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using Internal.Scripts.GamePlay.HeroRoute;
 using Unity.AI.Navigation;
 using UnityEngine;
 
-namespace Internal.Scripts.Infrastructure.Factory
+namespace Internal.Scripts.GamePlay.LevelsService
 {
     public class LevelContext : MonoBehaviour
     {

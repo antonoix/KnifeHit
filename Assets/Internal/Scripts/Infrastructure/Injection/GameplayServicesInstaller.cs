@@ -1,5 +1,5 @@
-﻿using Internal.Scripts.GamePlay.ProjectilesService;
-using Internal.Scripts.GamePlay.TheMainHero;
+﻿using Internal.Scripts.GamePlay.TheMainHero;
+using Internal.Scripts.GamePlay.Weapons.ProjectilesService;
 using Internal.Scripts.Infrastructure.GameStatesMachine.States;
 using UnityEngine;
 using Zenject;

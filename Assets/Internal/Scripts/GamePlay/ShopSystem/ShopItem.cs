@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using Internal.Scripts.GamePlay.TheMainHero.Combat;
+using Internal.Scripts.GamePlay.Weapons;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
 using UnityEngine;

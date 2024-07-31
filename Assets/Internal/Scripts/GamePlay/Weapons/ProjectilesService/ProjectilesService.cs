@@ -1,11 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
-using Internal.Scripts.GamePlay.TheMainHero.Combat;
-using Internal.Scripts.Infrastructure.Factory;
 using UnityEngine;
 using UnityEngine.Pool;
 using Zenject;
 
-namespace Internal.Scripts.GamePlay.ProjectilesService
+namespace Internal.Scripts.GamePlay.Weapons.ProjectilesService
 {
     public class ProjectilesService : IProjectilesService, IInitializable
     {

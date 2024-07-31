@@ -12,11 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
   m_Name: Weapons
   m_EditorClassIdentifier: 
-  m_GroupName: Packed Assets
+  m_GroupName: Weapons
   m_Data:
     m_SerializedData: []
   m_GUID: 8756dc473bc388f4fb8dc9bbb3aa6226
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: c80f64d48f1341a4ab350550ac982615
+    m_Address: ProjectileGlass Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d2fee9f740c17124e80eab86e4693605
+    m_Address: ProjectileLollipop Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aeb8602ced9643947a44c37d19f15094
+    m_Address: ProjectileMace Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8499b76f4847b34cb914c16be0c00a5
+    m_Address: ProjectilePickaxe Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d80fd16158abc4a4ba0e6a125c947155
+    m_Address: ProjectilePitchfork Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f51509bdc9bd21c4d9a806225d893772
+    m_Address: ProjectilePlunger Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0bbc291d26891d94fb4eb7951dc2b87d
+    m_Address: ProjectileUmbrella Variant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fee59bbb5d45e044a915f8b4969d2466
+    m_Address: ProjectileAxe
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 343ece835b2d07245b9b73ba076b879b, type: 2}
   m_SchemaSet:

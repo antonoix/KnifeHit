@@ -7,7 +7,7 @@ namespace Internal.Scripts.GamePlay.HeroRoute
     [RequireComponent(typeof(Collider))]
     public class RouterPoint : MonoBehaviour
     {
-        private const float GIZMOS_RADIUS = 0.1f;
+        private const float GIZMOS_RADIUS = 1f;
 
         public bool IsReached { get; private set; }
 
@@ -18,7 +18,7 @@ namespace Internal.Scripts.GamePlay.HeroRoute
         }
 
 #if UNITY_EDITOR
-        [DrawGizmo(GizmoType.Selected)]
+        [DrawGizmo(GizmoType.Pickable)]
         private Color _color = new Color(0f, 0.09f, 1f);
             
         public void SetGizmosColor(Color color)

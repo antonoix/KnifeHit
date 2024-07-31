@@ -7,12 +7,12 @@ using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.GamePlay.TheMainHero;
 using Internal.Scripts.GamePlay.TheMainHero.Factory;
 using Internal.Scripts.Infrastructure.Constants;
-using Internal.Scripts.Infrastructure.Factory;
-using Internal.Scripts.Infrastructure.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.Ads;
 using Internal.Scripts.Infrastructure.Services.Analytics;
+using Internal.Scripts.Infrastructure.Services.LeaderBoards;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService.PlayerResource;
+using Internal.Scripts.Infrastructure.Services.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.GamePlay;
 using UnityEngine;
@@ -37,12 +37,15 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         private readonly IAnalyticsService _analyticsService;
         private readonly ISpecialEffectsService _specialEffectsService;
         private readonly MainHeroConfig _heroConfig;
-        
+        private readonly ILeaderBoardsService _leaderBoardsService;
+
         private MainHeroConductor _heroConductor;
         private GameplayUIPresenter _gameplayUiPresenter;
         private MainHero _hero;
         private EnemiesHolder _enemiesHolder;
 
+        private PlayerProgress PlayerProgress => _playerProgressService.PlayerProgress;
+        
         public GamePlayState(IGameStatesMachine gameStatesMachine,
             ILevelsService levelsService,
             MainHeroFactory mainHeroFactory,
@@ -52,7 +55,8 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             IAdsService adsService,
             IAnalyticsService analyticsService,
             ISpecialEffectsService specialEffectsService,
-            MainHeroConfig heroConfig)
+            MainHeroConfig heroConfig,
+            ILeaderBoardsService leaderBoardsService)
         {
             _gameStatesMachine = gameStatesMachine;
             _levelsService = levelsService;
@@ -64,6 +68,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             _analyticsService = analyticsService;
             _specialEffectsService = specialEffectsService;
             _heroConfig = heroConfig;
+            _leaderBoardsService = leaderBoardsService;
         }
 
         public void Initialize()
@@ -91,6 +96,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         public void Exit()
         {
             _heroConductor.Dispose();
+            _levelsService.DestroyCurrentLevel();
 
             _gameplayUiPresenter.OnMenuBtnClick -= HandleMenuBtnClick;
             _gameplayUiPresenter.OnNextBtnClick -= HandleNextBtnClick;
@@ -101,7 +107,6 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 
         private void Work()
         {
-            _gameplayUiPresenter.ShowLevelsCount(_levelsService.GetAllLevelsCount());
             InitGameWorld().Forget();
             _adsService.LoadAd();
             
@@ -125,8 +130,6 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             _heroConductor.OnLevelPassed += HandlePlayerWin;
         }
 
-
-
         private void HandlePlayerWin()
         {
             float resultPercent = _enemiesHolder.EnemiesCount * 3.5f / _hero.ShotsCount;
@@ -143,13 +146,14 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             UpdateProgress(starsCount);
 
             _analyticsService.SendCustomEvent("GameplayResult", new Dictionary<string, object>(){{"Win", true}});
+            _leaderBoardsService.RegisterRecord(PlayerProgress.PlayerState.LastCompletedLevelIndex + 1);
         }
 
         private void UpdateProgress(int starsCount)
         {
-            _playerProgressService.PlayerProgress.PlayerState.IncreasePassedLevel();
-            _playerProgressService.PlayerProgress.ResourcePack[ResourceType.Coin].Value += _enemiesHolder.RewardForEnemies;
-            _playerProgressService.PlayerProgress.ResourcePack[ResourceType.Star].Value += starsCount;
+            PlayerProgress.PlayerState.IncreasePassedLevel();
+            PlayerProgress.ResourcePack[ResourceType.Coin].Value += _enemiesHolder.RewardForEnemies;
+            PlayerProgress.ResourcePack[ResourceType.Star].Value += starsCount;
             _saveLoadService.SaveProgress();
         }
 

@@ -1,8 +1,7 @@
-﻿using Internal.Scripts.GamePlay.LevelsService;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
-namespace Internal.Scripts.Infrastructure.Factory
+namespace Internal.Scripts.GamePlay.LevelsService
 {
     [CreateAssetMenu(fileName = "LevelServiceInstaller", menuName = "Installers/LevelServiceInstaller")]
     public class LevelServiceInstaller : ScriptableObjectInstaller

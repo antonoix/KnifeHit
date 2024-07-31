@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Internal.Scripts.GamePlay.ShopSystem.Configs;
 using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.GamePlay.TheMainHero.Combat;
-using Internal.Scripts.Infrastructure.Factory;
-using Internal.Scripts.Infrastructure.SaveLoad;
+using Internal.Scripts.GamePlay.Weapons;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
+using Internal.Scripts.Infrastructure.Services.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.ShopUI;
 using Zenject;

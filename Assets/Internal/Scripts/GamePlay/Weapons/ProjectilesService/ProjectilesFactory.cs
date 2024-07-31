@@ -1,12 +1,11 @@
 ﻿using System.Linq;
 using Cysharp.Threading.Tasks;
-using Internal.Scripts.GamePlay.TheMainHero.Combat;
-using Internal.Scripts.Infrastructure.AssetManagement;
+using Internal.Scripts.AssetManagement;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using UnityEngine;
 using Zenject;
 
-namespace Internal.Scripts.GamePlay.ProjectilesService
+namespace Internal.Scripts.GamePlay.Weapons.ProjectilesService
 {
     public class ProjectilesFactory
     {

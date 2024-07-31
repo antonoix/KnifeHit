@@ -17,7 +17,6 @@ namespace Internal.Scripts.GamePlay.Destroyable
         {
             _body = GetComponent<Rigidbody>();
             _parent = transform.parent;
-            transform.parent = null;
         }
 
         [Inject]

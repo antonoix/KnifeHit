@@ -1,5 +1,8 @@
-public interface IAdsModule
+namespace Internal.Scripts.Infrastructure.Advertisement
 {
-    void ShowAd();
-    void Init();
+    public interface IAdsModule
+    {
+        void ShowAd();
+        void Init();
+    }
 }

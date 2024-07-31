@@ -1,6 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.TheMainHero.Combat;
+using Internal.Scripts.GamePlay.Weapons;
 using UnityEngine;
 
 namespace Internal.Scripts.GamePlay.Destroyable

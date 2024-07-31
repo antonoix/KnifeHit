@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Internal.Scripts.GamePlay.ShopSystem.Configs;
+using UnityEngine;
 
-namespace Internal.Scripts.Infrastructure.Factory
+namespace Internal.Scripts.GamePlay.ShopSystem
 {
     public class ShopFactory
     {

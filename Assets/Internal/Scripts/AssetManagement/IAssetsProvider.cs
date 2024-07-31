@@ -4,7 +4,7 @@ using Internal.Scripts.Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Internal.Scripts.Infrastructure.AssetManagement
+namespace Internal.Scripts.AssetManagement
 {
     public interface IAssetsProvider : IService
     {
