@@ -9,6 +9,7 @@ using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using Internal.Scripts.Infrastructure.Services.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.ShopUI;
+using UnityEngine;
 using Zenject;
 
 namespace Internal.Scripts.GamePlay.ShopSystem
@@ -141,7 +142,7 @@ namespace Internal.Scripts.GamePlay.ShopSystem
         {
             PlayerProgress.ResourcePack.Subtract(CurrentShopItem.CurrentWeapon.ResourceCost);
             PlayerProgress.PlayerState.TryAddNewWeapon(CurrentShopItem.CurrentWeapon.Type);
-            _specialEffectsService.ShowEffect(SpecialEffectType.BuySparkles, CurrentShopItem.transform.position);
+            _specialEffectsService.ShowEffect(SpecialEffectType.BuySparkles, CurrentShopItem.transform.position, Vector3.zero);
             
             _saveLoadService.SaveProgress();
             

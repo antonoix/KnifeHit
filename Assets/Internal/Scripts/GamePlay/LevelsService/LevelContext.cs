@@ -10,6 +10,7 @@ namespace Internal.Scripts.GamePlay.LevelsService
         [SerializeField] private NavMeshSurface surface;
         [field: SerializeField] public HeroRouter HeroRouter { get; private set; }
         [field: SerializeField] public EnemiesHolder EnemiesHolder { get; private set; }
+        [field: SerializeField] public int Index { get; private set; }
         public int AgentTypeId => surface.agentTypeID;
     }
 }

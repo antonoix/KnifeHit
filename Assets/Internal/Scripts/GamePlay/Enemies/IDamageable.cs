@@ -6,7 +6,7 @@ namespace Internal.Scripts.GamePlay.Enemies
     public interface IDamageable
     {
         Transform Transform { get; }
-        void TakeDamage(int damage);
+        void TakeDamage(int damage, Vector3 direction);
         
     }
 }

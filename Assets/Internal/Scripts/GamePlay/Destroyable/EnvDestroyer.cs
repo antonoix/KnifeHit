@@ -41,7 +41,7 @@ namespace Internal.Scripts.GamePlay.Destroyable
                 var distanceFromEnvObject = (transform.position - collision.transform.position) * 0.5f;
                 envObject.Explode(collision.transform.position + distanceFromEnvObject + _explosionYOffset, force).Forget();
 
-                _specialEffects?.ShowEffect(SpecialEffectType.CloudyExplosion, collision.contacts[0].point);
+                _specialEffects?.ShowEffect(SpecialEffectType.CloudyExplosion, collision.contacts[0].point, Vector3.zero);
             }
         }
     }

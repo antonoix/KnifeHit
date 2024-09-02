@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using Cysharp.Threading.Tasks;
 using Internal.Scripts.GamePlay.Enemies;
+using Internal.Scripts.GamePlay.SpecialEffectsService;
 using Internal.Scripts.Infrastructure.Services.PlayerProgressService;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Scripts.GamePlay.Weapons
 {
@@ -18,12 +20,20 @@ namespace Internal.Scripts.GamePlay.Weapons
         [SerializeField] private int damage = 40;
         [SerializeField] private int speedMeterPerSec = 15;
         [SerializeField] private Transform modelRoot;
+
+        private ISpecialEffectsService _specialEffectsService;
         private Rigidbody _body;
         private bool _collided;
         private Coroutine _rotatingRoutine;
 
         public event Action<WeaponProjectile> OnNeedRelease;
 
+        [Inject]
+        private void Construct(ISpecialEffectsService specialEffectsService)
+        {
+            _specialEffectsService = specialEffectsService;
+        }
+        
         public async UniTaskVoid Throw(Vector3 startPos, Vector3 destinationPos)
         {
             transform.position = startPos;
@@ -48,7 +58,6 @@ namespace Internal.Scripts.GamePlay.Weapons
 
         public void ForceRelease()
         {
-            Debug.Log("ForceRelease");
             OnNeedRelease?.Invoke(this);
         }
 
@@ -67,6 +76,11 @@ namespace Internal.Scripts.GamePlay.Weapons
         public void SetParent(Transform parent)
         {
             transform.SetParent(parent, true);
+        }
+
+        public void SetScale(Vector3 scale)
+        {
+            transform.localScale = scale;
         }
 
         private void StartRotating(Vector3 destinationPos)
@@ -95,8 +109,18 @@ namespace Internal.Scripts.GamePlay.Weapons
             GetComponent<Collider>().enabled = false;
             Destroy(GetComponent<Rigidbody>());
             ChangeTransform(other).Forget();
-            TryFindEnemy(other.transform)?.TakeDamage(damage);
             _collided = true;
+            
+            var enemy = TryFindEnemy(other.transform);
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage, other.contacts[0].normal);
+                _specialEffectsService.ShowEffect(SpecialEffectType.WeaponEnemyImpact, transform.position, transform.eulerAngles);
+            }
+            else
+            {
+                _specialEffectsService.ShowEffect(SpecialEffectType.WeaponEnvImpact, transform.position, transform.eulerAngles);
+            }
         }
 
         private async UniTaskVoid ChangeTransform(Collision other)

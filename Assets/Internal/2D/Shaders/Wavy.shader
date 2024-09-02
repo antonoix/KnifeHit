@@ -1,4 +1,4 @@
-Shader "Custom/Wavy"
+Shader "Custom/Erosion"
 {
     Properties
     {
@@ -36,12 +36,15 @@ Shader "Custom/Wavy"
             {
                 float4 vertex : POSITION;
                 float4 uv : TEXCOORD0;
+                half3 normal : NORMAL;
             };
             
             struct v2f
             {
                 float4 vertex : SV_POSITION;
                 float4 uv: TEXCOORD0;
+                float4 worldPos: TEXCOORD1;
+                float3 viewDir: TEXCOORD2;
             };
             
             sampler2D _MainTex;
@@ -67,13 +70,19 @@ Shader "Custom/Wavy"
             {
                 fixed4 textureColor = tex2D(_MainTex, input.uv.xy);
                 fixed4 mask = tex2D(_MaskTex, input.uv.zw);
-                float revealAmount = step(mask.r, _RevealValue);
-                float topRevealAmount = step(mask.r, _RevealValue + _FeatherValue);
-                float bottomRevealAmount = step(mask.r, _RevealValue - _FeatherValue);
+                float maskValue = mask.r * 1.8;
+                
+                float revealAmount = step(maskValue, _RevealValue);
+                float topRevealAmount = step(maskValue, _RevealValue + _FeatherValue);
+                float bottomRevealAmount = step(maskValue, _RevealValue - _FeatherValue);
                 float topAndBottomDifference = topRevealAmount - bottomRevealAmount;
-                float3 finishColor = lerp(textureColor.rgb, float3(0, 0, 0), topAndBottomDifference);
+                float3 finishColor = lerp(textureColor.rgb, _Color.rgb, topAndBottomDifference);
 
-                return fixed4(finishColor * _Color, textureColor.a * revealAmount);
+                if (revealAmount < 0.03)
+                    finishColor = fixed4(0, 0, 0, 0);
+                
+
+                return fixed4(finishColor, textureColor.a * revealAmount);
             }
             ENDCG
         }

@@ -14,13 +14,16 @@ namespace Internal.Scripts.UI.Menu
         
         [SerializeField] private Button startGameBtn;
         [SerializeField] private Button shopBtn;
+        [SerializeField] private Button settingsBtn;
         [SerializeField] private TMP_Text startText;
         [SerializeField] private TMP_Text levelText;
         [SerializeField] private TMP_Text coinsCountText;
         [SerializeField] private TMP_Text starsCountText;
+        [field: SerializeField] public MenuSettingsView MenuSettings { get; private set; }
 
         public event Action OnStartBtnClicked;
         public event Action OnShopBtnClicked;
+        public event Action OnSettingsBtnClicked;
 
         public override async UniTask Show()
         {
@@ -33,21 +36,23 @@ namespace Internal.Scripts.UI.Menu
             
             startGameBtn.onClick.AddListener(HandleStartBtnClicked);
             shopBtn.onClick.AddListener(HandleShopBtnClicked);
+            settingsBtn.onClick.AddListener(HandleSettingsBtnClicked);
         }
 
         public override UniTask Hide()
         {
             startGameBtn.onClick.RemoveListener(HandleStartBtnClicked);
             shopBtn.onClick.RemoveListener(HandleShopBtnClicked);
+            settingsBtn.onClick.RemoveListener(HandleSettingsBtnClicked);
             
             return base.Hide();
         }
-        
+
         public void SetCurrentCoins(long count)
         {
             DOTween.To(x => coinsCountText.text = $"{x:0}<sprite=0>", 0, count, ONE_SEC);
         }
-        
+
         public void SetCurrentStars(long count)
         {
             DOTween.To(x => starsCountText.text = $"{x:0}<sprite=1>", 0, count, ONE_SEC);
@@ -55,7 +60,7 @@ namespace Internal.Scripts.UI.Menu
 
         public void SetCurrentLevel(string text) 
             => levelText.text = text;
-        
+
         public void SetStartText(string text) 
             => startText.text = text;
 
@@ -67,6 +72,11 @@ namespace Internal.Scripts.UI.Menu
         private void HandleShopBtnClicked()
         {
             OnShopBtnClicked?.Invoke();
+        }
+
+        private void HandleSettingsBtnClicked()
+        {
+            OnSettingsBtnClicked?.Invoke();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Internal.Scripts.GamePlay.Destroyable;
 using Internal.Scripts.GamePlay.SpecialEffectsService;
 using UnityEngine;
@@ -18,7 +19,11 @@ namespace Internal.Scripts.GamePlay.Enemies
         [SerializeField] private Transform hips;
         [SerializeField] private EnemyConfig config;
         [SerializeField] private Rigidbody rootBody;
+        [SerializeField] private SkinnedMeshRenderer mainRenderer;
         [SerializeField] private List<Rigidbody> rigidbodies;
+        [SerializeField] private Material dieMaterial;
+        [SerializeField] private GameObject sleepEffect;
+        
         private ISpecialEffectsService _specialEffectsService;
         private int _health = 1;
         private bool _isGetDamageAnimationPlaying;
@@ -43,26 +48,42 @@ namespace Internal.Scripts.GamePlay.Enemies
             _health = config.Health;
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, Vector3 direction)
         {
             _health -= 1;
 
             if (_health <= 0)
             {
                 IsDead = true;
+                PlayShaderEffect();
                 animation.EnableAnimator(false);
                 _cancellation?.Cancel();
             }
-            PlayDamageEffect().Forget();
+            PlayDamageEffect(direction).Forget();
             SetIsNearest(false);
         }
 
         public void SetAim(IDamageable aim)
         {
             _currentAim = aim;
+            sleepEffect.SetActive(false);
             //_cancellation?.Cancel();
             _cancellation = new CancellationTokenSource();
             GoToAim().Forget();
+        }
+
+        private async void PlayShaderEffect()
+        {
+            await UniTask.WaitForSeconds(3);
+            mainRenderer.material = dieMaterial;
+            var sequence = DOTween.Sequence();
+            var revealValue = "_RevealValue";
+            sequence.Append(DOTween.To(x =>
+            {
+                mainRenderer.material.SetFloat(revealValue, x);
+            }, 1, 0, 2.5f));
+            
+            sequence.OnComplete(() => { gameObject.SetActive(false); });
         }
 
         public void SetIsNearest(bool isNearest)
@@ -78,14 +99,9 @@ namespace Internal.Scripts.GamePlay.Enemies
                 if (_isGetDamageAnimationPlaying) continue;
 
                 animation.SetWalk(true);
-                
-                // var lerpAim = Vector3.Lerp(transform.position + transform.forward, _currentAim.Transform.position, 0.03f);
-                // transform.LookAt(lerpAim);
-                
-                
-                Vector3 relativePos = _currentAim.Transform.position - transform.position;
 
-                // the second argument, upwards, defaults to Vector3.up
+                Vector3 relativePos = _currentAim.Transform.position - transform.position;
+                
                 Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
                 var lerpRot = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
                 rootBody.MoveRotation(lerpRot);
@@ -97,12 +113,12 @@ namespace Internal.Scripts.GamePlay.Enemies
                     rootBody.velocity = Vector3.zero;
                     animation.SetWalk(false);
                     await UniTask.Delay(1000, cancellationToken: _cancellation.Token);
-                    _currentAim.TakeDamage(0);
+                    _currentAim.TakeDamage(0, Vector3.zero);
                 }
             }
         }
 
-        private async UniTask PlayDamageEffect()
+        private async UniTask PlayDamageEffect(Vector3 direction)
         {
             if (_isGetDamageAnimationPlaying) return;
             animation.SetWalk(false);
@@ -114,6 +130,7 @@ namespace Internal.Scripts.GamePlay.Enemies
             }
             _isGetDamageAnimationPlaying = true;
             animation.EnableAnimator(false);
+            //rootBody.AddForce(direction * 300, ForceMode.Impulse);
             await UniTask.Delay((int)(config.DisableTimeAfterDamagedSec * 1000), cancellationToken: _cancellation.Token);
 
             bool isFaceUp = Vector3.Angle(hips.transform.forward, Vector3.up) < 90 ? true : false;
@@ -128,7 +145,7 @@ namespace Internal.Scripts.GamePlay.Enemies
 
             animation.PlayStandUp(isFaceUp);
             
-            _specialEffectsService.ShowEffect(SpecialEffectType.EnemyResurrection, transform.position + Vector3.up * 0.5f).Forget();
+            _specialEffectsService.ShowEffect(SpecialEffectType.EnemyResurrection, transform.position + Vector3.up * 0.5f, Vector3.zero).Forget();
             
             await UniTask.Delay((int)(config.StandingUpTimeAfterDamagedSec * 1000));
             _isGetDamageAnimationPlaying = false;

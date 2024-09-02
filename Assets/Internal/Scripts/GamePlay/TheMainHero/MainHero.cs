@@ -52,7 +52,7 @@ namespace Internal.Scripts.GamePlay.TheMainHero
             _cancellation?.Cancel();
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, Vector3 dir)
         {
             OnKilled?.Invoke();
         }

@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Internal.Scripts.GamePlay.SpecialEffectsService
 {
-    public class SpecialEffectsService : ISpecialEffectsService, IInitializable
+    public class SpecialEffectsService : ISpecialEffectsService, IInitializable, ILateDisposable
     {
         private const int TO_MS = 1000;
         private readonly SpecialEffectsConfig _config;
@@ -30,11 +30,12 @@ namespace Internal.Scripts.GamePlay.SpecialEffectsService
             }
         }
 
-        public async UniTask ShowEffect(SpecialEffectType type, Vector3 worldPos)
+        public async UniTask ShowEffect(SpecialEffectType type, Vector3 worldPos, Vector3 worldRot)
         {
             if (!TryGetEffect(type, out var effect)) return;
 
             effect.transform.position = worldPos;
+            effect.transform.eulerAngles = worldRot;
             effect.gameObject.SetActive(true);
             effect.Play();
             await UniTask.Delay((int)(effect.main.duration * TO_MS));
@@ -42,7 +43,7 @@ namespace Internal.Scripts.GamePlay.SpecialEffectsService
             _specialEffects[type].Push(effect);
         }
 
-        public void Dispose()
+        public void LateDispose()
         {
             _specialEffects.Clear();
         }

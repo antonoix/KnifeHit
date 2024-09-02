@@ -6,5 +6,7 @@
         CloudyExplosion,
         BuySparkles,
         CoinsFountain,
+        WeaponEnemyImpact,
+        WeaponEnvImpact,
     }
 }

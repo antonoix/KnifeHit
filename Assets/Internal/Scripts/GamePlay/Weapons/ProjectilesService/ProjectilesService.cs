@@ -46,6 +46,7 @@ namespace Internal.Scripts.GamePlay.Weapons.ProjectilesService
         {
             weaponProjectile.SetParent(null);
             weaponProjectile.SetActive(true);
+            weaponProjectile.SetScale(Vector3.one);
         }
 
         private void OnReleaseProjectile(WeaponProjectile weaponProjectile)

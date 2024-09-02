@@ -11,6 +11,8 @@ namespace Internal.Scripts.Infrastructure.Services.Sound
         private readonly SoundsConfig _config;
         private readonly Dictionary<SoundType, AudioSource> _soundTypeAndSources = new();
 
+        public bool IsSoundEnabled { get; private set; } = true;
+        
         public SoundsService(SoundsConfig config)
         {
             _config = config;
@@ -42,6 +44,16 @@ namespace Internal.Scripts.Infrastructure.Services.Sound
             }
 
             _soundTypeAndSources[soundType].Play();
+        }
+        
+        public void EnableAudio(bool isEnabled)
+        {
+            foreach (var source in _soundTypeAndSources.Values)
+            {
+                source.volume = isEnabled ? 1 : 0;
+            }
+
+            IsSoundEnabled = isEnabled;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Internal.Scripts.Infrastructure.Services.Ads
         public override void InstallBindings()
         {
             Container.BindInstance(config);
-            Container.BindInterfacesAndSelfTo<CustomUnityAdsService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<CustomYaGamesAdsService>().AsSingle().NonLazy();
         }
     }
 }

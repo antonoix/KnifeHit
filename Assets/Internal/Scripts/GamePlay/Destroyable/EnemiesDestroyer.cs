@@ -8,7 +8,7 @@ namespace Internal.Scripts.GamePlay.Destroyable
     {
         private void OnTriggerEnter(Collider other)
         {
-            TryFindEnemy(other.transform)?.TakeDamage(Int32.MaxValue);
+            TryFindEnemy(other.transform)?.TakeDamage(Int32.MaxValue, Vector3.zero);
         }
         
         private IDamageable TryFindEnemy(Transform gameObj)

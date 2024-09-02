@@ -6,8 +6,6 @@ namespace Internal.Scripts.GamePlay.SpecialEffectsService
 {
     public interface ISpecialEffectsService : IService
     {
-        UniTask ShowEffect(SpecialEffectType type, Vector3 worldPos);
-        void Initialize();
-        void Dispose();
+        UniTask ShowEffect(SpecialEffectType type, Vector3 worldPos, Vector3 worldRot);
     }
 }

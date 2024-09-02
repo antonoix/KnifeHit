@@ -16,17 +16,15 @@ using Internal.Scripts.Infrastructure.Services.SaveLoad;
 using Internal.Scripts.Infrastructure.Services.UiService;
 using Internal.Scripts.UI.GamePlay;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using Zenject;
-using Random = UnityEngine.Random;
 
 namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 {
     public class GamePlayState : IGameState, IInitializable, ILateDisposable
     {
         private const float ONE_STAR = 0.33f;
-        
+
         private readonly IGameStatesMachine _gameStatesMachine;
         private readonly ILevelsService _levelsService;
         private readonly MainHeroFactory _mainHeroFactory;
@@ -45,7 +43,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         private EnemiesHolder _enemiesHolder;
 
         private PlayerProgress PlayerProgress => _playerProgressService.PlayerProgress;
-        
+
         public GamePlayState(IGameStatesMachine gameStatesMachine,
             ILevelsService levelsService,
             MainHeroFactory mainHeroFactory,
@@ -83,8 +81,8 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 
         public void Enter()
         {
-            _gameplayUiPresenter = (GameplayUIPresenter) _uiService.GetPresenter<GameplayUIPresenter>();
-            
+            _gameplayUiPresenter = (GameplayUIPresenter)_uiService.GetPresenter<GameplayUIPresenter>();
+
             _gameplayUiPresenter.Show();
             _gameplayUiPresenter.OnMenuBtnClick += HandleMenuBtnClick;
             _gameplayUiPresenter.OnNextBtnClick += HandleNextBtnClick;
@@ -101,7 +99,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
             _gameplayUiPresenter.OnMenuBtnClick -= HandleMenuBtnClick;
             _gameplayUiPresenter.OnNextBtnClick -= HandleNextBtnClick;
             _gameplayUiPresenter.OnRestartBtnClick -= HandleRestartBtnClick;
-            
+
             _gameplayUiPresenter.Hide();
         }
 
@@ -109,9 +107,9 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         {
             InitGameWorld().Forget();
             _adsService.LoadAd();
-            
+
             _analyticsService.SendCustomEvent("Levels",
-                new Dictionary<string, object>(){{"Level", _levelsService.GetCurrentLevelIndex()}});
+                new Dictionary<string, object>() { { "Level", _levelsService.GetCurrentLevelIndex() } });
         }
 
         private async UniTaskVoid InitGameWorld()
@@ -134,18 +132,18 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         {
             float resultPercent = _enemiesHolder.EnemiesCount * 3.5f / _hero.ShotsCount;
             int starsCount = (int)Math.Round(resultPercent / ONE_STAR);
-            
+
             GameplayResult result = new(_enemiesHolder.RewardForEnemies, starsCount, _hero.ShotsCount);
             _gameplayUiPresenter.ShowWinPanel(result);
 
             foreach (var point in _hero.VisualEffectsPoints)
             {
-                _specialEffectsService.ShowEffect(SpecialEffectType.CoinsFountain, point.position);
+                _specialEffectsService.ShowEffect(SpecialEffectType.CoinsFountain, point.position, Vector3.zero);
             }
 
             UpdateProgress(starsCount);
 
-            _analyticsService.SendCustomEvent("GameplayResult", new Dictionary<string, object>(){{"Win", true}});
+            _analyticsService.SendCustomEvent("GameplayResult", new Dictionary<string, object>() { { "Win", true } });
             _leaderBoardsService.RegisterRecord(PlayerProgress.PlayerState.LastCompletedLevelIndex + 1);
         }
 
@@ -161,12 +159,12 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
         {
             _heroConductor.Dispose();
             _enemiesHolder.Dispose();
-            
+
             _hero.RotateCameraUp();
             _gameplayUiPresenter.ShowLosePanel();
             await UniTask.WaitForSeconds(1.2f);
 
-            _analyticsService.SendCustomEvent("GameplayResult", new Dictionary<string, object>(){{"Lose", false}});
+            _analyticsService.SendCustomEvent("GameplayResult", new Dictionary<string, object>() { { "Lose", false } });
         }
 
         private async void HandleMenuBtnClick()
@@ -175,7 +173,7 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 
             while (!loadSceneAsync.isDone)
                 await UniTask.Yield();
-            
+
             _gameStatesMachine.SetState<MenuState>();
         }
 
@@ -185,9 +183,9 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 
             while (!loadSceneAsync.isDone)
                 await UniTask.Yield();
-            
+
             _gameStatesMachine.SetState<GamePlayState>();
-            
+
             _adsService.ShowAd();
         }
 
@@ -197,9 +195,9 @@ namespace Internal.Scripts.Infrastructure.GameStatesMachine.States
 
             while (!loadSceneAsync.isDone)
                 await UniTask.Yield();
-            
+
             _gameStatesMachine.SetState<GamePlayState>();
-            
+
             _adsService.ShowAd();
         }
     }

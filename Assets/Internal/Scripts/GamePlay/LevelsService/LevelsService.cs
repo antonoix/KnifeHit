@@ -47,7 +47,12 @@ namespace Internal.Scripts.GamePlay.LevelsService
         public LevelContext CreateLevelContext()
         {
             int currentIndex = GetCurrentLevelIndex();
-            return _levelFactory.CreateLevelContext(_allLevels[currentIndex]);
+            var level = _allLevels.FirstOrDefault(x => x.GetComponent<LevelContext>().Index == currentIndex);
+            if (level == null)
+            {
+                level = _allLevels[0];
+            }
+            return _levelFactory.CreateLevelContext(level);
         }
         
         public void DestroyCurrentLevel()
